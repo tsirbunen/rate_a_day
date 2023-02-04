@@ -10,3 +10,11 @@ Remembering the good days might be difficult.
 2. Did you learn anything new today?
 
 If you keep recording your daily evaluations, then, next time you feel miserable, you can view your earlier evaluation history and see how frequent the miserable days actually are.
+
+#### To generate built_value model files:
+
+`flutter packages pub run build_runner build`
+
+#### To run tests
+
+`flutter test test/tests`

@@ -1,0 +1,146 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:rate_a_day/packages/utils.dart';
+
+void main() {
+  group('Datetime util', () {
+    test('Date is formatted correctly', () {
+      final Map<String, DateTime> data = {
+        '4.2.2023': DateTime(2023, 2, 4),
+        '31.1.2023': DateTime(2023, 1, 31),
+        '22.10.1922': DateTime(1922, 10, 22),
+        '11.8.2003': DateTime(2003, 8, 11),
+      };
+
+      data.forEach((final String dateString, final DateTime date) {
+        final String result = DateTimeUtil.getDate(date);
+        expect(dateString, equals(result));
+      });
+    });
+
+    test('Weekday is correct', () {
+      final Map<String, DateTime> data = {
+        'Saturday': DateTime(2023, 2, 4),
+        'Monday': DateTime(2023, 2, 6),
+        'Friday': DateTime(2023, 2, 3),
+        'Wednesday': DateTime(2023, 1, 25),
+      };
+
+      data.forEach((final String weekday, final DateTime date) {
+        final String result = DateTimeUtil.getWeekday(date);
+        expect(result, equals(weekday));
+      });
+    });
+
+    test('Month and year are correct', () {
+      final Map<String, DateTime> data = {
+        'February (2023)': DateTime(2023, 2, 4),
+        'January (2023)': DateTime(2023, 1, 23),
+        'December (2022)': DateTime(2022, 12, 12),
+        'August (2003)': DateTime(2003, 8, 25),
+      };
+
+      data.forEach((final String monthAndYear, final DateTime date) {
+        final String result = DateTimeUtil.getMonthAndYear(date);
+        expect(result, equals(monthAndYear));
+      });
+    });
+
+    test('Same dates are correctly identified', () {
+      final List<dynamic> data = [
+        [DateTime(2023, 2, 3, 12, 45), DateTime(2023, 2, 3, 18, 33), true],
+        [DateTime(2023, 2, 4, 12, 45), DateTime(2023, 2, 3, 18, 33), false],
+        [DateTime(2023, 2, 4), DateTime(2021, 2, 4), false],
+        [DateTime(2022, 10, 4), DateTime(2022, 10, 4), true],
+      ];
+
+      for (var element in data) {
+        final bool result = DateTimeUtil.areSameDate(element[0], element[1]);
+        expect(result, equals(element[2]));
+      }
+    });
+
+    test('Returns first day of previous month', () {
+      final List<dynamic> data = [
+        [DateTime(2023, 2, 4), DateTime(2023, 1, 1)],
+        [DateTime(2022, 10, 4), DateTime(2022, 9, 1)],
+        [DateTime(2022, 1, 4), DateTime(2021, 12, 1)],
+        [DateTime(2022, 1, 31), DateTime(2021, 12, 1)],
+      ];
+
+      for (var element in data) {
+        final DateTime result = DateTimeUtil.previousMonthStart(element[0]);
+        expect(result, equals(element[1]));
+      }
+    });
+
+    test('Returns first day of next month', () {
+      final List<dynamic> data = [
+        [DateTime(2023, 2, 4), DateTime(2023, 3, 1)],
+        [DateTime(2022, 10, 4), DateTime(2022, 11, 1)],
+        [DateTime(2022, 12, 4), DateTime(2023, 1, 1)],
+        [DateTime(2022, 12, 31), DateTime(2023, 1, 1)],
+      ];
+
+      for (var element in data) {
+        final DateTime result = DateTimeUtil.nextMonthStart(element[0]);
+        expect(result, equals(element[1]));
+      }
+    });
+
+    test('Returns milliseconds since epoch correctly', () {
+      final Map<int, DateTime> data = {
+        1675461600000: DateTime(2023, 2, 4),
+        1675548000000: DateTime(2023, 2, 5, 12, 45),
+        1048284000000: DateTime(2003, 3, 22, 18, 33)
+      };
+
+      data.forEach((final int milliseconds, final DateTime date) {
+        final int result = DateTimeUtil.getStartOfDayEpochMilliseconds(date);
+        expect(result, equals(milliseconds));
+      });
+    });
+
+    test('Same month and year are correctly identified', () {
+      final List<dynamic> data = [
+        [DateTime(2023, 2, 3, 12, 45), DateTime(2023, 2, 3, 18, 33), true],
+        [DateTime(2023, 2, 4, 12, 45), DateTime(2023, 1, 3, 18, 33), false],
+        [DateTime(2023, 2, 4), DateTime(2021, 2, 4), false],
+        [DateTime(2023, 2, 4), DateTime(2021, 2, 5), false],
+        [DateTime(2022, 10, 4), DateTime(2022, 9, 4), false],
+        [DateTime(2022, 10, 1), DateTime(2022, 10, 28), true],
+      ];
+
+      for (var element in data) {
+        final bool result =
+            DateTimeUtil.areSameMonthSameYear(element[0], element[1]);
+        expect(result, equals(element[2]));
+      }
+    });
+
+    test('Days of month are properly arranged', () {
+      final Map<String, List<List<int?>>> data = {
+        '2023-01-05 15:18:04Z': [
+          [null, null, null, null, null, null, 1],
+          [2, 3, 4, 5, 6, 7, 8],
+          [9, 10, 11, 12, 13, 14, 15],
+          [16, 17, 18, 19, 20, 21, 22],
+          [23, 24, 25, 26, 27, 28, 29],
+          [30, 31, null, null, null, null, null],
+        ],
+        '2023-02-05 14:28:03Z': [
+          [null, null, 1, 2, 3, 4, 5],
+          [6, 7, 8, 9, 10, 11, 12],
+          [13, 14, 15, 16, 17, 18, 19],
+          [20, 21, 22, 23, 24, 25, 26],
+          [27, 28, null, null, null, null, null]
+        ],
+      };
+
+      data.forEach((final String date, final List<List<int?>> days) {
+        final List<List<int?>> result =
+            DateTimeUtil.arrangeDaysOfMonth(DateTime.parse(date));
+        expect(result, equals(days));
+      });
+    });
+  });
+}

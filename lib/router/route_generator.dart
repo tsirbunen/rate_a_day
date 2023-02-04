@@ -9,8 +9,6 @@ class RouteGenerator {
     switch (routeName) {
       case '/':
       case '/today':
-        // final args = settings.arguments;
-        // print(args);
         page = Today();
         break;
       case '/calendar':

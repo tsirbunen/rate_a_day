@@ -64,6 +64,10 @@ class DateTimeUtil {
     return DateTime(yearToSet, monthToSet, 1);
   }
 
+  // Returns the milliseconds of UTC datetime at 00.00.00.
+  // For example, Sat Feb 04 2023 00:00:00 GMT+0200 and
+  // Sat Feb 04 2023 15:45:00 GMT+0200 should both return
+  // the same value of 1675461600000
   static int getStartOfDayEpochMilliseconds(final DateTime datetime) {
     return DateTime(datetime.year, datetime.month, datetime.day)
         .millisecondsSinceEpoch;

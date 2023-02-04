@@ -28,16 +28,22 @@ class RateADayApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsBloc settingsBloc = SettingsBloc();
     final DataBloc dataBloc = DataBloc();
+
     return BlocProvider(
-      bloc: dataBloc,
-      blocDisposer: (final DataBloc dataBloc) => dataBloc.dispose(),
-      child: MaterialApp(
-        title: 'app',
-        theme: themeData,
-        navigatorKey: navigatorKey,
-        onGenerateRoute: RouteGenerator.generateRoute,
-        builder: _buildPage,
+      bloc: settingsBloc,
+      blocDisposer: (final SettingsBloc settingsBloc) => settingsBloc.dispose(),
+      child: BlocProvider(
+        bloc: dataBloc,
+        blocDisposer: (final DataBloc dataBloc) => dataBloc.dispose(),
+        child: MaterialApp(
+          title: 'app',
+          theme: themeData,
+          navigatorKey: navigatorKey,
+          onGenerateRoute: RouteGenerator.generateRoute,
+          builder: _buildPage,
+        ),
       ),
     );
   }

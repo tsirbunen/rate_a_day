@@ -1,16 +1,12 @@
-# rate_a_day
+# RATE A DAY
 
-A new Flutter project.
+## What's it all about?
 
-## Getting Started
+Sometimes after a miserable day or two at work it feels that it's _always_ miserable.
+Remembering the good days might be difficult.
+**RATE A DAY** helps with this. After each working day, evaluate your day on two 2-point scales:
 
-This project is a starting point for a Flutter application.
+1. Were you mostly happy or unhappy today?
+2. Did you learn anything new today?
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+If you keep recording your daily evaluations, then, next time you feel miserable, you can view your earlier evaluation history and see how frequent the miserable days actually are.

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rate_a_day/main.dart';
+import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rate_a_day/packages/pages.dart';
 
@@ -15,7 +16,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
   bool _areExpanded = false;
   late final AnimationController _controller;
   late final Animation<double> _expansion;
-  final Duration _duration = const Duration(milliseconds: 400);
+  final Duration _duration = const Duration(milliseconds: 600);
 
   @override
   void initState() {
@@ -49,48 +50,59 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
     final NavigatorState? navigatorState = navigatorKey.currentState;
     if (navigatorState == null) return;
     navigatorState.pushNamed(targetRoute);
-    _toggleExpansion();
   }
 
   List<Widget> _buildExpandedButtons() {
     final List<String> routeNames = [
+      Info.routeName,
+      Settings.routeName,
       Calendar.routeName,
       Today.routeName,
-      Settings.routeName,
-      Info.routeName
     ];
     final List<ExpandedButton> buttons = [];
-    final double stepDegrees = 90.0 / (routeNames.length - 1);
-    var angleInDegrees = 0.0;
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(screenWidth);
+    final double routeButtonWidth = ScreenSizeUtil.routeButtonBoxWidth;
+    const double spacer = 10.0;
+    final List<double> targetLocations = [
+      menuWidth - routeButtonWidth,
+      menuWidth - routeButtonWidth * 2 - spacer,
+      routeButtonWidth + spacer,
+      0
+    ];
+
     for (var i = 0; i < routeNames.length; i++) {
       final String routeName = routeNames[i];
       buttons.add(
         ExpandedButton(
             onPressed: () => _navigateToRoute(routeName),
-            directionInDegrees: angleInDegrees,
+            targetLocation: targetLocations[i],
             progress: _expansion,
             routeName: routeName),
       );
-      angleInDegrees += stepDegrees;
     }
     return buttons.toList();
   }
 
   Widget _buildFloatingMenuButton(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+    final IconData iconData =
+        _areExpanded ? Icons.close_rounded : Icons.menu_rounded;
     return AnimatedBuilder(
       animation: _expansion,
       builder: (context, child) {
         return child!;
       },
       child: SizedBox(
-        width: 80,
-        height: 80,
+        width: ScreenSizeUtil.menuButtonBoxWidth,
+        height: ScreenSizeUtil.menuButtonBoxWidth,
         child: FloatingActionButton(
           onPressed: _toggleExpansion,
           backgroundColor: themeData.colorScheme.primaryContainer,
+          elevation: 10,
           child: Icon(
-            Icons.menu_rounded,
+            iconData,
             size: 50,
             color: themeData.colorScheme.onPrimaryContainer,
           ),
@@ -101,11 +113,14 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(screenWidth);
+
     return SizedBox(
-      width: 350,
-      height: 350,
+      width: menuWidth,
+      height: ScreenSizeUtil.menuContainerHeight,
       child: Stack(
-        alignment: Alignment.bottomRight,
+        alignment: Alignment.center,
         children: [
           ..._buildExpandedButtons(),
           _buildFloatingMenuButton(context),

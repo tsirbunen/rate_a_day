@@ -100,6 +100,36 @@ void main() {
       });
     });
 
+    test('Start of day is correct', () {
+      final List<dynamic> data = [
+        [DateTime(2023, 2, 4, 13, 45), DateTime(2023, 2, 4, 0, 0)],
+        [DateTime(2023, 2, 4, 6, 22), DateTime(2023, 2, 4, 0, 0)],
+        [DateTime(2022, 1, 13, 4, 15), DateTime(2022, 1, 13, 0, 0)],
+        [DateTime(2021, 5, 22, 18, 30), DateTime(2021, 5, 22, 0, 0)],
+      ];
+
+      for (var element in data) {
+        final DateTime result = DateTimeUtil.getStartOfDate(element[0]);
+        expect(result, equals(element[1]));
+      }
+    });
+
+    test('Correctly recognizes a date in future', () {
+      final DateTime today = DateTime.now();
+      final List<dynamic> data = [
+        [DateTime(today.year, today.month, today.day), false],
+        [DateTime(today.year, today.month, today.day, 12, 33), false],
+        [DateTime(today.year + 1, today.month, today.day, 12, 33), true],
+        [today.add(const Duration(days: 1)), true],
+        [today.add(const Duration(days: -1)), false],
+      ];
+
+      for (var element in data) {
+        final bool result = DateTimeUtil.isFutureDate(element[0]);
+        expect(result, equals(element[1]));
+      }
+    });
+
     test('Same month and year are correctly identified', () {
       final List<dynamic> data = [
         [DateTime(2023, 2, 3, 12, 45), DateTime(2023, 2, 3, 18, 33), true],

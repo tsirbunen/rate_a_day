@@ -11,10 +11,15 @@ Remembering the good days might be difficult.
 
 If you keep recording your daily evaluations, then, next time you feel miserable, you can view your earlier evaluation history and see how frequent the miserable days actually are.
 
-#### To generate built_value model files:
+## Usage
+
+### To generate built_value model files
 
 `flutter packages pub run build_runner build`
 
-#### To run tests
+### To run tests
 
+To run all tests
 `flutter test test/tests`
+To run a single test file, for "example date_time_util_test.dart"
+`flutter test test/tests/date_time_util_test.dart`

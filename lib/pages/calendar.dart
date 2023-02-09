@@ -199,6 +199,9 @@ class Calendar extends StatelessWidget {
     );
   }
 
+  // TODO: clear old data when changing month
+  // TODO: show spinner while loading new data
+
   Widget _buildChangeMonthButton(
       final BuildContext context, final String direction, final onTap) {
     final ThemeData themeData = Theme.of(context);

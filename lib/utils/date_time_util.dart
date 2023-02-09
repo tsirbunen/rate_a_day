@@ -73,6 +73,16 @@ class DateTimeUtil {
         .millisecondsSinceEpoch;
   }
 
+  static DateTime getStartOfDate(final DateTime datetime) {
+    return DateTime(datetime.year, datetime.month, datetime.day);
+  }
+
+  static bool isFutureDate(final DateTime datetime) {
+    final DateTime startOfToday = DateTimeUtil.getStartOfDate(DateTime.now());
+    final DateTime startOfDatetime = DateTimeUtil.getStartOfDate(datetime);
+    return startOfDatetime.compareTo(startOfToday) > 0;
+  }
+
   static bool areSameMonthSameYear(
       final DateTime? date1, final DateTime? date2) {
     if (date1 == null) return false;

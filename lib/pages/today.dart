@@ -22,7 +22,6 @@ class Today extends StatelessWidget {
             (final BuildContext context, AsyncSnapshot<DateTime> snapshot) {
           final DateTime focusDate =
               snapshot.hasData ? snapshot.data! : DateTime.now();
-          print('TODAY focus day $focusDate');
           final DateTime today = DateTime.now();
           final bool focusIsToday = DateTimeUtil.areSameDate(focusDate, today);
           final String date = DateTimeUtil.getDate(focusDate);
@@ -151,18 +150,37 @@ class Today extends StatelessWidget {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
     return Container(
       margin: const EdgeInsets.only(top: 40.0),
-      child: ElevatedButton(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Text('SAVE',
-              style: themeData.textTheme.headline5
-                  ?.copyWith(color: themeData.colorScheme.secondary)),
-        ),
-        onPressed: () {
-          dataBloc.saveData();
-          _navigateToCalendarPage();
-        },
-      ),
+      child: StreamBuilder<Status>(
+          stream: dataBloc.status,
+          builder:
+              (final BuildContext context, AsyncSnapshot<Status> snapshot) {
+            final Status? status = snapshot.hasData ? snapshot.data : null;
+
+            if (status != Status.READY) {
+              return SizedBox(
+                width: 50,
+                height: 50,
+                child: CircularProgressIndicator(
+                  color: themeData.colorScheme.secondary,
+                  backgroundColor: themeData.colorScheme.primaryContainer,
+                  strokeWidth: 10.0,
+                ),
+              );
+            }
+
+            return ElevatedButton(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text('SAVE',
+                    style: themeData.textTheme.headline5
+                        ?.copyWith(color: themeData.colorScheme.secondary)),
+              ),
+              onPressed: () async {
+                final bool? success = await dataBloc.saveData();
+                if (success == true) _navigateToCalendarPage();
+              },
+            );
+          }),
     );
   }
 
@@ -179,7 +197,10 @@ class Today extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 80.0),
                 child: Column(
                   children: [
+                    // TODO: Add possibility to change the date also from this page.
                     _buildDateOfTheDay(context),
+                    // TODO: Use translations AND change the phrase according to the date
+                    // being today or earlier in history.
                     _buildPhrase(context, 'How has your day been?'),
                     _buildFaces(context),
                     _buildPhrase(context, 'Learned anything new?'),

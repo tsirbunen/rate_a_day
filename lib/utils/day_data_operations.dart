@@ -63,11 +63,13 @@ class DayDataOperations {
           dataMap['didLearnNew'] = value == 'TRUE' ? true : false;
         }
       }
+
       return DayData(((b) => b
         ..rating = dataMap['rating']
         ..didLearnNew = dataMap['didLearnNew']
         ..date = dataMap['date']));
     });
+
     return DayDataOperations.arrangeDayDataByDay(data.toBuiltList());
   }
 }

@@ -3,3 +3,4 @@ export '../models/rating.dart';
 export '../models/statistics.dart';
 export '../models/serializers.dart';
 export '../models/language.dart';
+export '../models/status.dart';

@@ -16,12 +16,11 @@ class RateADayApp extends StatelessWidget {
   const RateADayApp({Key? key}) : super(key: key);
 
   Widget _buildPage(final BuildContext context, final Widget? child) {
-    double screenWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         child ?? Column(),
         Positioned(
-          right: ScreenSizeUtil.getMenuContainerRightMargin(screenWidth),
+          right: ScreenSizeUtil.getMenuContainerRightMargin(context),
           bottom: ScreenSizeUtil.generalMargin,
           child: const ExpandableFloatingMenu(),
         ),
@@ -32,7 +31,8 @@ class RateADayApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SettingsBloc settingsBloc = SettingsBloc();
-    final DataBloc dataBloc = DataBloc();
+    final Translator translator = settingsBloc.translator;
+    final DataBloc dataBloc = DataBloc(translator);
 
     return BlocProvider(
       bloc: settingsBloc,

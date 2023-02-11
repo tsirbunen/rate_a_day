@@ -15,7 +15,8 @@ void main() {
   });
   group('Data bloc', () {
     test('Rating a day updates the respective stream correctly', () async {
-      final DataBloc dataBloc = DataBloc();
+      final Translator translator = Translator(Language.EN);
+      final DataBloc dataBloc = DataBloc(translator);
       final ValueStream<Rating> stream = dataBloc.rating;
 
       dataBloc.rate(Rating.HAPPY);
@@ -30,23 +31,25 @@ void main() {
 
     test('Toggling did learn new updates the respective stream correctly',
         () async {
-      final DataBloc dataBloc = DataBloc();
+      final Translator translator = Translator(Language.EN);
+      final DataBloc dataBloc = DataBloc(translator);
       final ValueStream<bool> stream = dataBloc.didLearnNew;
 
-      dataBloc.toggleLearned(true);
+      dataBloc.toggleDidLearn(true);
       expect(stream, emits(true));
-      dataBloc.toggleLearned(false);
+      dataBloc.toggleDidLearn(false);
       expect(stream, emits(false));
-      dataBloc.toggleLearned(false);
+      dataBloc.toggleDidLearn(false);
       expect(stream, emits(false));
-      dataBloc.toggleLearned(true);
+      dataBloc.toggleDidLearn(true);
       expect(stream, emits(true));
     });
 
     test("Day's data can be saved and retrieved from data storage", () async {
-      final DataBloc dataBloc = DataBloc();
+      final Translator translator = Translator(Language.EN);
+      final DataBloc dataBloc = DataBloc(translator);
       dataBloc.rate(Rating.HAPPY);
-      dataBloc.toggleLearned(true);
+      dataBloc.toggleDidLearn(true);
       final ValueStream<BuiltMap<int, DayData>> stream = dataBloc.monthsData;
       final DateTime today = DateTime.now();
       final DateTime startOfToday = DateTimeUtil.getStartOfDate(today);
@@ -63,13 +66,14 @@ void main() {
     test(
         "After changing focus dates and saving data, all streams are properly updated",
         () async {
-      final DataBloc dataBloc = DataBloc();
+      final Translator translator = Translator(Language.EN);
+      final DataBloc dataBloc = DataBloc(translator);
 
       final DateTime firstFocusDate =
           DateTimeUtil.getStartOfDate(DateTime(2023, 2, 6));
       dataBloc.changeFocusDate(firstFocusDate);
       dataBloc.rate(Rating.HAPPY);
-      dataBloc.toggleLearned(true);
+      dataBloc.toggleDidLearn(true);
       await dataBloc.saveData();
 
       final DateTime secondFocusDate =
@@ -80,7 +84,7 @@ void main() {
       expect(dataBloc.focusDate.value, secondFocusDate);
       expect(dataBloc.status.value, Status.READY);
       dataBloc.rate(Rating.UNHAPPY);
-      dataBloc.toggleLearned(false);
+      dataBloc.toggleDidLearn(false);
       await dataBloc.saveData();
       final ValueStream<BuiltMap<int, DayData>> stream = dataBloc.monthsData;
       BuiltMap<int, DayData> streamData = stream.value;
@@ -104,13 +108,14 @@ void main() {
     });
 
     test("Old data can be later updated", () async {
-      final DataBloc dataBloc = DataBloc();
+      final Translator translator = Translator(Language.EN);
+      final DataBloc dataBloc = DataBloc(translator);
 
       final DateTime firstFocusDate =
           DateTimeUtil.getStartOfDate(DateTime(2023, 1, 12));
       dataBloc.changeFocusDate(firstFocusDate);
       dataBloc.rate(Rating.HAPPY);
-      dataBloc.toggleLearned(true);
+      dataBloc.toggleDidLearn(true);
       await dataBloc.saveData();
 
       final DateTime secondFocusDate =
@@ -123,7 +128,7 @@ void main() {
 
       dataBloc.changeFocusDate(firstFocusDate);
       dataBloc.rate(Rating.UNHAPPY);
-      dataBloc.toggleLearned(false);
+      dataBloc.toggleDidLearn(false);
       await dataBloc.saveData();
       streamData = stream.value;
       expect(streamData.keys.length, 1);

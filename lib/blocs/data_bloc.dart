@@ -9,6 +9,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:rate_a_day/packages/storage.dart';
 
 class DataBloc implements BlocBase {
+  late Translator translator;
   final BehaviorSubject<Rating> _rating = BehaviorSubject<Rating>();
   final BehaviorSubject<bool> _didLearnNew = BehaviorSubject<bool>();
   final BehaviorSubject<BuiltMap<int, DayData>> _monthsData =
@@ -24,7 +25,8 @@ class DataBloc implements BlocBase {
 
   List<StreamSubscription> listeners = <StreamSubscription>[];
 
-  DataBloc() {
+  DataBloc(final Translator commonTranslator) {
+    translator = commonTranslator;
     listeners.addAll([
       _focusDate.listen((final DateTime newFocusDate) =>
           _handleFocusDateChanged(newFocusDate)),
@@ -39,9 +41,13 @@ class DataBloc implements BlocBase {
 
     BuiltMap<int, DayData> dayData;
     if (fetchNewData) {
-      // tänne try catch
-      dayData = await Storage.fetchDayDataByDate(newFocusDate);
-      _monthsData.add(dayData);
+      try {
+        dayData = await Storage.fetchDayDataByDate(newFocusDate);
+        _monthsData.add(dayData);
+      } catch (error) {
+        _showErrorSnackBar(Phrase.failedRetrieveData);
+        _monthsData.add(BuiltMap.from({}));
+      }
     } else {
       dayData = _monthsData.value;
     }
@@ -74,16 +80,38 @@ class DataBloc implements BlocBase {
     _didLearnNew.add(false);
   }
 
-  rate(final Rating rating) {
-    if (_rating.hasValue && _rating.value == rating) {
-      _rating.add(Rating.MISSING);
-      return;
-    }
-    _rating.add(rating);
+  bool _isDirtyAfter(final Rating newRating, final bool newDidLearn) {
+    final DayData? dayData = _getCurrentDayData();
+    if (dayData == null) return (newRating != Rating.MISSING || newDidLearn);
+    return (dayData.rating != newRating || dayData.didLearnNew != newDidLearn);
   }
 
-  toggleLearned(final bool value) {
-    _didLearnNew.add(value);
+  DayData? _getCurrentDayData() {
+    DayData? dayData;
+    if (_monthsData.hasValue && _focusDate.hasValue) {
+      dayData = _monthsData.value[_focusDate.value.day];
+    }
+    return dayData;
+  }
+
+  rate(final Rating rating) {
+    final Rating newRating =
+        _rating.hasValue && _rating.value == rating ? Rating.MISSING : rating;
+    final bool didLearnNew = _didLearnNew.valueOrNull ?? false;
+    final bool isDirty = _isDirtyAfter(newRating, didLearnNew);
+    final Status newStatus = isDirty ? Status.DIRTY : Status.READY;
+    _status.add(newStatus);
+
+    _rating.add(newRating);
+  }
+
+  toggleDidLearn(final bool newDidLearn) {
+    final Rating rating = _rating.valueOrNull ?? Rating.MISSING;
+    final bool isDirty = _isDirtyAfter(rating, newDidLearn);
+    final Status newStatus = isDirty ? Status.DIRTY : Status.READY;
+    _status.add(newStatus);
+
+    _didLearnNew.add(newDidLearn);
   }
 
   changeFocusDate(final DateTime newFocusDate) {
@@ -94,8 +122,6 @@ class DataBloc implements BlocBase {
     _focusDate.add(DateTimeUtil.getStartOfDate(newFocusDate));
     _clearEvaluations();
   }
-
-  // ERROR try catch tietokantaoperaatioiden ympärille!!! joku snackbar-systeemi erroreille
 
   Future<bool?> saveData() async {
     if (!_focusDate.hasValue) return null;
@@ -111,36 +137,33 @@ class DataBloc implements BlocBase {
     rating = _rating.value;
 
     try {
-      // print('start saving');
       await Storage.assessDay(rating, didLearnNew, date);
-      // snackbarKey.currentState?.showSnackBar(CustomSnackbar.buildSnackbar(
-      //   title: 'SUCCESS',
-      //   message:
-      //       'Evaluation for date ${DateTimeUtil.getDate(date)} was successfully saved.',
-      //   action: () => print('sfdfdsfdsfdfs'),
-      // ));
-      // print('ddddd');
     } catch (error) {
       _status.add(Status.READY);
-      snackbarKey.currentState?.showSnackBar(CustomSnackbar.buildSnackbar(
-        title: 'ERROR',
-        message:
-            'Something went wrong. Could not save the data. Please try again.',
-        action: () => print('sfdfdsfdsfdfs'),
-        isError: true,
-      ));
+      _showErrorSnackBar(Phrase.failedSaveData);
       return false;
     }
 
     _status.add(Status.LOADING);
+
     try {
       await _updateMonthsDataAfterSaved(rating, didLearnNew, date);
     } catch (error) {
-// handling
+      _showErrorSnackBar(Phrase.failedRetrieveData);
       return false;
     }
+
     _status.add(Status.READY);
     return true;
+  }
+
+  void _showErrorSnackBar(final Phrase message) {
+    snackbarKey.currentState?.showSnackBar(CustomSnackbar.buildSnackbar(
+      title: 'ERROR',
+      message: translator.get(message),
+      action: () => {},
+      isError: true,
+    ));
   }
 
   Future<void> _updateMonthsDataAfterSaved(

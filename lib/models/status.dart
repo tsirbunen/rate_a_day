@@ -10,6 +10,7 @@ class Status extends EnumClass {
   static const Status SAVING = _$saving;
   static const Status LOADING = _$loading;
   static const Status READY = _$ready;
+  static const Status DIRTY = _$dirty;
 
   const Status._(String name) : super(name);
 

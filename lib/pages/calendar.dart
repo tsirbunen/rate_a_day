@@ -2,10 +2,10 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/models.dart';
+import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rate_a_day/main.dart';
-import 'package:rate_a_day/pages/today.dart';
 
 class Calendar extends StatelessWidget {
   static const routeName = '/calendar';
@@ -146,8 +146,7 @@ class Calendar extends StatelessWidget {
         stream: dataBloc.monthsData,
         builder: (final BuildContext context,
             AsyncSnapshot<BuiltMap<int, DayData>> dayDataSnapshot) {
-          final double screenWidth = MediaQuery.of(context).size.width;
-          final double gridSize = screenWidth * 0.80;
+          final double gridSize = ScreenSizeUtil.getCalendarWidth(context);
           final BuiltMap<int, DayData> dayDataByDay = dayDataSnapshot.hasData
               ? dayDataSnapshot.data!
               : BuiltMap.from({});
@@ -163,6 +162,7 @@ class Calendar extends StatelessWidget {
                     DateTimeUtil.arrangeDaysOfMonth(focusDate);
 
                 return Container(
+                  // color: Colors.orange,
                   margin: const EdgeInsets.only(top: 10.0),
                   child: SizedBox(
                     width: gridSize,
@@ -209,8 +209,9 @@ class Calendar extends StatelessWidget {
         direction == 'history' ? Icons.chevron_left : Icons.chevron_right;
     return Material(
       borderRadius: BorderRadius.circular(45.0),
+      color: Colors.transparent,
       child: Container(
-        margin: const EdgeInsets.all(5.0),
+        margin: const EdgeInsets.only(left: 15.0, right: 15.0),
         child: InkWell(
           splashColor: themeData.colorScheme.primary,
           borderRadius: BorderRadius.circular(45.0),
@@ -230,8 +231,11 @@ class Calendar extends StatelessWidget {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
     final DateTime previousMonth = DateTimeUtil.previousMonthStart(focusDate);
     final DateTime nextMonth = DateTimeUtil.nextMonthStart(focusDate);
+
     return Container(
-      margin: const EdgeInsets.only(top: 10.0),
+      margin: const EdgeInsets.only(bottom: 10.0),
+      // color: Colors.pink[300],
+      width: ScreenSizeUtil.getCalendarWidth(context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -304,22 +308,42 @@ class Calendar extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
+    final ThemeData themeData = Theme.of(context);
     return SafeArea(
       child: Scaffold(
-          appBar: const CustomAppBar(),
+          appBar: CustomAppBar(),
           body: StreamBuilder<DateTime>(
               stream: dataBloc.focusDate,
               builder: (final BuildContext context,
                   AsyncSnapshot<DateTime> snapshot) {
                 final DateTime focusDate =
                     snapshot.hasData ? snapshot.data! : DateTime.now();
-                return Center(
-                  child: Column(
-                    children: [
-                      _buildMonthSelection(context, focusDate),
-                      _buildCalendar(context),
-                      _buildStatistics(context),
-                    ],
+                return Container(
+                  color: themeData.colorScheme.background,
+                  child: Center(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1.5,
+                                color: themeData.colorScheme.primaryContainer),
+                            borderRadius: BorderRadius.circular(6.0),
+                          ),
+                          padding: EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              _buildMonthSelection(context, focusDate),
+                              _buildCalendar(context),
+                            ],
+                          ),
+                        ),
+                        _buildStatistics(context),
+                      ],
+                    ),
                   ),
                 );
               })),

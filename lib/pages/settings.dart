@@ -10,7 +10,7 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: const CustomAppBar(),
+          appBar: CustomAppBar(),
           body: Center(
             child: Column(
               children: [

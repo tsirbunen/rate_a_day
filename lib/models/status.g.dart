@@ -9,6 +9,7 @@ part of status;
 const Status _$saving = const Status._('SAVING');
 const Status _$loading = const Status._('LOADING');
 const Status _$ready = const Status._('READY');
+const Status _$dirty = const Status._('DIRTY');
 
 Status _$statusValueOf(String name) {
   switch (name) {
@@ -18,6 +19,8 @@ Status _$statusValueOf(String name) {
       return _$loading;
     case 'READY':
       return _$ready;
+    case 'DIRTY':
+      return _$dirty;
     default:
       throw new ArgumentError(name);
   }
@@ -27,6 +30,7 @@ final BuiltSet<Status> _$statusValues = new BuiltSet<Status>(const <Status>[
   _$saving,
   _$loading,
   _$ready,
+  _$dirty,
 ]);
 
 Serializer<Status> _$statusSerializer = new _$StatusSerializer();

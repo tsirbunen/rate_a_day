@@ -39,7 +39,7 @@ class DateTimeUtil {
   static String getMonthAndYear(final DateTime dateTime) {
     final year = dateTime.year;
     final month = DateTimeUtil.months[dateTime.month];
-    return '$month ($year)';
+    return '$month $year';
   }
 
   static bool areSameDate(final DateTime dateTime1, final DateTime dateTime2) {
@@ -81,6 +81,12 @@ class DateTimeUtil {
     final DateTime startOfToday = DateTimeUtil.getStartOfDate(DateTime.now());
     final DateTime startOfDatetime = DateTimeUtil.getStartOfDate(datetime);
     return startOfDatetime.compareTo(startOfToday) > 0;
+  }
+
+  static bool isHistoryDate(final DateTime datetime) {
+    final DateTime startOfToday = DateTimeUtil.getStartOfDate(DateTime.now());
+    final DateTime startOfDatetime = DateTimeUtil.getStartOfDate(datetime);
+    return startOfDatetime.compareTo(startOfToday) < 0;
   }
 
   static bool areSameMonthSameYear(

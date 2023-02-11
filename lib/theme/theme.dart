@@ -3,23 +3,41 @@ import 'package:flutter/material.dart';
 ThemeData themeData = ThemeData(
   fontFamily: 'Quicksand',
   textTheme: const TextTheme(
+    // Primary info text
+    headline5: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+    // Secondary info text
+    bodyText1: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+
+    // Date or day minor
+    headline2: TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.w600), //, fontStyle: FontStyle.italic),
+    // Date or day major
+    headline1: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+
     headline3: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
     headline4: TextStyle(
         fontSize: 20, fontWeight: FontWeight.w400, fontStyle: FontStyle.italic),
-    headline2: TextStyle(
-        fontSize: 24, fontWeight: FontWeight.w400, fontStyle: FontStyle.italic),
-    headline5: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
-    headline1: TextStyle(fontSize: 44, fontWeight: FontWeight.bold),
     headline6: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
   ),
   colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey).copyWith(
-    // background: Colors.pink,
+    // Main pages background
+    background: Colors.black,
+
+    // AppBar and Navigation Menu buttons
+    secondaryContainer: Colors.grey[700],
+    onSecondaryContainer: Colors.black,
+
+    // Evaluation icons
+    tertiaryContainer: Colors.grey[800],
+
+    // Text
+    primary: Colors.grey[400],
+    secondary: Colors.grey[600],
+
     brightness: Brightness.dark,
-    primary: Colors.grey[700],
     primaryContainer: Colors.grey[600],
     onPrimaryContainer: Colors.grey[200],
-    secondary: Colors.grey[300],
-    // secondaryContainer: Colors.grey[500],
 
     // secondary: Colors.orange,
     // tertiary: Colors.green,
@@ -31,6 +49,7 @@ ThemeData themeData = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
+        primary: Colors.grey[700],
         shape: const StadiumBorder(),
         textStyle: const TextStyle(fontWeight: FontWeight.w600)),
   ),

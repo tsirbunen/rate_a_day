@@ -28,7 +28,7 @@ class Evaluations {
       case Evaluation.didLearn:
         return themeData.colorScheme.onTertiary;
       default:
-        return themeData.colorScheme.primary;
+        return themeData.colorScheme.tertiaryContainer;
     }
   }
 }

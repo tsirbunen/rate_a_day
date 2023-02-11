@@ -61,8 +61,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
     ];
     final List<ExpandedButton> buttons = [];
 
-    double screenWidth = MediaQuery.of(context).size.width;
-    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(screenWidth);
+    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(context);
     final double routeButtonWidth = ScreenSizeUtil.routeButtonBoxWidth;
     const double spacer = 10.0;
     final List<double> targetLocations = [
@@ -99,12 +98,12 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
         height: ScreenSizeUtil.menuButtonBoxWidth,
         child: FloatingActionButton(
           onPressed: _toggleExpansion,
-          backgroundColor: themeData.colorScheme.primaryContainer,
+          backgroundColor: themeData.colorScheme.secondaryContainer,
           elevation: 10,
           child: Icon(
             iconData,
             size: 50,
-            color: themeData.colorScheme.onPrimaryContainer,
+            color: themeData.colorScheme.onSecondaryContainer,
           ),
         ),
       ),
@@ -113,8 +112,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(screenWidth);
+    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(context);
 
     return SizedBox(
       width: menuWidth,

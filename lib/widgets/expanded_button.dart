@@ -38,22 +38,21 @@ class ExpandedButton extends StatelessWidget {
 
     return Icon(
       iconData,
-      color: themeData.colorScheme.onPrimaryContainer,
+      color: themeData.colorScheme.onSecondaryContainer,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-    double screenWidth = MediaQuery.of(context).size.width;
-    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(screenWidth);
+    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(context);
     final double startingPoint =
         (menuWidth - ScreenSizeUtil.routeButtonBoxWidth) / 2;
 
     final Widget child = Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
-      color: themeData.colorScheme.primaryContainer,
+      color: themeData.colorScheme.secondaryContainer,
       elevation: 10.0,
       child: SizedBox(
         width: ScreenSizeUtil.routeButtonBoxWidth,

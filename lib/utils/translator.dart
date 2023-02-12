@@ -25,21 +25,18 @@ class Translator {
     return dictionary[phrase] ?? '';
   }
 
-// TODO: Write tests for this!
   String getMonth(final int index) {
     assert(index >= 1 && index <= 12, 'Month index must be in range 1...12');
     if (_language == Language.FI) return monthsFI[index];
     return monthsEN[index];
   }
 
-// TODO: Write tests for this!
   String getWeekday(final int index) {
     assert(index >= 1 && index <= 7, 'Weekday index must be in range 1...7');
     if (_language == Language.FI) return weekdaysFI[index]!;
     return weekdaysEN[index]!;
   }
 
-// TODO: Write tests for this!
   List<String> getDayAbbreviations() {
     final Map<int, String> weekdaysMap =
         _language == Language.EN ? weekdaysEN : weekdaysFI;

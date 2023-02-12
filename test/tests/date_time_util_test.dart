@@ -18,7 +18,7 @@ void main() {
       });
     });
 
-    test('Weekday is correct', () {
+    test('Weekday is correct in English', () {
       final Map<String, DateTime> data = {
         'Saturday': DateTime(2023, 2, 4),
         'Monday': DateTime(2023, 2, 6),
@@ -33,14 +33,44 @@ void main() {
       });
     });
 
-    test('Month and year are correct', () {
+    test('Weekday is correct in Finnish', () {
       final Map<String, DateTime> data = {
-        'February (2023)': DateTime(2023, 2, 4),
-        'January (2023)': DateTime(2023, 1, 23),
-        'December (2022)': DateTime(2022, 12, 12),
-        'August (2003)': DateTime(2003, 8, 25),
+        'Lauantai': DateTime(2023, 2, 4),
+        'Maanantai': DateTime(2023, 2, 6),
+        'Perjantai': DateTime(2023, 2, 3),
+        'Keskiviikko': DateTime(2023, 1, 25),
+      };
+      final Translator translator = Translator(Language.FI);
+
+      data.forEach((final String weekday, final DateTime date) {
+        final String result = DateTimeUtil.getWeekday(date, translator);
+        expect(result, equals(weekday));
+      });
+    });
+
+    test('Month and year are correct in English', () {
+      final Map<String, DateTime> data = {
+        'February 2023': DateTime(2023, 2, 4),
+        'January 2023': DateTime(2023, 1, 23),
+        'December 2022': DateTime(2022, 12, 12),
+        'August 2003': DateTime(2003, 8, 25),
       };
       final Translator translator = Translator(Language.EN);
+
+      data.forEach((final String monthAndYear, final DateTime date) {
+        final String result = DateTimeUtil.getMonthAndYear(date, translator);
+        expect(result, equals(monthAndYear));
+      });
+    });
+
+    test('Month and year are correct in Finnish', () {
+      final Map<String, DateTime> data = {
+        'Helmikuu 2023': DateTime(2023, 2, 4),
+        'Tammikuu 2023': DateTime(2023, 1, 23),
+        'Joulukuu 2022': DateTime(2022, 12, 12),
+        'Elokuu 2003': DateTime(2003, 8, 25),
+      };
+      final Translator translator = Translator(Language.FI);
 
       data.forEach((final String monthAndYear, final DateTime date) {
         final String result = DateTimeUtil.getMonthAndYear(date, translator);

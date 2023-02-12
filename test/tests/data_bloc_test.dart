@@ -136,6 +136,50 @@ void main() {
       expect(streamData[firstFocusDate.day]!.rating, Rating.UNHAPPY);
       expect(streamData[firstFocusDate.day]!.didLearnNew, false);
     });
+
+    test('Evaluations update the status correctly (unevaluated day)', () async {
+      final Translator translator = Translator(Language.EN);
+      final DataBloc dataBloc = DataBloc(translator);
+      final ValueStream<Status> stream = dataBloc.status;
+
+      dataBloc.rate(Rating.HAPPY);
+      expect(stream, emits(Status.DIRTY));
+      dataBloc.toggleDidLearn(true);
+      expect(stream, emits(Status.DIRTY));
+      dataBloc.rate(Rating.HAPPY);
+      expect(stream, emits(Status.DIRTY));
+      dataBloc.toggleDidLearn(false);
+      expect(stream, emits(Status.READY));
+    });
+
+    test("Day's data can be saved and retrieved from data storage", () async {
+      final Translator translator = Translator(Language.EN);
+      final DataBloc dataBloc = DataBloc(translator);
+
+      final DateTime firstFocusDate =
+          DateTimeUtil.getStartOfDate(DateTime(2023, 2, 6));
+      dataBloc.changeFocusDate(firstFocusDate);
+      dataBloc.rate(Rating.HAPPY);
+      dataBloc.toggleDidLearn(true);
+      await dataBloc.saveData();
+
+      final DateTime secondFocusDate =
+          DateTimeUtil.getStartOfDate(DateTime(2023, 1, 8));
+      dataBloc.changeFocusDate(secondFocusDate);
+      dataBloc.rate(Rating.UNHAPPY);
+      dataBloc.toggleDidLearn(false);
+      await dataBloc.saveData();
+
+      dataBloc.changeFocusDate(firstFocusDate);
+      await Future.delayed(const Duration(seconds: 1));
+
+      final ValueStream<Status> stream = dataBloc.status;
+      expect(stream, emits(Status.READY));
+      dataBloc.rate(Rating.UNHAPPY);
+      expect(stream, emits(Status.DIRTY));
+      dataBloc.rate(Rating.HAPPY);
+      expect(stream, emits(Status.READY));
+    });
   });
 
   tearDown(() async {

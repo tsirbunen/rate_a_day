@@ -6,3 +6,6 @@ export '../widgets/text_info.dart';
 export '../widgets/happy_or_not_selection.dart';
 export '../widgets/did_learn_toggle.dart';
 export '../widgets/date_of_day.dart';
+export '../widgets/month_selector.dart';
+export '../widgets/calendar_day.dart';
+export '../widgets/cumulated.dart';

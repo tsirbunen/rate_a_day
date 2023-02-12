@@ -49,7 +49,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
   void _navigateToRoute(String targetRoute) {
     final NavigatorState? navigatorState = navigatorKey.currentState;
     if (navigatorState == null) return;
-    navigatorState.pushNamed(targetRoute);
+    navigatorState.pushReplacementNamed(targetRoute);
   }
 
   List<Widget> _buildExpandedButtons() {

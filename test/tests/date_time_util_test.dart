@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rate_a_day/packages/models.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
 void main() {
@@ -24,9 +25,10 @@ void main() {
         'Friday': DateTime(2023, 2, 3),
         'Wednesday': DateTime(2023, 1, 25),
       };
+      final Translator translator = Translator(Language.EN);
 
       data.forEach((final String weekday, final DateTime date) {
-        final String result = DateTimeUtil.getWeekday(date);
+        final String result = DateTimeUtil.getWeekday(date, translator);
         expect(result, equals(weekday));
       });
     });
@@ -38,9 +40,10 @@ void main() {
         'December (2022)': DateTime(2022, 12, 12),
         'August (2003)': DateTime(2003, 8, 25),
       };
+      final Translator translator = Translator(Language.EN);
 
       data.forEach((final String monthAndYear, final DateTime date) {
-        final String result = DateTimeUtil.getMonthAndYear(date);
+        final String result = DateTimeUtil.getMonthAndYear(date, translator);
         expect(result, equals(monthAndYear));
       });
     });

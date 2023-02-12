@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
 class TextInfo extends StatelessWidget {
-  final String primary;
+  final String? primary;
   final String? secondary;
-  const TextInfo({Key? key, required this.primary, this.secondary})
-      : super(key: key);
+  const TextInfo({Key? key, this.primary, this.secondary}) : super(key: key);
 
   Widget _buildPrimaryText(final BuildContext context, final String text) {
     final ThemeData themeData = Theme.of(context);
@@ -29,12 +28,15 @@ class TextInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    assert(primary != null || secondary != null,
+        'Either primary or secondary text must be provided for INFO TEXT');
+
     return SizedBox(
       width: ScreenSizeUtil.getInfoTextWidth(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _buildPrimaryText(context, primary),
+          if (primary != null) _buildPrimaryText(context, primary!),
           if (secondary != null) _buildSecondaryText(context, secondary!),
         ],
       ),

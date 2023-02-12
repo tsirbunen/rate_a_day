@@ -7,44 +7,35 @@ ThemeData themeData = ThemeData(
     headline5: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
     // Secondary info text
     bodyText1: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
-
     // Date or day minor
-    headline2: TextStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.w600), //, fontStyle: FontStyle.italic),
+    headline2: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
     // Date or day major
     headline1: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-
+    // Custom App Bar
     headline3: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
     headline4: TextStyle(
         fontSize: 20, fontWeight: FontWeight.w400, fontStyle: FontStyle.italic),
+    // Calendar day number and cumulated count
     headline6: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
   ),
+  unselectedWidgetColor: Colors.grey[700],
   colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey).copyWith(
+    brightness: Brightness.dark,
     // Main pages background
-    background: Colors.black,
-
+    background: Colors.grey[900],
     // AppBar and Navigation Menu buttons
     secondaryContainer: Colors.grey[700],
     onSecondaryContainer: Colors.black,
-
     // Evaluation icons
     tertiaryContainer: Colors.grey[800],
-
     // Text
-    primary: Colors.grey[400],
+    primary: Colors.grey[300],
     secondary: Colors.grey[600],
-
-    brightness: Brightness.dark,
+    // Calendar border and numbers and text
     primaryContainer: Colors.grey[600],
-    onPrimaryContainer: Colors.grey[200],
-
-    // secondary: Colors.orange,
-    // tertiary: Colors.green,
+    // Evaluation icons
     tertiary: Colors.lightGreen[700],
-    // onTertiary: Colors.blue[700],
     onTertiary: Colors.blue[500],
-    // error: Colors.red[900],
     error: Colors.amber[900],
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(

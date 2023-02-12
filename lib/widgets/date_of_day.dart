@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:rate_a_day/main.dart';
 import 'package:rate_a_day/packages/blocs.dart';
+import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
 class DateOfDay extends StatelessWidget {
   const DateOfDay({Key? key}) : super(key: key);
+
+  void _handleTappedDate() {
+    final NavigatorState? navigatorState = navigatorKey.currentState;
+    if (navigatorState == null) return;
+    navigatorState.pushReplacementNamed(Calendar.routeName);
+  }
 
   @override
   Widget build(final BuildContext context) {
@@ -23,18 +31,22 @@ class DateOfDay extends StatelessWidget {
           final String mainText = focusIsToday
               ? settings.translate(Phrase.today).toUpperCase()
               : date;
-          final String minorText =
-              focusIsToday ? date : DateTimeUtil.getWeekday(focusDate);
+          final String minorText = focusIsToday
+              ? date
+              : DateTimeUtil.getWeekday(focusDate, settings.translator);
 
-          return Column(
-            children: [
-              Text(minorText,
-                  style: themeData.textTheme.headline2
-                      ?.copyWith(color: themeData.colorScheme.secondary)),
-              Text(mainText,
-                  style: themeData.textTheme.headline1
-                      ?.copyWith(color: themeData.colorScheme.primary)),
-            ],
+          return GestureDetector(
+            onTap: _handleTappedDate,
+            child: Column(
+              children: [
+                Text(minorText,
+                    style: themeData.textTheme.headline5
+                        ?.copyWith(color: themeData.colorScheme.secondary)),
+                Text(mainText,
+                    style: themeData.textTheme.headline1
+                        ?.copyWith(color: themeData.colorScheme.primary)),
+              ],
+            ),
           );
         });
   }

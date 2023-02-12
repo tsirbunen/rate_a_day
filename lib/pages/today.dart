@@ -14,7 +14,7 @@ class Today extends StatelessWidget {
   void _navigateToCalendarPage() {
     final NavigatorState? navigatorState = navigatorKey.currentState;
     if (navigatorState == null) return;
-    navigatorState.pushNamed(Calendar.routeName);
+    navigatorState.pushReplacementNamed(Calendar.routeName);
   }
 
   Widget _buildSaveButton(final BuildContext context) {
@@ -45,6 +45,15 @@ class Today extends StatelessWidget {
               },
             );
           }),
+    );
+  }
+
+  Widget _buildChangeDateInfo(final BuildContext context) {
+    final SettingsBloc settings = BlocProvider.of<SettingsBloc>(context);
+
+    return TextInfo(
+      primary: null,
+      secondary: settings.translate(Phrase.changeDateInfo),
     );
   }
 
@@ -84,47 +93,43 @@ class Today extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-          appBar: CustomAppBar(),
-          body: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {},
-            child: Center(
-              child: StreamBuilder<DateTime>(
-                  stream: dataBloc.focusDate,
-                  builder: (final BuildContext context,
-                      AsyncSnapshot<DateTime> dateSnapshot) {
-                    final DateTime focusDate = dateSnapshot.hasData
-                        ? dateSnapshot.data!
-                        : DateTime.now();
-                    final bool isInHistory =
-                        DateTimeUtil.isHistoryDate(focusDate);
+        appBar: CustomAppBar(),
+        body: Center(
+          child: StreamBuilder<DateTime>(
+              stream: dataBloc.focusDate,
+              builder: (final BuildContext context,
+                  AsyncSnapshot<DateTime> dateSnapshot) {
+                final DateTime focusDate =
+                    dateSnapshot.hasData ? dateSnapshot.data! : DateTime.now();
+                final bool isInHistory = DateTimeUtil.isHistoryDate(focusDate);
 
-                    return StreamBuilder<bool>(
-                        stream: settingsBloc.hideExtraInfo,
-                        builder: (final BuildContext context,
-                            AsyncSnapshot<bool> hideSnapshot) {
-                          final bool hideInfo =
-                              hideSnapshot.hasData ? hideSnapshot.data! : false;
-                          return Container(
-                            padding: const EdgeInsets.only(top: 30.0),
-                            color: themeData.colorScheme.background,
-                            child: Column(
-                              children: [
-                                const DateOfDay(),
-                                _buildHappyOrNotInfo(
-                                    context, isInHistory, hideInfo),
-                                const HappyOrNotSelection(),
-                                _buildDidLearnNewInfo(
-                                    context, isInHistory, hideInfo),
-                                const DidLearnToggle(),
-                                _buildSaveButton(context),
-                              ],
-                            ),
-                          );
-                        });
-                  }),
-            ),
-          )),
+                return StreamBuilder<bool>(
+                    stream: settingsBloc.hideExtraInfo,
+                    builder: (final BuildContext context,
+                        AsyncSnapshot<bool> hideSnapshot) {
+                      final bool hideInfo =
+                          hideSnapshot.hasData ? hideSnapshot.data! : false;
+                      return Container(
+                        padding: const EdgeInsets.only(top: 30.0),
+                        color: themeData.colorScheme.background,
+                        child: Column(
+                          children: [
+                            const DateOfDay(),
+                            if (!hideInfo) _buildChangeDateInfo(context),
+                            _buildHappyOrNotInfo(
+                                context, isInHistory, hideInfo),
+                            const HappyOrNotSelection(),
+                            _buildDidLearnNewInfo(
+                                context, isInHistory, hideInfo),
+                            const DidLearnToggle(),
+                            _buildSaveButton(context),
+                          ],
+                        ),
+                      );
+                    });
+              }),
+        ),
+      ),
     );
   }
 }

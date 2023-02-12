@@ -1,29 +1,6 @@
+import 'package:rate_a_day/packages/utils.dart';
+
 class DateTimeUtil {
-  static final Map weekdays = {
-    DateTime.monday: 'Monday',
-    DateTime.tuesday: 'Tuesday',
-    DateTime.wednesday: 'Wednesday',
-    DateTime.thursday: 'Thursday',
-    DateTime.friday: 'Friday',
-    DateTime.saturday: 'Saturday',
-    DateTime.sunday: 'Sunday',
-  };
-
-  static final Map months = {
-    1: 'January',
-    2: 'February',
-    3: 'March',
-    4: 'April',
-    5: 'May',
-    6: 'June',
-    7: 'July',
-    8: 'August',
-    9: 'September',
-    10: 'October',
-    11: 'November',
-    12: 'December',
-  };
-
   static String getDate(final DateTime dateTime) {
     final year = dateTime.year;
     final month = dateTime.month;
@@ -31,14 +8,16 @@ class DateTimeUtil {
     return '$day.$month.$year';
   }
 
-  static String getWeekday(final DateTime dateTime) {
+  static String getWeekday(
+      final DateTime dateTime, final Translator translator) {
     final weekday = dateTime.weekday;
-    return weekdays[weekday];
+    return translator.getWeekday(weekday);
   }
 
-  static String getMonthAndYear(final DateTime dateTime) {
+  static String getMonthAndYear(
+      final DateTime dateTime, final Translator translator) {
     final year = dateTime.year;
-    final month = DateTimeUtil.months[dateTime.month];
+    final month = translator.getMonth(dateTime.month);
     return '$month $year';
   }
 

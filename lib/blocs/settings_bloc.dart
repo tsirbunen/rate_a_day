@@ -45,8 +45,6 @@ class SettingsBloc implements BlocBase {
   }
 
   Future<void> _handleLanguageChanged(final Language language) async {
-    if (_language.hasValue && _language.value == language) return;
-
     translator.setDictionary(language);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(_languagePrefsKey, language.toString());
@@ -61,6 +59,16 @@ class SettingsBloc implements BlocBase {
 
   String translate(final Phrase phrase) {
     return translator.get(phrase);
+  }
+
+  void changeLanguage(final Language? language) {
+    if (language == null) return;
+    _language.add(language);
+  }
+
+  void hideInfo(final bool? hideOrNot) {
+    if (hideOrNot == null) return;
+    _hideExtraInfo.add(hideOrNot);
   }
 
   @override

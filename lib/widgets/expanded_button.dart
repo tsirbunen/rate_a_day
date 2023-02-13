@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
@@ -8,6 +7,7 @@ class ExpandedButton extends StatelessWidget {
   final double targetLocation;
   final Animation<double> progress;
   final String routeName;
+  final String label;
 
   const ExpandedButton({
     Key? key,
@@ -15,6 +15,7 @@ class ExpandedButton extends StatelessWidget {
     required this.targetLocation,
     required this.progress,
     required this.routeName,
+    required this.label,
   }) : super(key: key);
 
   Widget _buildIcon(final ThemeData themeData) {
@@ -73,15 +74,32 @@ class ExpandedButton extends StatelessWidget {
         return Positioned(
           right: startingPoint + offset,
           bottom: 10.0,
-          child: Transform.rotate(
-            angle: (1.0 - progress.value) * pi / 2.0,
-            child: child!,
-          ),
+          child: child!,
         );
       },
       child: FadeTransition(
         opacity: progress,
-        child: child,
+        child: SizedBox(
+          width: ScreenSizeUtil.getMenuContainerWidth(context) / 4,
+          child: Column(
+            children: [
+              child,
+              Material(
+                color: Colors.transparent,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    label,
+                    style: themeData.textTheme.headline6?.copyWith(
+                        color: themeData.colorScheme.secondaryContainer,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

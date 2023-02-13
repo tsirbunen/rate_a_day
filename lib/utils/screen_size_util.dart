@@ -6,9 +6,9 @@ class ScreenSizeUtil {
   static double get menuMargin => 20.0;
   static double get routeButtonBoxWidth => 60;
   static double get generalMargin => 10.0;
-  static double get menuButtonBoxWidth => 70.0;
-  static double get menuContainerHeight => 80.0;
-  static double get maxMenuContainerWidth => 380.0;
+  static double get menuButtonBoxWidth => 60.0;
+  static double get menuContainerHeight => 120.0;
+  static double get maxMenuContainerWidth => 360.0;
 
   static double get appBarHeight => 60.0;
   static double get generalElevation => 10.0;

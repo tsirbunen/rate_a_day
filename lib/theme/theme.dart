@@ -24,13 +24,14 @@ ThemeData themeData = ThemeData(
     // Main pages background
     background: Colors.grey[900],
     // AppBar and Navigation Menu buttons
-    secondaryContainer: Colors.grey[700],
+    // secondaryContainer: Colors.grey[700],
+    secondaryContainer: Colors.grey[500],
     onSecondaryContainer: Colors.black,
     // Evaluation icons
     tertiaryContainer: Colors.grey[800],
     // Text
-    primary: Colors.grey[300],
-    secondary: Colors.grey[600],
+    primary: Colors.grey[200],
+    secondary: Colors.grey[400],
     // Calendar border and numbers and text
     primaryContainer: Colors.grey[600],
     // Evaluation icons

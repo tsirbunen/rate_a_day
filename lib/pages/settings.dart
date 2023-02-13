@@ -11,40 +11,39 @@ class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
 
   Widget _buildLanguageSelector(
-      final BuildContext context, final bool currentHide) {
+    final BuildContext context,
+    final bool currentHide,
+    final Language currentLanguage,
+  ) {
     final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
+    final Translator translator = Translator(currentLanguage);
     final Map<Language, String> data = {
-      Language.EN: settingsBloc.translate(Phrase.english),
-      Language.FI: settingsBloc.translate(Phrase.finnish),
+      Language.EN: translator.get(Phrase.english),
+      Language.FI: translator.get(Phrase.finnish),
     };
 
-    return StreamBuilder<Language>(
-      stream: settingsBloc.language,
-      builder: (final BuildContext context, AsyncSnapshot<Language> snapshot) {
-        final Language currentLanguage =
-            snapshot.hasData ? snapshot.data! : Language.EN;
-        return Container(
-          margin: const EdgeInsets.only(bottom: 20.0, top: 20.0),
-          child: RadioSelector<Language>(
-            data: data,
-            onSelected: settingsBloc.changeLanguage,
-            title: settingsBloc.translate(Phrase.language),
-            info: currentHide
-                ? null
-                : settingsBloc.translate(Phrase.languageInfo),
-            currentValue: currentLanguage,
-          ),
-        );
-      },
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20.0, top: 20.0),
+      child: RadioSelector<Language>(
+        data: data,
+        onSelected: settingsBloc.changeLanguage,
+        title: translator.get(Phrase.language),
+        info: currentHide ? null : translator.get(Phrase.languageInfo),
+        currentValue: currentLanguage,
+      ),
     );
   }
 
   Widget _buildHideInfoSelector(
-      final BuildContext context, final bool currentHide) {
+    final BuildContext context,
+    final bool currentHide,
+    final Language currentLanguage,
+  ) {
     final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
+    final Translator translator = Translator(currentLanguage);
     final Map<bool, String> data = {
-      false: settingsBloc.translate(Phrase.doNotHideInfo),
-      true: settingsBloc.translate(Phrase.hideInfo),
+      false: translator.get(Phrase.doNotHideInfo),
+      true: translator.get(Phrase.hideInfo),
     };
 
     return Container(
@@ -52,13 +51,11 @@ class Settings extends StatelessWidget {
       child: RadioSelector<bool>(
         data: data,
         onSelected: settingsBloc.hideInfo,
-        title: settingsBloc.translate(Phrase.hideOrNot),
-        info: currentHide ? null : settingsBloc.translate(Phrase.hideOrNotInfo),
+        title: translator.get(Phrase.hideOrNot),
+        info: currentHide ? null : translator.get(Phrase.hideOrNotInfo),
         currentValue: currentHide,
       ),
     );
-    //   },
-    // );
   }
 
   @override
@@ -74,18 +71,28 @@ class Settings extends StatelessWidget {
           child: StreamBuilder<bool>(
             stream: settingsBloc.hideExtraInfo,
             builder:
-                (final BuildContext context, AsyncSnapshot<bool> snapshot) {
+                (final BuildContext context, AsyncSnapshot<bool> hideSnapshot) {
               final bool currentHide =
-                  snapshot.hasData ? snapshot.data! : false;
-              return Container(
-                margin: const EdgeInsets.only(left: 20.0, top: 20.0),
-                child: Column(
-                  children: [
-                    _buildLanguageSelector(context, currentHide),
-                    _buildHideInfoSelector(context, currentHide),
-                  ],
-                ),
-              );
+                  hideSnapshot.hasData ? hideSnapshot.data! : false;
+              return StreamBuilder<Language>(
+                  stream: settingsBloc.language,
+                  builder: (final BuildContext context,
+                      final AsyncSnapshot<Language> languageSnapshot) {
+                    final Language currentLanguage = languageSnapshot.hasData
+                        ? languageSnapshot.data!
+                        : Language.EN;
+                    return Container(
+                      margin: const EdgeInsets.only(left: 20.0, top: 20.0),
+                      child: Column(
+                        children: [
+                          _buildLanguageSelector(
+                              context, currentHide, currentLanguage),
+                          _buildHideInfoSelector(
+                              context, currentHide, currentLanguage),
+                        ],
+                      ),
+                    );
+                  });
             },
           ),
         ),

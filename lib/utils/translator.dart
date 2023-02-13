@@ -122,6 +122,11 @@ enum Phrase {
   hideInfo,
   doNotHideInfo,
   changeDateInfo,
+  navigationMenu,
+  navigationInfo,
+  navigationSettings,
+  navigationMonth,
+  navigationToday,
 }
 
 Map<Phrase, String> dictionaryEN = {
@@ -161,6 +166,11 @@ Map<Phrase, String> dictionaryEN = {
   Phrase.hideInfo: 'Hide all',
   Phrase.doNotHideInfo: 'Show all',
   Phrase.changeDateInfo: 'You can tap the date to change it.',
+  Phrase.navigationMenu: 'MENU',
+  Phrase.navigationInfo: 'INFO',
+  Phrase.navigationSettings: 'SETTINGS',
+  Phrase.navigationMonth: 'MONTH',
+  Phrase.navigationToday: 'TODAY',
 };
 
 Map<Phrase, String> dictionaryFI = {
@@ -200,4 +210,9 @@ Map<Phrase, String> dictionaryFI = {
   Phrase.hideInfo: 'piilota ohjeet',
   Phrase.doNotHideInfo: 'näytä ohjeet',
   Phrase.changeDateInfo: 'Vaihda päivämäärä näpäyttämällä.',
+  Phrase.navigationMenu: 'MENU',
+  Phrase.navigationInfo: 'INFO',
+  Phrase.navigationSettings: 'ASETUKSET',
+  Phrase.navigationMonth: 'KUUKAUSI',
+  Phrase.navigationToday: 'TÄNÄÄN',
 };

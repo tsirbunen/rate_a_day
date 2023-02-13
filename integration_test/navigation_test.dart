@@ -21,22 +21,27 @@ void main() {
 
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pumpAndSettle();
-
       await tester.tap(find.byIcon(Icons.calendar_month));
       await tester.pumpAndSettle();
       final String calendar = translator.get(Phrase.routeCalendar);
       expect(find.text(calendar), findsOneWidget);
 
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.info_outline));
       await tester.pumpAndSettle();
       final String info = translator.get(Phrase.routeInfo);
       expect(find.text(info), findsOneWidget);
 
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.settings_outlined));
       await tester.pumpAndSettle();
       final String settings = translator.get(Phrase.routeSettings);
       expect(find.text(settings), findsOneWidget);
 
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.today));
       await tester.pumpAndSettle();
       final String today = translator.get(Phrase.routeToday);

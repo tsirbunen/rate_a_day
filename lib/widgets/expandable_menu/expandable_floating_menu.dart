@@ -53,10 +53,16 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
     });
   }
 
-  void _navigateToRoute(String targetRoute) {
+  void _navigateToRoute(final BuildContext context, String targetRoute) {
     final NavigatorState? navigatorState = navigatorKey.currentState;
     if (navigatorState == null) return;
-    navigatorState.pushReplacementNamed(targetRoute);
+    if (targetRoute == Today.routeName) {
+      final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
+      dataBloc.changeFocusDate(DateTime.now());
+    }
+    navigatorState
+        // .pushReplacementNamed(targetRoute, arguments: {'showToday': true});
+        .pushReplacementNamed(targetRoute);
     _toggleExpansion();
   }
 
@@ -75,7 +81,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
         menuWidth / 2
       ],
       [
-        Calendar.routeName,
+        Month.routeName,
         settings.translate(Phrase.navigationMonth),
         menuWidth / 4
       ],
@@ -83,7 +89,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
     ];
     return routeData.map((final List<dynamic> route) {
       return ExpandedButton(
-        onPressed: () => _navigateToRoute(route[0]),
+        onPressed: () => _navigateToRoute(context, route[0]),
         targetLocation: route[2],
         progress: _expansion,
         routeName: route[0],

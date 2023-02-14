@@ -65,9 +65,12 @@ class CalendarDay extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     final bool didLearnNew = dayData != null ? dayData!.didLearnNew : false;
     final Color dayNumberColor = _getNumberColor(themeData, didLearnNew);
-    return Text(day.toString(),
-        style: themeData.textTheme.headline6
-            ?.copyWith(color: dayNumberColor, fontWeight: FontWeight.bold));
+    return Transform.scale(
+      scaleX: 1.3,
+      child: Text(day.toString(),
+          style: themeData.textTheme.headline6
+              ?.copyWith(color: dayNumberColor, fontWeight: FontWeight.bold)),
+    );
   }
 
   Widget _buildDayIcon(final ThemeData themeData, final void Function() onTap) {

@@ -23,7 +23,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.calendar_month));
       await tester.pumpAndSettle();
-      final String calendar = translator.get(Phrase.routeCalendar);
+      final String calendar = translator.get(Phrase.routeMonth);
       expect(find.text(calendar), findsOneWidget);
 
       await tester.tap(find.byType(FloatingActionButton));

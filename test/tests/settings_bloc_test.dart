@@ -25,26 +25,6 @@ void main() {
       expect(stream, emits(Language.FI));
     });
 
-    test('Hide instructions can be updated', () {
-      SharedPreferences.setMockInitialValues({});
-      final SettingsBloc settings = SettingsBloc();
-      final ValueStream<bool> stream = settings.hideExtraInfo;
-      settings.hideInfo(true);
-      expect(stream, emits(true));
-      settings.hideInfo(false);
-      expect(stream, emits(false));
-    });
-
-    test('Hide from shared preferences is used', () async {
-      SharedPreferences.setMockInitialValues({'hideExtraInfoPrefsKey': true});
-      final SettingsBloc settings = SettingsBloc();
-      final ValueStream<bool> stream = settings.hideExtraInfo;
-      await Future.delayed(const Duration(seconds: 1));
-      expect(stream, emits(true));
-      settings.hideInfo(false);
-      expect(stream, emits(false));
-    });
-
     test('Translation works correctly', () async {
       final List<Phrase> data = [Phrase.routeToday, Phrase.failedSaveData];
       SharedPreferences.setMockInitialValues({});

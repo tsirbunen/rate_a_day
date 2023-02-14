@@ -4,7 +4,7 @@ import 'package:rate_a_day/packages/blocs.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:rate_a_day/packages/models.dart';
 import 'package:rate_a_day/packages/utils.dart';
-import 'package:rate_a_day/widgets/custom_snackbar.dart';
+import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:rate_a_day/packages/storage.dart';
 

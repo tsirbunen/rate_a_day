@@ -12,11 +12,12 @@ ThemeData themeData = ThemeData(
     // Date or day major
     headline1: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
     // Custom App Bar
-    headline3: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
+    headline3: TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
     headline4: TextStyle(
         fontSize: 20, fontWeight: FontWeight.w400, fontStyle: FontStyle.italic),
     // Calendar day number and cumulated count
     headline6: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    button: TextStyle(fontSize: 22.0),
   ),
   unselectedWidgetColor: Colors.grey[700],
   colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey).copyWith(
@@ -30,8 +31,8 @@ ThemeData themeData = ThemeData(
     // Evaluation icons
     tertiaryContainer: Colors.grey[800],
     // Text
-    primary: Colors.grey[200],
-    secondary: Colors.grey[400],
+    primary: Colors.grey[100],
+    secondary: Colors.grey[300],
     // Calendar border and numbers and text
     primaryContainer: Colors.grey[600],
     // Evaluation icons

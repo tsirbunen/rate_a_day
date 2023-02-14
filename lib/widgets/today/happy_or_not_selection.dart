@@ -34,7 +34,7 @@ class HappyOrNotSelection extends StatelessWidget {
       borderRadius: BorderRadius.circular(iconSize),
       color: Colors.transparent,
       child: Container(
-        margin: const EdgeInsets.all(5.0),
+        margin: const EdgeInsets.only(left: 5.0, right: 5.0),
         child: InkWell(
           splashColor: themeData.colorScheme.secondaryContainer,
           borderRadius: BorderRadius.circular(iconSize),
@@ -52,32 +52,29 @@ class HappyOrNotSelection extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
-    return Container(
-      margin: const EdgeInsets.only(top: 5.0),
-      child: StreamBuilder<Rating>(
-          stream: dataBloc.rating,
-          builder:
-              (final BuildContext context, AsyncSnapshot<Rating> snapshot) {
-            final Rating currentRating =
-                snapshot.hasData ? snapshot.data! : Rating.MISSING;
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildSelectButton(
-                  context,
-                  Rating.UNHAPPY,
-                  currentRating,
-                  () => dataBloc.rate(Rating.UNHAPPY),
-                ),
-                _buildSelectButton(
-                  context,
-                  Rating.HAPPY,
-                  currentRating,
-                  () => dataBloc.rate(Rating.HAPPY),
-                ),
-              ],
-            );
-          }),
+    return StreamBuilder<Rating>(
+      stream: dataBloc.rating,
+      builder: (final BuildContext context, AsyncSnapshot<Rating> snapshot) {
+        final Rating currentRating =
+            snapshot.hasData ? snapshot.data! : Rating.MISSING;
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildSelectButton(
+              context,
+              Rating.UNHAPPY,
+              currentRating,
+              () => dataBloc.rate(Rating.UNHAPPY),
+            ),
+            _buildSelectButton(
+              context,
+              Rating.HAPPY,
+              currentRating,
+              () => dataBloc.rate(Rating.HAPPY),
+            ),
+          ],
+        );
+      },
     );
   }
 }

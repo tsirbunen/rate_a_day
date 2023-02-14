@@ -17,7 +17,7 @@ class MonthSelector extends StatelessWidget {
     return Text(
       monthAndYear,
       style: themeData.textTheme.headline5?.copyWith(
-          color: themeData.colorScheme.primaryContainer,
+          color: themeData.colorScheme.primary,
           fontWeight: FontWeight.w600,
           fontSize: 26),
     );
@@ -39,7 +39,7 @@ class MonthSelector extends StatelessWidget {
           borderRadius: BorderRadius.circular(45.0),
           child: Icon(
             iconData,
-            color: themeData.colorScheme.primaryContainer,
+            color: themeData.colorScheme.primary,
             size: 45,
           ),
           onTap: () => dataBloc.changeFocusDate(targetDate),

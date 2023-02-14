@@ -21,7 +21,7 @@ class ExpandedButton extends StatelessWidget {
   Widget _buildIcon(final ThemeData themeData) {
     IconData iconData;
     switch (routeName) {
-      case Calendar.routeName:
+      case Month.routeName:
         iconData = Icons.calendar_month;
         break;
       case Today.routeName:

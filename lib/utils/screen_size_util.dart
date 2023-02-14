@@ -10,7 +10,7 @@ class ScreenSizeUtil {
   static double get menuContainerHeight => 120.0;
   static double get maxMenuContainerWidth => 360.0;
 
-  static double get appBarHeight => 60.0;
+  static double get appBarHeight => 150.0;
   static double get generalElevation => 10.0;
 
   static double get calendarWidthFraction => 0.80;
@@ -18,6 +18,8 @@ class ScreenSizeUtil {
   static double get infoTextWidthFraction => 0.70;
 
   static double get evaluationIconSize => 80.0;
+
+  static double get infoPageItemFraction => 0.8;
 
   static double getFullWidth(final BuildContext context) {
     return MediaQuery.of(context).size.width;
@@ -44,5 +46,9 @@ class ScreenSizeUtil {
   static double getInfoTextWidth(final BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     return screenWidth * infoTextWidthFraction;
+  }
+
+  static double getInfoPageItemMaxWidth(final BuildContext context) {
+    return MediaQuery.of(context).size.width * infoPageItemFraction;
   }
 }

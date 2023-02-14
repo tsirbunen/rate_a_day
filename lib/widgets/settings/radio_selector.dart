@@ -5,7 +5,7 @@ class RadioSelector<T> extends StatelessWidget {
   final Map<T, String> data;
   final void Function(T?) onSelected;
   final String title;
-  final String? info;
+  final String info;
   final T currentValue;
 
   const RadioSelector({
@@ -13,7 +13,7 @@ class RadioSelector<T> extends StatelessWidget {
     required this.data,
     required this.onSelected,
     required this.title,
-    this.info,
+    required this.info,
     required this.currentValue,
   }) : super(key: key);
 
@@ -65,15 +65,14 @@ class RadioSelector<T> extends StatelessWidget {
                   ?.copyWith(color: themeData.colorScheme.primary),
             ),
           ),
-          if (info != null)
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
-              child: Text(
-                info!,
-                style: themeData.textTheme.bodyText1
-                    ?.copyWith(color: themeData.colorScheme.secondary),
-              ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
+            child: Text(
+              info,
+              style: themeData.textTheme.bodyText1
+                  ?.copyWith(color: themeData.colorScheme.secondary),
             ),
+          ),
           Column(
             children: _buildRadioItems(context),
           ),

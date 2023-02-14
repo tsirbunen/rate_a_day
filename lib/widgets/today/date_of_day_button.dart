@@ -4,13 +4,13 @@ import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
-class DateOfDay extends StatelessWidget {
-  const DateOfDay({Key? key}) : super(key: key);
+class DateOfDayButton extends StatelessWidget {
+  const DateOfDayButton({Key? key}) : super(key: key);
 
   void _handleTappedDate() {
     final NavigatorState? navigatorState = navigatorKey.currentState;
     if (navigatorState == null) return;
-    navigatorState.pushReplacementNamed(Calendar.routeName);
+    navigatorState.pushReplacementNamed(Month.routeName);
   }
 
   @override
@@ -37,15 +37,23 @@ class DateOfDay extends StatelessWidget {
 
           return GestureDetector(
             onTap: _handleTappedDate,
-            child: Column(
-              children: [
-                Text(minorText,
-                    style: themeData.textTheme.headline5
-                        ?.copyWith(color: themeData.colorScheme.secondary)),
-                Text(mainText,
-                    style: themeData.textTheme.headline1
-                        ?.copyWith(color: themeData.colorScheme.primary)),
-              ],
+            child: Container(
+              padding: const EdgeInsets.only(
+                  left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+              decoration: BoxDecoration(
+                color: themeData.colorScheme.tertiaryContainer,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                children: [
+                  Text(minorText,
+                      style: themeData.textTheme.headline5
+                          ?.copyWith(color: themeData.colorScheme.secondary)),
+                  Text(mainText,
+                      style: themeData.textTheme.headline1
+                          ?.copyWith(color: themeData.colorScheme.primary)),
+                ],
+              ),
             ),
           );
         });

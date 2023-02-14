@@ -9,16 +9,16 @@ class RouteGenerator {
     switch (routeName) {
       case '/':
       case '/today':
-        page = Today();
+        page = const Today();
         break;
-      case '/calendar':
-        page = Calendar();
+      case '/month':
+        page = const Month();
         break;
       case '/info':
-        page = Info();
+        page = const Info();
         break;
       case '/settings':
-        page = Settings();
+        page = const Settings();
         break;
       default:
         page = Scaffold(

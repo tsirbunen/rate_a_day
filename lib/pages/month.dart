@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
+import 'package:rate_a_day/packages/localizations.dart';
 
 class Month extends StatelessWidget {
   static const routeName = '/month';
@@ -11,9 +12,12 @@ class Month extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-    final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
-    final String title = settingsBloc.translate(Phrase.monthTitle);
-    final String subtitle = settingsBloc.translate(Phrase.monthSubtitle);
+    // final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
+    // final String title = settingsBloc.translate(Phrase.monthTitle);
+    // final String subtitle = settingsBloc.translate(Phrase.monthSubtitle);
+    // final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
+    final String title = context.translate(Phrase.monthTitle);
+    final String subtitle = context.translate(Phrase.monthSubtitle);
 
     return SafeArea(
       child: Scaffold(

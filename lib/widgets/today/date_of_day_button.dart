@@ -3,6 +3,7 @@ import 'package:rate_a_day/main.dart';
 import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/utils.dart';
+import 'package:rate_a_day/packages/localizations.dart';
 
 class DateOfDayButton extends StatelessWidget {
   const DateOfDayButton({Key? key}) : super(key: key);
@@ -16,8 +17,9 @@ class DateOfDayButton extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
-    final SettingsBloc settings = BlocProvider.of<SettingsBloc>(context);
+    // final SettingsBloc settings = BlocProvider.of<SettingsBloc>(context);
     final ThemeData themeData = Theme.of(context);
+    final Locale currentLocale = Localizations.localeOf(context);
 
     return StreamBuilder<DateTime>(
         stream: dataBloc.focusDate,
@@ -29,11 +31,11 @@ class DateOfDayButton extends StatelessWidget {
           final bool focusIsToday = DateTimeUtil.areSameDate(focusDate, today);
           final String date = DateTimeUtil.getDate(focusDate);
           final String mainText = focusIsToday
-              ? settings.translate(Phrase.today).toUpperCase()
+              ? context.translate(Phrase.today).toUpperCase()
               : date;
           final String minorText = focusIsToday
               ? date
-              : DateTimeUtil.getWeekday(focusDate, settings.translator);
+              : DateTimeUtil.getWeekday(focusDate.weekday, currentLocale);
 
           return GestureDetector(
             onTap: _handleTappedDate,

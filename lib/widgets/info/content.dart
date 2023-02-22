@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
+import 'package:rate_a_day/packages/localizations.dart';
 
 enum Item {
   whatIsItAbout,
@@ -27,16 +28,17 @@ class Content extends StatelessWidget {
   }) : super(key: key);
 
   Widget _buildDescriptions(
-      final BuildContext context,
-      final List<Phrase> descriptions,
-      final String Function(Phrase) translate) {
+    final BuildContext context,
+    final List<Phrase> descriptions,
+    // final String Function(Phrase) translate
+  ) {
     final ThemeData themeData = Theme.of(context);
     return Column(
       children: descriptions.map((final Phrase phrase) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
           child: Text(
-            translate(phrase),
+            context.translate(phrase),
             textAlign: TextAlign.left,
             style: themeData.textTheme.bodyText1
                 ?.copyWith(color: themeData.colorScheme.secondary),
@@ -46,7 +48,7 @@ class Content extends StatelessWidget {
     );
   }
 
-  _getItemData(final Item item, final String Function(Phrase) translate) {
+  _getItemData(final Item item) {
     switch (item) {
       case Item.whatIsItAbout:
         return const ItemData(
@@ -86,8 +88,8 @@ class Content extends StatelessWidget {
     final Item item =
         [Item.whatIsItAbout, Item.evaluateDay, Item.monthsEvaluations][index];
     final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
-    final String Function(Phrase) translate = settingsBloc.translate;
-    final ItemData itemData = _getItemData(item, translate);
+    // final String Function(Phrase) translate = settingsBloc.translate;
+    final ItemData itemData = _getItemData(item);
 
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
@@ -109,10 +111,10 @@ class Content extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ContentTitle(text: translate(itemData.title)),
+                      ContentTitle(text: context.translate(itemData.title)),
                     ],
                   ),
-                  _buildDescriptions(context, itemData.descriptions, translate)
+                  _buildDescriptions(context, itemData.descriptions)
                 ],
               ),
             ),

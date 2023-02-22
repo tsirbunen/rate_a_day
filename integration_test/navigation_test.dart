@@ -5,6 +5,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:rate_a_day/main.dart' as app;
 import 'package:rate_a_day/packages/models.dart';
 import 'package:rate_a_day/packages/utils.dart';
+import 'package:rate_a_day/packages/localizations.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();

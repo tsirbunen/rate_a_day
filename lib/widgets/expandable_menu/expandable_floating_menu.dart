@@ -4,6 +4,7 @@ import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rate_a_day/packages/pages.dart';
+import 'package:rate_a_day/packages/localizations.dart';
 
 class ExpandableFloatingMenu extends StatefulWidget {
   const ExpandableFloatingMenu({Key? key}) : super(key: key);
@@ -72,20 +73,20 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
     final List<List<dynamic>> routeData = [
       [
         Info.routeName,
-        settings.translate(Phrase.navigationInfo),
+        context.translate(Phrase.navigationInfo),
         menuWidth * 3 / 4
       ],
       [
         Settings.routeName,
-        settings.translate(Phrase.navigationSettings),
+        context.translate(Phrase.navigationSettings),
         menuWidth / 2
       ],
       [
         Month.routeName,
-        settings.translate(Phrase.navigationMonth),
+        context.translate(Phrase.navigationMonth),
         menuWidth / 4
       ],
-      [Today.routeName, settings.translate(Phrase.navigationToday), 0.0],
+      [Today.routeName, context.translate(Phrase.navigationToday), 0.0],
     ];
     return routeData.map((final List<dynamic> route) {
       return ExpandedButton(
@@ -143,7 +144,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
               child: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  settings.translate(Phrase.navigationMenu),
+                  context.translate(Phrase.navigationMenu),
                   style: themeData.textTheme.headline6?.copyWith(
                       color: themeData.colorScheme.secondaryContainer,
                       fontWeight: FontWeight.bold),

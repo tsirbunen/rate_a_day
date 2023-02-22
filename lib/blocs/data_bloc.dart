@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/blocs.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:rate_a_day/packages/models.dart';
@@ -7,9 +8,10 @@ import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:rate_a_day/packages/storage.dart';
+import 'package:rate_a_day/packages/localizations.dart';
 
 class DataBloc implements BlocBase {
-  late Translator translator;
+  Locale? _currentLocale;
   final BehaviorSubject<Rating> _rating = BehaviorSubject<Rating>();
   final BehaviorSubject<bool> _didLearnNew = BehaviorSubject<bool>();
   final BehaviorSubject<BuiltMap<int, DayData>> _monthsData =
@@ -25,14 +27,18 @@ class DataBloc implements BlocBase {
 
   List<StreamSubscription> listeners = <StreamSubscription>[];
 
-  DataBloc(final Translator commonTranslator) {
-    translator = commonTranslator;
+  DataBloc() {
+    // translator = commonTranslator;
     listeners.addAll([
       _focusDate.listen((final DateTime newFocusDate) =>
           _handleFocusDateChanged(newFocusDate)),
     ]);
 
     _focusDate.add(DateTimeUtil.getStartOfDate(DateTime.now()));
+  }
+
+  void setNewLocale(final Locale locale) {
+    _currentLocale = locale;
   }
 
   Future<void> _handleFocusDateChanged(final DateTime newFocusDate) async {
@@ -160,7 +166,8 @@ class DataBloc implements BlocBase {
   void _showErrorSnackBar(final Phrase message) {
     snackbarKey.currentState?.showSnackBar(CustomSnackbar.buildSnackbar(
       title: 'ERROR',
-      message: translator.get(message),
+      // RATLAISE TÄMÄ
+      message: 'ppppppppp', //// translator.get(message),
       action: () => {},
       isError: true,
     ));

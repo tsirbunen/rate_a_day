@@ -26,3 +26,5 @@ To run a single unit test file, for "example date_time_util_test.dart"
 To run integration tests
 `flutter test integration_test`
 Note: running integration tests is very time consuming as the app is built every time anew.
+
+flutter gen-l10n

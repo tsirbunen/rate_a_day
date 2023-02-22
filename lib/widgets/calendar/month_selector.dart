@@ -10,10 +10,11 @@ class MonthSelector extends StatelessWidget {
 
   Widget _buildMonthAndYear(
       final BuildContext context, final DateTime focusDate) {
-    final SettingsBloc settings = BlocProvider.of<SettingsBloc>(context);
+    // final SettingsBloc settings = BlocProvider.of<SettingsBloc>(context);
     final ThemeData themeData = Theme.of(context);
+    final Locale currentLocale = Localizations.localeOf(context);
     final String monthAndYear =
-        DateTimeUtil.getMonthAndYear(focusDate, settings.translator);
+        DateTimeUtil.getMonthAndYear(focusDate, currentLocale);
     return Text(
       monthAndYear,
       style: themeData.textTheme.headline5?.copyWith(

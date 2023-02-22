@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/blocs.dart';
+import 'package:rate_a_day/packages/localizations.dart';
 import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
@@ -30,7 +31,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
-    final String appTitle = settingsBloc.translate(Phrase.appTitle);
+    final String appTitle = context.translate(Phrase.appTitle);
 
     // final String displayName =
     //     _getPageDisplayName(context, settingsBloc.translate);

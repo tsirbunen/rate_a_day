@@ -1,4 +1,5 @@
-import 'package:rate_a_day/packages/utils.dart';
+import 'package:flutter/material.dart';
+// import 'package:rate_a_day/packages/utils.dart';
 
 class DateTimeUtil {
   static String getDate(final DateTime dateTime) {
@@ -8,16 +9,15 @@ class DateTimeUtil {
     return '$day.$month.$year';
   }
 
-  static String getWeekday(
-      final DateTime dateTime, final Translator translator) {
-    final weekday = dateTime.weekday;
-    return translator.getWeekday(weekday);
-  }
+  // static String getWeekday(
+  //     final DateTime dateTime, final Translator translator) {
+  //   final weekday = dateTime.weekday;
+  //   return translator.getWeekday(weekday);
+  // }
 
-  static String getMonthAndYear(
-      final DateTime dateTime, final Translator translator) {
+  static String getMonthAndYear(final DateTime dateTime, final Locale locale) {
     final year = dateTime.year;
-    final month = translator.getMonth(dateTime.month);
+    final month = getMonth(dateTime.month, locale);
     return '$month $year';
   }
 
@@ -107,4 +107,72 @@ class DateTimeUtil {
     }
     return allDays;
   }
+
+  static String getMonth(final int index, final Locale locale) {
+    assert(index >= 1 && index <= 12, 'Month index must be in range 1...12');
+    if (locale.countryCode == 'fi') return monthsFI[index];
+    return monthsEN[index];
+  }
+
+  static String getWeekday(final int index, final Locale locale) {
+    assert(index >= 1 && index <= 7, 'Weekday index must be in range 1...7');
+    if (locale.countryCode == 'fi') return weekdaysFI[index]!;
+    return weekdaysEN[index]!;
+  }
+
+  static List<String> getDayAbbreviations(final Locale locale) {
+    final Map<int, String> weekdaysMap =
+        locale.countryCode == 'fi' ? weekdaysFI : weekdaysEN;
+    final List<String> weekdays = weekdaysMap.values.toList();
+    return weekdays.map((day) => day[0]).toList();
+  }
 }
+
+final Map<int, String> weekdaysEN = {
+  DateTime.monday: 'Monday',
+  DateTime.tuesday: 'Tuesday',
+  DateTime.wednesday: 'Wednesday',
+  DateTime.thursday: 'Thursday',
+  DateTime.friday: 'Friday',
+  DateTime.saturday: 'Saturday',
+  DateTime.sunday: 'Sunday',
+};
+final Map<int, String> weekdaysFI = {
+  DateTime.monday: 'Maanantai',
+  DateTime.tuesday: 'Tiistai',
+  DateTime.wednesday: 'Keskiviikko',
+  DateTime.thursday: 'Torstai',
+  DateTime.friday: 'Perjantai',
+  DateTime.saturday: 'Lauantai',
+  DateTime.sunday: 'Sunnuntai',
+};
+
+final Map monthsEN = {
+  1: 'January',
+  2: 'February',
+  3: 'March',
+  4: 'April',
+  5: 'May',
+  6: 'June',
+  7: 'July',
+  8: 'August',
+  9: 'September',
+  10: 'October',
+  11: 'November',
+  12: 'December',
+};
+
+final Map monthsFI = {
+  1: 'Tammikuu',
+  2: 'Helmikuu',
+  3: 'Maaliskuu',
+  4: 'Huhtikuu',
+  5: 'Toukokuu',
+  6: 'Kesäkuu',
+  7: 'Heinäkuu',
+  8: 'Elokuu',
+  9: 'Syyskuu',
+  10: 'Lokakuu',
+  11: 'Marraskuu',
+  12: 'Joulukuu',
+};

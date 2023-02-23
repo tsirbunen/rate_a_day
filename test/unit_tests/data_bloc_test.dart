@@ -15,8 +15,7 @@ void main() {
   });
   group('Data bloc', () {
     test('Rating a day updates the respective stream correctly', () async {
-      final Translator translator = Translator(Language.EN);
-      final DataBloc dataBloc = DataBloc(translator);
+      final DataBloc dataBloc = DataBloc();
       final ValueStream<Rating> stream = dataBloc.rating;
 
       dataBloc.rate(Rating.HAPPY);
@@ -31,8 +30,7 @@ void main() {
 
     test('Toggling did learn new updates the respective stream correctly',
         () async {
-      final Translator translator = Translator(Language.EN);
-      final DataBloc dataBloc = DataBloc(translator);
+      final DataBloc dataBloc = DataBloc();
       final ValueStream<bool> stream = dataBloc.didLearnNew;
 
       dataBloc.toggleDidLearn(true);
@@ -46,8 +44,7 @@ void main() {
     });
 
     test("Day's data can be saved and retrieved from data storage", () async {
-      final Translator translator = Translator(Language.EN);
-      final DataBloc dataBloc = DataBloc(translator);
+      final DataBloc dataBloc = DataBloc();
       dataBloc.rate(Rating.HAPPY);
       dataBloc.toggleDidLearn(true);
       final ValueStream<BuiltMap<int, DayData>> stream = dataBloc.monthsData;
@@ -66,8 +63,7 @@ void main() {
     test(
         "After changing focus dates and saving data, all streams are properly updated",
         () async {
-      final Translator translator = Translator(Language.EN);
-      final DataBloc dataBloc = DataBloc(translator);
+      final DataBloc dataBloc = DataBloc();
 
       final DateTime firstFocusDate =
           DateTimeUtil.getStartOfDate(DateTime(2023, 2, 6));
@@ -108,8 +104,7 @@ void main() {
     });
 
     test("Old data can be later updated", () async {
-      final Translator translator = Translator(Language.EN);
-      final DataBloc dataBloc = DataBloc(translator);
+      final DataBloc dataBloc = DataBloc();
 
       final DateTime firstFocusDate =
           DateTimeUtil.getStartOfDate(DateTime(2023, 1, 12));
@@ -138,8 +133,7 @@ void main() {
     });
 
     test('Evaluations update the status correctly (unevaluated day)', () async {
-      final Translator translator = Translator(Language.EN);
-      final DataBloc dataBloc = DataBloc(translator);
+      final DataBloc dataBloc = DataBloc();
       final ValueStream<Status> stream = dataBloc.status;
 
       dataBloc.rate(Rating.HAPPY);
@@ -153,8 +147,7 @@ void main() {
     });
 
     test("Day's data can be saved and retrieved from data storage", () async {
-      final Translator translator = Translator(Language.EN);
-      final DataBloc dataBloc = DataBloc(translator);
+      final DataBloc dataBloc = DataBloc();
 
       final DateTime firstFocusDate =
           DateTimeUtil.getStartOfDate(DateTime(2023, 2, 6));

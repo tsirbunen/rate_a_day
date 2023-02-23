@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/localizations.dart';
-import 'package:rate_a_day/packages/models.dart';
 import 'package:rate_a_day/packages/theme.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rate_a_day/router/route_generator.dart';
@@ -31,13 +30,36 @@ class RateADayApp extends StatelessWidget {
     );
   }
 
+  Locale _resolveLocale(
+    List<Locale>? locales,
+    Iterable<Locale> supportedLocales,
+    final Locale? selectedLocale,
+  ) {
+    String? code;
+    if (selectedLocale == null) {
+      if (locales != null && locales.isNotEmpty) {
+        code = locales[0].toString().substring(0, 2);
+      } else {
+        code = supportedLocales.toList()[0].toString().substring(0, 2);
+      }
+    } else {
+      code = selectedLocale.languageCode;
+    }
+
+    switch (code) {
+      case 'fi':
+        return const Locale('fi');
+      default:
+        return const Locale('en');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final SettingsBloc settingsBloc = SettingsBloc();
-    // final Translator translator = settingsBloc.translator;
     final DataBloc dataBloc = DataBloc();
 
-    // TODO SET UP iOS LOCALIZATION STUFF!!!
+    // TODO: SET UP iOS LOCALIZATION STUFF!!!
     return BlocProvider(
       bloc: settingsBloc,
       blocDisposer: (final SettingsBloc settingsBloc) => settingsBloc.dispose(),
@@ -50,7 +72,7 @@ class RateADayApp extends StatelessWidget {
                 final AsyncSnapshot<Locale?> snapshot) {
               final Locale? selectedLocale =
                   snapshot.hasData ? snapshot.data : null;
-              print('snap........ ${snapshot.data}');
+
               return MaterialApp(
                 title: 'app',
                 theme: themeData,
@@ -58,46 +80,18 @@ class RateADayApp extends StatelessWidget {
                 onGenerateRoute: RouteGenerator.generateRoute,
                 builder: _buildPage,
                 scaffoldMessengerKey: snackbarKey,
-                locale: selectedLocale == null
-                    ? const Locale('en')
-                    : selectedLocale.countryCode == 'fi'
-                        ? const Locale('fi')
-                        : const Locale('en'),
-                localeResolutionCallback:
-                    (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
-                  print(
-                      'localeResolutionCallback+++++++++++++++++ $selectedLocale');
-                  if (selectedLocale != null) {
-                    print('asetetaan valittu kieli $selectedLocale');
-                    if (selectedLocale.languageCode == 'fi') {
-                      return const Locale('fi');
-                    } else {
-                      return const Locale('en');
-                    }
-                  }
-                  //Pitäisi olla locale, mutta onkin string!!!
-                  if (deviceLocale.toString().startsWith('en')) {
-                    return const Locale('en');
-                  }
-
-                  if (deviceLocale.toString().startsWith('fi')) {
-                    return const Locale('fi');
-                  }
-
-                  print(deviceLocale); //en_US
-                  print(supportedLocales);
-                  // return deviceLocale;
-                  // Tänne oikea, joka tulee blokista
-                  return const Locale('en');
+                locale: selectedLocale,
+                localeListResolutionCallback:
+                    (List<Locale>? locales, Iterable<Locale> supportedLocales) {
+                  return _resolveLocale(
+                      locales, supportedLocales, selectedLocale);
                 },
-                // supportedLocales: [Locale('en'), Locale('fi')],
                 localizationsDelegates: const [
                   CustomLocalizations.delegate,
                   GlobalMaterialLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                 ],
-                // localizationsDelegates: CustomLocalizations.delegate,
                 supportedLocales: CustomLocalizations.supportedLocales,
               );
             }),
@@ -105,7 +99,3 @@ class RateADayApp extends StatelessWidget {
     );
   }
 }
-
-// extension LocalizedBuildContext on BuildContext {
-//   CustomLocalizations get loc => CustomLocalizations.of(this);
-// }

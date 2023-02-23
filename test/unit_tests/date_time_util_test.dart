@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rate_a_day/packages/models.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
 void main() {
@@ -25,10 +25,10 @@ void main() {
         'Friday': DateTime(2023, 2, 3),
         'Wednesday': DateTime(2023, 1, 25),
       };
-      final Translator translator = Translator(Language.EN);
 
       data.forEach((final String weekday, final DateTime date) {
-        final String result = DateTimeUtil.getWeekday(date, translator);
+        final String result =
+            DateTimeUtil.getWeekday(date.weekday, const Locale('en'));
         expect(result, equals(weekday));
       });
     });
@@ -40,10 +40,10 @@ void main() {
         'Perjantai': DateTime(2023, 2, 3),
         'Keskiviikko': DateTime(2023, 1, 25),
       };
-      final Translator translator = Translator(Language.FI);
 
       data.forEach((final String weekday, final DateTime date) {
-        final String result = DateTimeUtil.getWeekday(date, translator);
+        final String result =
+            DateTimeUtil.getWeekday(date.weekday, const Locale('fi'));
         expect(result, equals(weekday));
       });
     });
@@ -55,10 +55,10 @@ void main() {
         'December 2022': DateTime(2022, 12, 12),
         'August 2003': DateTime(2003, 8, 25),
       };
-      final Translator translator = Translator(Language.EN);
 
       data.forEach((final String monthAndYear, final DateTime date) {
-        final String result = DateTimeUtil.getMonthAndYear(date, translator);
+        final String result =
+            DateTimeUtil.getMonthAndYear(date, const Locale('en'));
         expect(result, equals(monthAndYear));
       });
     });
@@ -70,10 +70,10 @@ void main() {
         'Joulukuu 2022': DateTime(2022, 12, 12),
         'Elokuu 2003': DateTime(2003, 8, 25),
       };
-      final Translator translator = Translator(Language.FI);
 
       data.forEach((final String monthAndYear, final DateTime date) {
-        final String result = DateTimeUtil.getMonthAndYear(date, translator);
+        final String result =
+            DateTimeUtil.getMonthAndYear(date, const Locale('fi'));
         expect(result, equals(monthAndYear));
       });
     });
@@ -220,6 +220,80 @@ void main() {
             DateTimeUtil.arrangeDaysOfMonth(DateTime.parse(date));
         expect(result, equals(days));
       });
+    });
+
+    test('DateTimeUtil returns correct month in English', () {
+      final Map<int, String> data = {
+        1: 'January',
+        5: 'May',
+        8: 'August',
+        11: 'November',
+      };
+
+      data.forEach((final int monthNumber, final String monthName) {
+        final String result =
+            DateTimeUtil.getMonth(monthNumber, const Locale('en'));
+        expect(result, equals(monthName));
+      });
+    });
+
+    test('Translator returns correct month in Finnish', () {
+      final Map<int, String> data = {
+        1: 'Tammikuu',
+        5: 'Toukokuu',
+        8: 'Elokuu',
+        11: 'Marraskuu',
+      };
+
+      data.forEach((final int monthNumber, final String monthName) {
+        final String result =
+            DateTimeUtil.getMonth(monthNumber, const Locale('fi'));
+        expect(result, equals(monthName));
+      });
+    });
+
+    test('Translator returns correct weekday in English', () {
+      final Map<int, String> data = {
+        1: 'Monday',
+        5: 'Friday',
+        7: 'Sunday',
+      };
+
+      data.forEach((final int weekdayNumber, final String weekdayName) {
+        final String result =
+            DateTimeUtil.getWeekday(weekdayNumber, const Locale('en'));
+        expect(result, equals(weekdayName));
+      });
+    });
+
+    test('Translator returns correct weekday in Finnish', () {
+      final Map<int, String> data = {
+        1: 'Maanantai',
+        5: 'Perjantai',
+        7: 'Sunnuntai',
+      };
+
+      data.forEach((final int weekdayNumber, final String weekdayName) {
+        final String result =
+            DateTimeUtil.getWeekday(weekdayNumber, const Locale('fi'));
+        expect(result, equals(weekdayName));
+      });
+    });
+
+    test('Translator returns correct day abbreviations in English', () {
+      final List<String> data = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+
+      final List<String> result =
+          DateTimeUtil.getDayAbbreviations(const Locale('en'));
+      expect(result, equals(data));
+    });
+
+    test('Translator returns correct day abbreviations in Finnish', () {
+      final List<String> data = ['M', 'T', 'K', 'T', 'P', 'L', 'S'];
+
+      final List<String> result =
+          DateTimeUtil.getDayAbbreviations(const Locale('fi'));
+      expect(result, equals(data));
     });
   });
 }

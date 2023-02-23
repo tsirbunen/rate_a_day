@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rate_a_day/packages/blocs.dart';
-import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rate_a_day/packages/localizations.dart';
 
@@ -33,10 +31,6 @@ class _InfoState extends State<Info> {
   @override
   Widget build(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-    // final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
-    // final String title = settingsBloc.translate(Phrase.infoTitle);
-    // final String subtitle = settingsBloc.translate(Phrase.infoSubtitle);
-    // final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
     final String title = context.translate(Phrase.infoTitle);
     final String subtitle = context.translate(Phrase.infoSubtitle);
 

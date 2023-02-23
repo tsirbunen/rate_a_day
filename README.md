@@ -22,7 +22,7 @@ If you keep recording your daily evaluations, then, next time you feel miserable
 To run all unit tests
 `flutter test test/tests`
 To run a single unit test file, for "example date_time_util_test.dart"
-`flutter test test/tests/date_time_util_test.dart`
+`flutter test test/unit_tests/date_time_util_test.dart`
 To run integration tests
 `flutter test integration_test`
 Note: running integration tests is very time consuming as the app is built every time anew.

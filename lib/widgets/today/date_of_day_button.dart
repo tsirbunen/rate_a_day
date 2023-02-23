@@ -17,7 +17,6 @@ class DateOfDayButton extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
-    // final SettingsBloc settings = BlocProvider.of<SettingsBloc>(context);
     final ThemeData themeData = Theme.of(context);
     final Locale currentLocale = Localizations.localeOf(context);
 

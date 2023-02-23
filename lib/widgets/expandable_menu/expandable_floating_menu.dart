@@ -101,7 +101,6 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
 
   Widget _buildFloatingMenuButton(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-    final SettingsBloc settings = BlocProvider.of<SettingsBloc>(context);
 
     final double size = ScreenSizeUtil.menuButtonBoxWidth;
     double menuWidth = ScreenSizeUtil.getMenuContainerWidth(context);

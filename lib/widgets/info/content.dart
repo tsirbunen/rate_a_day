@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rate_a_day/packages/blocs.dart';
-import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rate_a_day/packages/localizations.dart';
 
@@ -28,10 +26,7 @@ class Content extends StatelessWidget {
   }) : super(key: key);
 
   Widget _buildDescriptions(
-    final BuildContext context,
-    final List<Phrase> descriptions,
-    // final String Function(Phrase) translate
-  ) {
+      final BuildContext context, final List<Phrase> descriptions) {
     final ThemeData themeData = Theme.of(context);
     return Column(
       children: descriptions.map((final Phrase phrase) {
@@ -85,10 +80,11 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Item item =
-        [Item.whatIsItAbout, Item.evaluateDay, Item.monthsEvaluations][index];
-    final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
-    // final String Function(Phrase) translate = settingsBloc.translate;
+    final Item item = [
+      Item.whatIsItAbout,
+      Item.evaluateDay,
+      Item.monthsEvaluations,
+    ][index];
     final ItemData itemData = _getItemData(item);
 
     return SizedBox(

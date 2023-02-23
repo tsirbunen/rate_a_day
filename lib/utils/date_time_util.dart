@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:rate_a_day/packages/utils.dart';
 
 class DateTimeUtil {
   static String getDate(final DateTime dateTime) {
@@ -8,12 +7,6 @@ class DateTimeUtil {
     final day = dateTime.day;
     return '$day.$month.$year';
   }
-
-  // static String getWeekday(
-  //     final DateTime dateTime, final Translator translator) {
-  //   final weekday = dateTime.weekday;
-  //   return translator.getWeekday(weekday);
-  // }
 
   static String getMonthAndYear(final DateTime dateTime, final Locale locale) {
     final year = dateTime.year;
@@ -110,19 +103,19 @@ class DateTimeUtil {
 
   static String getMonth(final int index, final Locale locale) {
     assert(index >= 1 && index <= 12, 'Month index must be in range 1...12');
-    if (locale.countryCode == 'fi') return monthsFI[index];
+    if (locale.languageCode == 'fi') return monthsFI[index];
     return monthsEN[index];
   }
 
   static String getWeekday(final int index, final Locale locale) {
     assert(index >= 1 && index <= 7, 'Weekday index must be in range 1...7');
-    if (locale.countryCode == 'fi') return weekdaysFI[index]!;
+    if (locale.languageCode == 'fi') return weekdaysFI[index]!;
     return weekdaysEN[index]!;
   }
 
   static List<String> getDayAbbreviations(final Locale locale) {
     final Map<int, String> weekdaysMap =
-        locale.countryCode == 'fi' ? weekdaysFI : weekdaysEN;
+        locale.languageCode == 'fi' ? weekdaysFI : weekdaysEN;
     final List<String> weekdays = weekdaysMap.values.toList();
     return weekdays.map((day) => day[0]).toList();
   }

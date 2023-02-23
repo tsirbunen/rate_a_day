@@ -10,12 +10,10 @@ class CalendarMonth extends StatelessWidget {
   const CalendarMonth({Key? key, required this.focusDate}) : super(key: key);
 
   TableRow _buildDayLabelRow(final BuildContext context) {
-    // final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
     final ThemeData themeData = Theme.of(context);
     final Locale currentLocale = Localizations.localeOf(context);
     final List<String> dayAbbreviations =
         DateTimeUtil.getDayAbbreviations(currentLocale);
-    // settingsBloc.translator.getDayAbbreviations();
 
     return TableRow(
       children: dayAbbreviations

@@ -17,23 +17,24 @@ class Today extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar(),
+        appBar: const CustomAppBar(),
         body: Center(
-            child: Container(
-          color: themeData.colorScheme.background,
-          child: Column(
-            children: [
-              PageTitle(title: title),
-              PageSubtitle(subtitle: subtitle),
-              const DateOfDayButton(),
-              ParagraphTitle(title: happyOrNot),
-              const HappyOrNotSelection(),
-              ParagraphTitle(title: didLearnNew),
-              const DidLearnToggle(),
-              const SaveButton(),
-            ],
+          child: Container(
+            color: themeData.colorScheme.background,
+            child: Column(
+              children: [
+                PageTitle(title: title),
+                PageSubtitle(subtitle: subtitle),
+                const DateOfDayButton(),
+                ParagraphTitle(title: happyOrNot),
+                const HappyOrNotSelection(),
+                ParagraphTitle(title: didLearnNew),
+                const DidLearnToggle(),
+                const SaveButton(),
+              ],
+            ),
           ),
-        )),
+        ),
       ),
     );
   }

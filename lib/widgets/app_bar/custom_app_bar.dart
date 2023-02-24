@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/localizations.dart';
 import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/utils.dart';
@@ -12,29 +11,18 @@ final Map<String, Phrase> routes = {
   Info.routeName: Phrase.routeInfo,
 };
 
-final double titleContainerHeight = 40; // ScreenSizeUtil.appBarHeight;
+const double titleContainerHeight = 40;
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  CustomAppBar({Key? key}) : super(key: key);
+  const CustomAppBar({Key? key}) : super(key: key);
 
-  final Size _preferredSize = Size.fromHeight(titleContainerHeight);
-
-  // String _getPageDisplayName(final BuildContext context, final translate) {
-  //   final String pageName = ModalRoute.of(context)?.settings.name ?? '';
-  //   if (pageName.isNotEmpty && routes.containsKey(pageName)) {
-  //     return translate(routes[pageName]!);
-  //   }
-  //   return '';
-  // }
+  final Size _preferredSize = const Size.fromHeight(titleContainerHeight);
 
   @override
   Widget build(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-    final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
     final String appTitle = context.translate(Phrase.appTitle);
 
-    // final String displayName =
-    //     _getPageDisplayName(context, settingsBloc.translate);
     final Color textColor = themeData.colorScheme.onSecondaryContainer;
 
     return PreferredSize(
@@ -54,9 +42,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       textAlign: TextAlign.center,
                       style: themeData.textTheme.headline5
                           ?.copyWith(color: textColor)),
-                  // Text(displayName,
-                  //     style: themeData.textTheme.headline4
-                  //         ?.copyWith(color: textColor)),
                 ]),
           ),
         ),

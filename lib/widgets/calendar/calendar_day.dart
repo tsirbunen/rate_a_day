@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/blocs.dart';
+import 'package:rate_a_day/packages/localizations.dart';
 import 'package:rate_a_day/packages/models.dart';
 import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/main.dart';
+import 'package:rate_a_day/packages/widgets.dart';
 
 class CalendarDay extends StatelessWidget {
   final int day;
@@ -93,35 +95,44 @@ class CalendarDay extends StatelessWidget {
     );
   }
 
+  void _showSnackbar(final BuildContext context, final Phrase phrase) {
+    snackbarKey.currentState?.showSnackBar(CustomSnackbar.buildSnackbar(
+      title: 'ERROR',
+      message: context.translate(phrase),
+      action: () => {},
+      isError: true,
+    ));
+  }
+
   @override
   Widget build(final BuildContext context) {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
     final ThemeData themeData = Theme.of(context);
 
     return StreamBuilder<DateTime>(
-        stream: dataBloc.focusDate,
-        builder:
-            (final BuildContext context, AsyncSnapshot<DateTime> snapshot) {
-          final DateTime focusDate =
-              snapshot.hasData ? snapshot.data! : DateTime.now();
-          final DateTime newFocusDate =
-              DateTime(focusDate.year, focusDate.month, day);
-          final bool isDisabled = (newFocusDate.compareTo(DateTime.now()) > 0);
-          final void Function() onTap = isDisabled
-              ? () {}
-              : () => _handleTappedDay(newFocusDate, dataBloc.changeFocusDate);
+      stream: dataBloc.focusDate,
+      builder: (final BuildContext context, AsyncSnapshot<DateTime> snapshot) {
+        final DateTime focusDate =
+            snapshot.hasData ? snapshot.data! : DateTime.now();
+        final DateTime newFocusDate =
+            DateTime(focusDate.year, focusDate.month, day);
+        final bool isDisabled = (newFocusDate.compareTo(DateTime.now()) > 0);
+        final void Function() onTap = isDisabled
+            ? () => _showSnackbar(context, Phrase.cannotRateFuture)
+            : () => _handleTappedDay(newFocusDate, dataBloc.changeFocusDate);
 
-          return SizedBox(
-            width: 60,
-            height: 66,
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                _buildDayNumber(context),
-                _buildDayIcon(themeData, onTap),
-              ],
-            ),
-          );
-        });
+        return SizedBox(
+          width: 60,
+          height: 66,
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              _buildDayNumber(context),
+              _buildDayIcon(themeData, onTap),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

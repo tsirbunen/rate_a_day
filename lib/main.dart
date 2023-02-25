@@ -37,11 +37,9 @@ class RateADayApp extends StatelessWidget {
   ) {
     String? code;
     if (selectedLocale == null) {
-      if (locales != null && locales.isNotEmpty) {
-        code = locales[0].toString().substring(0, 2);
-      } else {
-        code = supportedLocales.toList()[0].toString().substring(0, 2);
-      }
+      code = locales != null && locales.isNotEmpty
+          ? locales[0].toString().substring(0, 2)
+          : supportedLocales.toList()[0].toString().substring(0, 2);
     } else {
       code = selectedLocale.languageCode;
     }
@@ -72,6 +70,7 @@ class RateADayApp extends StatelessWidget {
                 final AsyncSnapshot<Locale?> snapshot) {
               final Locale? selectedLocale =
                   snapshot.hasData ? snapshot.data : null;
+              if (selectedLocale != null) dataBloc.setNewLocale(selectedLocale);
 
               return MaterialApp(
                 title: 'app',

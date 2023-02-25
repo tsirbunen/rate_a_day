@@ -55,4 +55,5 @@ Map<Phrase, String> dictionaryEN = {
       'Below the calendar are the "statistics" ot the month under inspection. For example, if you tapped "did learn new" on 12 different days, the number next to the rocket is 12.',
   Phrase.monthsSummary4:
       'If you want to change the evaluation made for some day, just tap the day in the calendar, and you are directed to the day evaluation page.',
+  Phrase.cannotRateFuture: 'One cannot rate dates that are in the future.',
 };

@@ -49,6 +49,11 @@ class DateTimeUtil {
     return DateTime(datetime.year, datetime.month, datetime.day);
   }
 
+  static bool isFutureMonth(final DateTime startOfNextMonth) {
+    final DateTime startOfToday = getStartOfDate(DateTime.now());
+    return startOfToday.compareTo(startOfNextMonth) <= 0;
+  }
+
   static bool isFutureDate(final DateTime datetime) {
     final DateTime startOfToday = DateTimeUtil.getStartOfDate(DateTime.now());
     final DateTime startOfDatetime = DateTimeUtil.getStartOfDate(datetime);

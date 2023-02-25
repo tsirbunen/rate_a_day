@@ -11,7 +11,7 @@ import 'package:rate_a_day/packages/storage.dart';
 import 'package:rate_a_day/packages/localizations.dart';
 
 class DataBloc implements BlocBase {
-  Locale? _currentLocale;
+  Locale _currentLocale = const Locale('en');
   final BehaviorSubject<Rating> _rating = BehaviorSubject<Rating>();
   final BehaviorSubject<bool> _didLearnNew = BehaviorSubject<bool>();
   final BehaviorSubject<BuiltMap<int, DayData>> _monthsData =
@@ -28,7 +28,6 @@ class DataBloc implements BlocBase {
   List<StreamSubscription> listeners = <StreamSubscription>[];
 
   DataBloc() {
-    // translator = commonTranslator;
     listeners.addAll([
       _focusDate.listen((final DateTime newFocusDate) =>
           _handleFocusDateChanged(newFocusDate)),
@@ -166,8 +165,7 @@ class DataBloc implements BlocBase {
   void _showErrorSnackBar(final Phrase message) {
     snackbarKey.currentState?.showSnackBar(CustomSnackbar.buildSnackbar(
       title: 'ERROR',
-      // RATLAISE TÄMÄ
-      message: 'ppppppppp', //// translator.get(message),
+      message: translatePhrase(message, _currentLocale),
       action: () => {},
       isError: true,
     ));

@@ -55,4 +55,5 @@ Map<Phrase, String> dictionaryFI = {
       'Kalenterin alapuolella on esitetty kuukauden "statistiikka". Jos esimerkiksi näpäytit 12 päivänä "opin uutta", näytetään raketin vieressä numero 12.',
   Phrase.monthsSummary4:
       'Jos haluat muuttaa jonkin päivän arviointia, näpäytä päivää kalenterissa, ja sinut ohjataan suoraan päivän arviointiin.',
+  Phrase.cannotRateFuture: 'Tulevaisuudessa olevia päiviä ei voi arvioida.',
 };

@@ -59,3 +59,10 @@ extension LocalizedBuildContext on BuildContext {
   String translate(final Phrase phrase) =>
       CustomLocalizations.of(this).translate(phrase);
 }
+
+translatePhrase(final Phrase phrase, final Locale locale) {
+  if (locale.languageCode == 'fi') {
+    return dictionaryFI[phrase];
+  }
+  return dictionaryEN[phrase];
+}

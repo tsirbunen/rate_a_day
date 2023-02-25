@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/blocs.dart';
+import 'package:rate_a_day/packages/localizations.dart';
 import 'package:rate_a_day/packages/utils.dart';
+import 'package:rate_a_day/packages/widgets.dart';
 
 enum Mode { history, future }
 
@@ -24,12 +26,23 @@ class MonthSelector extends StatelessWidget {
     );
   }
 
+  void _showSnackbar(final BuildContext context, final Phrase phrase) {
+    snackbarKey.currentState?.showSnackBar(CustomSnackbar.buildSnackbar(
+      title: 'ERROR',
+      message: context.translate(phrase),
+      action: () => {},
+      isError: true,
+    ));
+  }
+
   Widget _buildChangeMonth(
       final BuildContext context, final Mode mode, final DateTime targetDate) {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
     final ThemeData themeData = Theme.of(context);
     final iconData =
         mode == Mode.history ? Icons.chevron_left : Icons.chevron_right;
+    final bool isFutureMonth = DateTimeUtil.isFutureMonth(targetDate);
+
     return Material(
       borderRadius: BorderRadius.circular(45.0),
       color: Colors.transparent,
@@ -43,7 +56,9 @@ class MonthSelector extends StatelessWidget {
             color: themeData.colorScheme.primary,
             size: 45,
           ),
-          onTap: () => dataBloc.changeFocusDate(targetDate),
+          onTap: isFutureMonth
+              ? () => _showSnackbar(context, Phrase.cannotRateFuture)
+              : () => dataBloc.changeFocusDate(targetDate),
         ),
       ),
     );

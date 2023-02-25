@@ -36,7 +36,7 @@ class _InfoState extends State<Info> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar(),
+        appBar: const CustomAppBar(),
         body: Container(
           color: themeData.colorScheme.background,
           padding: const EdgeInsets.all(20.0),

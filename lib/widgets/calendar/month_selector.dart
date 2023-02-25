@@ -6,6 +6,7 @@ enum Mode { history, future }
 
 class MonthSelector extends StatelessWidget {
   final DateTime focusDate;
+
   const MonthSelector({Key? key, required this.focusDate}) : super(key: key);
 
   Widget _buildMonthAndYear(

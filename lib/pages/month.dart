@@ -15,7 +15,7 @@ class Month extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar(),
+        appBar: const CustomAppBar(),
         body: Container(
           color: themeData.colorScheme.background,
           child: Center(

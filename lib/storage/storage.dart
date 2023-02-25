@@ -70,7 +70,8 @@ class Storage {
     return DayDataOperations.extractDataFromRowData(dayData);
   }
 
-  static Future<void> emptyDatabase(final sql.Database database) async {
+  static Future<void> emptyDatabase() async {
+    final database = await Storage.database();
     await database.execute('''DELETE FROM day''');
   }
 }

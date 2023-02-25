@@ -59,7 +59,7 @@ Future main() async {
 
   tearDown(() async {
     final Database d = await Storage.database();
-    await Storage.emptyDatabase(d);
+    await Storage.emptyDatabase();
     await d.close();
   });
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rate_a_day/packages/localizations.dart';
 
@@ -28,12 +29,14 @@ class Content extends StatelessWidget {
   Widget _buildDescriptions(
       final BuildContext context, final List<Phrase> descriptions) {
     final ThemeData themeData = Theme.of(context);
+    final TextStyle style = StyleUtil.description(themeData);
+
     return Column(
       children: descriptions.map((final Phrase phrase) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
           child: Text(context.translate(phrase),
-              textAlign: TextAlign.left, style: themeData.textTheme.bodyText1),
+              textAlign: TextAlign.left, style: style),
         );
       }).toList(),
     );

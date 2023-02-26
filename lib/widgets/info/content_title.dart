@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rate_a_day/packages/utils.dart';
 
 class ContentTitle extends StatelessWidget {
   final String text;
@@ -9,6 +10,8 @@ class ContentTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+    final TextStyle style = StyleUtil.contentTitle(themeData);
+
     return Container(
       width: width,
       margin: const EdgeInsets.only(bottom: 5.0, top: 20.0),
@@ -16,7 +19,7 @@ class ContentTitle extends StatelessWidget {
         text,
         textAlign: TextAlign.center,
         overflow: TextOverflow.clip,
-        style: themeData.textTheme.headline4,
+        style: style,
       ),
     );
   }

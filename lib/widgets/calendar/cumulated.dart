@@ -20,8 +20,7 @@ class Cumulated extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     final IconData iconData = Evaluations.getIcon(evaluation);
     final Color color = _getColor(themeData);
-    final TextStyle style =
-        themeData.textTheme.headlineLarge!.copyWith(color: color);
+    final TextStyle style = StyleUtil.cumulatedText(themeData, color);
 
     return Container(
       margin: const EdgeInsets.only(left: 5.0, right: 5.0),

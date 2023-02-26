@@ -20,6 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final String appTitle = context.translate(Phrase.appTitle);
+    final TextStyle style = StyleUtil.appTitle(themeData);
 
     return PreferredSize(
         child: AppBar(
@@ -34,9 +35,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(appTitle,
-                      textAlign: TextAlign.center,
-                      style: themeData.textTheme.bodyText2),
+                  Text(appTitle, textAlign: TextAlign.center, style: style),
                 ]),
           ),
         ),

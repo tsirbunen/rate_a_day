@@ -19,9 +19,11 @@ class MonthSelector extends StatelessWidget {
     final bool shortMonthName = textScaleFactor > 1.0;
     final String monthAndYear =
         DateTimeUtil.getMonthAndYear(focusDate, currentLocale, shortMonthName);
+    final TextStyle style = StyleUtil.monthAndYear(themeData);
+
     return Text(
       monthAndYear,
-      style: themeData.textTheme.headline4?.copyWith(fontSize: 26),
+      style: style,
     );
   }
 

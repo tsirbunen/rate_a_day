@@ -7,7 +7,11 @@ const Color didLearnBlue = Color.fromARGB(255, 33, 150, 243); //Colors.blue[500]
 const Color veryDarkGrey = Color.fromARGB(255, 66, 66, 66); // Colors.grey[800],
 const Color mediumGrey = Color.fromARGB(255, 158, 158, 158); //Colors.grey[500],
 const Color mediumPlusGrey =
-    Color.fromARGB(255, 117, 117, 117); //Colors.grey[600],
+    Color.fromARGB(255, 117, 117, 117); //Colors.grey[600]
+const Color darkestGrey = Color.fromARGB(255, 33, 33, 33); //Colors.grey[900],
+const Color error = Color.fromARGB(255, 255, 111, 0); //Colors.amber[900]
+const Color success =
+    Color.fromARGB(255, 104, 159, 56); //Colors.lightGreen[700],
 
 ThemeData themeData = ThemeData(
   fontFamily: 'Quicksand',
@@ -49,7 +53,7 @@ ThemeData themeData = ThemeData(
     ),
     // Menu buttons
     headline6: TextStyle(
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: FontWeight.bold,
       color: mediumGrey,
     ),
@@ -87,24 +91,23 @@ ThemeData themeData = ThemeData(
   unselectedWidgetColor: Colors.grey[700],
   colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey).copyWith(
     // AppBar container and Navigation Menu buttons
-    // secondaryContainer: Colors.grey[700],
-    secondaryContainer: Colors.grey[500],
+    secondaryContainer: mediumGrey,
 
     brightness: Brightness.dark,
     // Main pages background
-    background: Colors.grey[900],
+    background: darkestGrey,
     onSecondaryContainer: Colors.black,
     // Evaluation icons
-    tertiaryContainer: Colors.grey[800],
+    tertiaryContainer: veryDarkGrey,
     // Text
-    primary: Colors.grey[100],
-    secondary: Colors.grey[300],
+    primary: veryPaleGrey,
+    secondary: paleGrey,
     // Calendar border and numbers and text
-    primaryContainer: Colors.grey[600],
+    primaryContainer: mediumPlusGrey,
     // Evaluation icons
-    tertiary: Colors.lightGreen[700],
-    onTertiary: Colors.blue[500],
-    error: Colors.amber[900],
+    tertiary: success,
+    onTertiary: didLearnBlue,
+    error: error,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(

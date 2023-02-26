@@ -33,6 +33,8 @@ class DateOfDayButton extends StatelessWidget {
         final String minorText = focusIsToday
             ? date
             : DateTimeUtil.getWeekday(focusDate.weekday, currentLocale);
+        final TextStyle mainStyle = StyleUtil.dateOfDayMainText(themeData);
+        final TextStyle minorStyle = StyleUtil.dateOfDayMinorText(themeData);
 
         return GestureDetector(
           onTap: _handleTappedDate,
@@ -45,8 +47,8 @@ class DateOfDayButton extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text(minorText, style: themeData.textTheme.headline5),
-                Text(mainText, style: themeData.textTheme.headline1),
+                Text(minorText, style: minorStyle),
+                Text(mainText, style: mainStyle),
               ],
             ),
           ),

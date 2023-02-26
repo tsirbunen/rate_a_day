@@ -10,6 +10,7 @@ class ParagraphTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final double width = MediaQuery.of(context).size.width * widthFraction;
+    final TextStyle style = StyleUtil.paragraphTitle(themeData);
 
     return SizedBox(
         width: SizeUtil.getInfoTextWidth(context),
@@ -19,7 +20,7 @@ class ParagraphTitle extends StatelessWidget {
           child: Text(
             title,
             textAlign: TextAlign.center,
-            style: themeData.textTheme.headline4,
+            style: style,
           ),
         ));
   }

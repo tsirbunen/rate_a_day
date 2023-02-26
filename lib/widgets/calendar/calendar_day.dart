@@ -58,8 +58,9 @@ class CalendarDay extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     final bool didLearnNew = dayData != null ? dayData!.didLearnNew : false;
     final TextStyle style = didLearnNew
-        ? themeData.textTheme.subtitle1!
-        : themeData.textTheme.subtitle2!;
+        ? StyleUtil.didLearnDayText(themeData)
+        : StyleUtil.didNotLearnDayText(themeData);
+
     return Transform.scale(
       scaleX: 1.3,
       child: Text(day.toString(), style: style),

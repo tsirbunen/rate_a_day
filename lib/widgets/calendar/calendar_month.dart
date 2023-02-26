@@ -14,6 +14,7 @@ class CalendarMonth extends StatelessWidget {
     final Locale currentLocale = Localizations.localeOf(context);
     final List<String> dayAbbreviations =
         DateTimeUtil.getDayAbbreviations(currentLocale);
+    final TextStyle style = StyleUtil.dayAbbreviation(themeData);
 
     return TableRow(
       children: dayAbbreviations
@@ -22,7 +23,7 @@ class CalendarMonth extends StatelessWidget {
                 children: [
                   Text(
                     day,
-                    style: themeData.textTheme.labelMedium,
+                    style: style,
                   ),
                 ],
               ))

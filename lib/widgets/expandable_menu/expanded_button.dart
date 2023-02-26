@@ -48,6 +48,7 @@ class ExpandedButton extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     double menuWidth = SizeUtil.getMenuContainerWidth(context);
     final double startingPoint = (menuWidth - SizeUtil.routeButtonBoxWidth) / 2;
+    final TextStyle style = StyleUtil.menuButtonLabel(themeData);
 
     final Widget child = Material(
       shape: const CircleBorder(),
@@ -90,7 +91,7 @@ class ExpandedButton extends StatelessWidget {
                   child: Text(
                     label,
                     overflow: TextOverflow.ellipsis,
-                    style: themeData.textTheme.headline6,
+                    style: style,
                   ),
                 ),
               ),

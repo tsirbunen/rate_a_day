@@ -4,6 +4,7 @@ import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/models.dart';
 import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/localizations.dart';
+import 'package:rate_a_day/packages/utils.dart';
 
 class SaveButton extends StatelessWidget {
   const SaveButton({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class SaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
+    final TextStyle style = StyleUtil.saveButtonText(themeData);
 
     return Container(
       margin: const EdgeInsets.only(top: 30.0),
@@ -32,8 +34,10 @@ class SaveButton extends StatelessWidget {
             return ElevatedButton(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(context.translate(Phrase.saveData).toUpperCase(),
-                    style: themeData.textTheme.headline4),
+                child: Text(
+                  context.translate(Phrase.saveData).toUpperCase(),
+                  style: style,
+                ),
               ),
               onPressed: () async {
                 final bool? success = await dataBloc.saveData();

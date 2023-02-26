@@ -26,6 +26,8 @@ class RadioSelector<T> extends StatelessWidget {
       final Color color = value == currentValue
           ? themeData.colorScheme.primary
           : themeData.colorScheme.secondaryContainer;
+      final TextStyle style = StyleUtil.radioLabel(themeData, color);
+
       items.add(
         Row(
           children: [
@@ -38,8 +40,7 @@ class RadioSelector<T> extends StatelessWidget {
                 activeColor: themeData.colorScheme.primary,
               ),
             ),
-            Text(label,
-                style: themeData.textTheme.headline2?.copyWith(color: color)),
+            Text(label, style: style),
           ],
         ),
       );
@@ -51,6 +52,8 @@ class RadioSelector<T> extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+    final TextStyle titleStyle = StyleUtil.radioSelectorTitle(themeData);
+    final TextStyle infoStyle = StyleUtil.radioInfo(themeData);
 
     return SizedBox(
       width: SizeUtil.getCalendarWidth(context),
@@ -59,14 +62,11 @@ class RadioSelector<T> extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 10.0),
-            child: Text(
-              title,
-              style: themeData.textTheme.headline4,
-            ),
+            child: Text(title, style: titleStyle),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
-            child: Text(info, style: themeData.textTheme.bodyText1),
+            child: Text(info, style: infoStyle),
           ),
           Column(
             children: _buildRadioItems(context),

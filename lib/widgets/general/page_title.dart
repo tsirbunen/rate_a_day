@@ -8,10 +8,15 @@ class PageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+    final TextStyle style = StyleUtil.pageTitle(themeData);
+
     return Container(
       margin: EdgeInsets.only(top: SizeUtil.paddingSmall),
-      child: Text(title,
-          textAlign: TextAlign.center, style: themeData.textTheme.headline3),
+      child: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: style,
+      ),
     );
   }
 }

@@ -98,6 +98,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
 
   Widget _buildFloatingMenuButton(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+    final TextStyle labelStyle = StyleUtil.menuButtonLabel(themeData);
 
     final double size = SizeUtil.menuButtonBoxWidth;
     double menuWidth = SizeUtil.getMenuContainerWidth(context);
@@ -141,7 +142,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
                 padding: EdgeInsets.only(top: SizeUtil.generalMargin),
                 child: Text(
                   context.translate(Phrase.navigationMenu),
-                  style: themeData.textTheme.headline6,
+                  style: labelStyle,
                 ),
               ),
             ),

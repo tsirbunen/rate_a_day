@@ -48,7 +48,7 @@ Future<void> performEvaluation(
 
 void verifyCorrectMonthAndYear(final WidgetTester tester, final DateTime date) {
   final String monthAndYear =
-      DateTimeUtil.getMonthAndYear(date, const Locale('en'));
+      DateTimeUtil.getMonthAndYear(date, const Locale('en'), false);
   expect(find.text(monthAndYear), findsOneWidget);
 }
 

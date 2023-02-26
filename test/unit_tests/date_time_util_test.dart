@@ -58,7 +58,7 @@ void main() {
 
       data.forEach((final String monthAndYear, final DateTime date) {
         final String result =
-            DateTimeUtil.getMonthAndYear(date, const Locale('en'));
+            DateTimeUtil.getMonthAndYear(date, const Locale('en'), false);
         expect(result, equals(monthAndYear));
       });
     });
@@ -73,7 +73,22 @@ void main() {
 
       data.forEach((final String monthAndYear, final DateTime date) {
         final String result =
-            DateTimeUtil.getMonthAndYear(date, const Locale('fi'));
+            DateTimeUtil.getMonthAndYear(date, const Locale('fi'), false);
+        expect(result, equals(monthAndYear));
+      });
+    });
+
+    test('Month and year are correct if month as number', () {
+      final Map<String, DateTime> data = {
+        '2/2023': DateTime(2023, 2, 4),
+        '1/2023': DateTime(2023, 1, 23),
+        '12/2022': DateTime(2022, 12, 12),
+        '8/2003': DateTime(2003, 8, 25),
+      };
+
+      data.forEach((final String monthAndYear, final DateTime date) {
+        final String result =
+            DateTimeUtil.getMonthAndYear(date, const Locale('fi'), true);
         expect(result, equals(monthAndYear));
       });
     });

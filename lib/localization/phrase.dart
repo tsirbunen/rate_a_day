@@ -40,4 +40,5 @@ enum Phrase {
   monthsSummary3,
   monthsSummary4,
   cannotRateFuture,
+  error,
 }

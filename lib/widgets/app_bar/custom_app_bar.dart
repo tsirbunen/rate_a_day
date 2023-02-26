@@ -11,37 +11,32 @@ final Map<String, Phrase> routes = {
   Info.routeName: Phrase.routeInfo,
 };
 
-const double titleContainerHeight = 40;
-
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+  CustomAppBar({Key? key}) : super(key: key);
 
-  final Size _preferredSize = const Size.fromHeight(titleContainerHeight);
+  final Size _preferredSize = Size.fromHeight(SizeUtil.appBar);
 
   @override
   Widget build(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final String appTitle = context.translate(Phrase.appTitle);
 
-    final Color textColor = themeData.colorScheme.onSecondaryContainer;
-
     return PreferredSize(
         child: AppBar(
           backgroundColor: themeData.colorScheme.secondaryContainer,
-          elevation: ScreenSizeUtil.generalElevation,
+          elevation: SizeUtil.generalElevation,
           centerTitle: true,
-          toolbarHeight: titleContainerHeight,
+          toolbarHeight: SizeUtil.appBar,
           automaticallyImplyLeading: false,
           title: SizedBox(
-            height: titleContainerHeight,
+            height: SizeUtil.appBar,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(appTitle,
                       textAlign: TextAlign.center,
-                      style: themeData.textTheme.headline5
-                          ?.copyWith(color: textColor)),
+                      style: themeData.textTheme.bodyText2),
                 ]),
           ),
         ),

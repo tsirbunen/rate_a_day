@@ -24,7 +24,6 @@ class SettingsBloc implements BlocBase {
 
   Future<void> _initBloc() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
     final String? localeCode = prefs.getString(_localePrefsKey);
     if (localeCode != null && localeCode != 'en') {
       _locale.add(Locale(localeCode));

@@ -12,7 +12,7 @@ class CalendarStatistics extends StatelessWidget {
   Widget build(BuildContext context) {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
     return Container(
-      margin: const EdgeInsets.only(top: 10.0),
+      margin: EdgeInsets.only(top: SizeUtil.paddingSmall),
       child: StreamBuilder<BuiltMap<int, DayData>>(
           stream: dataBloc.monthsData,
           builder: (final BuildContext context,

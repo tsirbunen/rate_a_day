@@ -56,4 +56,5 @@ Map<Phrase, String> dictionaryEN = {
   Phrase.monthsSummary4:
       'If you want to change the evaluation made for some day, just tap the day in the calendar, and you are directed to the day evaluation page.',
   Phrase.cannotRateFuture: 'One cannot rate dates that are in the future.',
+  Phrase.error: 'ERROR',
 };

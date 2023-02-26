@@ -61,15 +61,12 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
       final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
       dataBloc.changeFocusDate(DateTime.now());
     }
-    navigatorState
-        // .pushReplacementNamed(targetRoute, arguments: {'showToday': true});
-        .pushReplacementNamed(targetRoute);
+    navigatorState.pushReplacementNamed(targetRoute);
     _toggleExpansion();
   }
 
   List<Widget> _buildExpandedButtons(final BuildContext context) {
-    final SettingsBloc settings = BlocProvider.of<SettingsBloc>(context);
-    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(context);
+    double menuWidth = SizeUtil.getMenuContainerWidth(context);
     final List<List<dynamic>> routeData = [
       [
         Info.routeName,
@@ -102,25 +99,24 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
   Widget _buildFloatingMenuButton(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
 
-    final double size = ScreenSizeUtil.menuButtonBoxWidth;
-    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(context);
-    final double position =
-        (menuWidth - ScreenSizeUtil.routeButtonBoxWidth) / 2;
+    final double size = SizeUtil.menuButtonBoxWidth;
+    double menuWidth = SizeUtil.getMenuContainerWidth(context);
+    final double position = (menuWidth - SizeUtil.routeButtonBoxWidth) / 2;
     final Widget child = Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
       color: themeData.colorScheme.secondaryContainer,
-      elevation: 10.0,
+      elevation: SizeUtil.generalMargin,
       child: SizedBox(
         width: size,
         height: size,
         child: FloatingActionButton(
           onPressed: _toggleExpansion,
           backgroundColor: themeData.colorScheme.secondaryContainer,
-          elevation: 10,
+          elevation: SizeUtil.generalElevation,
           child: Icon(
             Icons.menu_rounded,
-            size: 50,
+            size: SizeUtil.menuIcon,
             color: themeData.colorScheme.onSecondaryContainer,
           ),
         ),
@@ -130,7 +126,8 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
     return AnimatedBuilder(
       animation: _expansion,
       builder: (context, child) {
-        return Positioned(right: position, bottom: 10.0, child: child!);
+        return Positioned(
+            right: position, bottom: SizeUtil.generalMargin, child: child!);
       },
       child: AnimatedOpacity(
         opacity: _areExpanded ? 0.0 : 1.0,
@@ -141,12 +138,10 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
             Material(
               color: Colors.transparent,
               child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: EdgeInsets.only(top: SizeUtil.generalMargin),
                 child: Text(
                   context.translate(Phrase.navigationMenu),
-                  style: themeData.textTheme.headline6?.copyWith(
-                      color: themeData.colorScheme.secondaryContainer,
-                      fontWeight: FontWeight.bold),
+                  style: themeData.textTheme.headline6,
                 ),
               ),
             ),
@@ -158,10 +153,10 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
 
   @override
   Widget build(BuildContext context) {
-    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(context);
+    double menuWidth = SizeUtil.getMenuContainerWidth(context);
     return SizedBox(
       width: menuWidth,
-      height: ScreenSizeUtil.menuContainerHeight,
+      height: SizeUtil.menuContainerHeight,
       child: Stack(
         alignment: Alignment.center,
         children: [

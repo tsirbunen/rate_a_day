@@ -34,7 +34,7 @@ Map<Phrase, String> dictionaryFI = {
   Phrase.settingsTitle: 'ASETUKSET',
   Phrase.infoTitle: 'KÄYTTÖOPAS',
   Phrase.infoSubtitle: 'Pyyhkäise sivulle halutessasi lisäohjeita.',
-  Phrase.whatIsItAbout0: 'KÄYTTÖTARKOITUS',
+  Phrase.whatIsItAbout0: 'MISTÄ ON KYSE?',
   Phrase.whatIsItAbout1:
       'Joskus surkean päivän päätteeksi saattaa tuntua siltä, että kaikki päivät ovat aina surkeita. Hyvien päivien muistaminen voi olla surkeina päivinaä vaikeaa.',
   Phrase.whatIsItAbout2:
@@ -56,4 +56,5 @@ Map<Phrase, String> dictionaryFI = {
   Phrase.monthsSummary4:
       'Jos haluat muuttaa jonkin päivän arviointia, näpäytä päivää kalenterissa, ja sinut ohjataan suoraan päivän arviointiin.',
   Phrase.cannotRateFuture: 'Tulevaisuudessa olevia päiviä ei voi arvioida.',
+  Phrase.error: 'VIRHE',
 };

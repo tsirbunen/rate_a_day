@@ -22,8 +22,8 @@ class RateADayApp extends StatelessWidget {
       children: [
         child ?? Column(),
         Positioned(
-          right: ScreenSizeUtil.getMenuContainerRightMargin(context),
-          bottom: ScreenSizeUtil.generalMargin,
+          right: SizeUtil.getMenuContainerRightMargin(context),
+          bottom: SizeUtil.generalMargin,
           child: const ExpandableFloatingMenu(),
         ),
       ],

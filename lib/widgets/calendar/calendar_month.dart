@@ -22,10 +22,7 @@ class CalendarMonth extends StatelessWidget {
                 children: [
                   Text(
                     day,
-                    style: themeData.textTheme.headline5?.copyWith(
-                      color: themeData.colorScheme.primaryContainer,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: themeData.textTheme.labelMedium,
                   ),
                 ],
               ))
@@ -56,7 +53,7 @@ class CalendarMonth extends StatelessWidget {
         stream: dataBloc.monthsData,
         builder: (final BuildContext context,
             AsyncSnapshot<BuiltMap<int, DayData>> dayDataSnapshot) {
-          final double gridSize = ScreenSizeUtil.getCalendarWidth(context);
+          final double gridSize = SizeUtil.getCalendarWidth(context);
           final BuiltMap<int, DayData> dayDataByDay = dayDataSnapshot.hasData
               ? dayDataSnapshot.data!
               : BuiltMap.from({});

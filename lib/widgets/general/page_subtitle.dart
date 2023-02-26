@@ -13,12 +13,8 @@ class PageSubtitle extends StatelessWidget {
     return Container(
       width: width,
       margin: const EdgeInsets.only(top: 5.0, bottom: 20.0),
-      child: Text(
-        subtitle,
-        textAlign: TextAlign.center,
-        style: themeData.textTheme.bodyText1
-            ?.copyWith(color: themeData.colorScheme.secondary),
-      ),
+      child: Text(subtitle,
+          textAlign: TextAlign.center, style: themeData.textTheme.bodyText1),
     );
   }
 }

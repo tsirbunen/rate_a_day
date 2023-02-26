@@ -21,7 +21,7 @@ class DidLearnToggle extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
-    final double iconSize = ScreenSizeUtil.evaluationIconSize;
+    final double iconSize = SizeUtil.evaluationIconSize;
 
     return StreamBuilder<bool>(
       stream: dataBloc.didLearnNew,

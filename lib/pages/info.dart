@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rate_a_day/packages/localizations.dart';
 
@@ -36,10 +37,11 @@ class _InfoState extends State<Info> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: const CustomAppBar(),
+        appBar: CustomAppBar(),
         body: Container(
           color: themeData.colorScheme.background,
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.only(
+              left: SizeUtil.paddingLarge, right: SizeUtil.paddingLarge),
           child: Column(
             children: [
               PageTitle(title: title),

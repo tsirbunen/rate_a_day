@@ -13,6 +13,8 @@ class Evaluations {
         return Icons.rocket_launch;
       case Evaluation.didNotLearn:
         return Icons.rocket;
+      case Evaluation.noEvaluation:
+        return Icons.radio_button_unchecked;
       default:
         return Icons.sentiment_satisfied_alt;
     }

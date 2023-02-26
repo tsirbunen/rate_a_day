@@ -72,6 +72,6 @@ class Storage {
 
   static Future<void> emptyDatabase() async {
     final database = await Storage.database();
-    await database.execute('''DELETE FROM day''');
+    await database.execute('DELETE FROM day');
   }
 }

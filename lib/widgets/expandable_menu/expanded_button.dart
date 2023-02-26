@@ -18,7 +18,7 @@ class ExpandedButton extends StatelessWidget {
     required this.label,
   }) : super(key: key);
 
-  Widget _buildIcon(final ThemeData themeData) {
+  Widget _buildRouteIcon(final ThemeData themeData) {
     IconData iconData;
     switch (routeName) {
       case Month.routeName:
@@ -46,23 +46,22 @@ class ExpandedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-    double menuWidth = ScreenSizeUtil.getMenuContainerWidth(context);
-    final double startingPoint =
-        (menuWidth - ScreenSizeUtil.routeButtonBoxWidth) / 2;
+    double menuWidth = SizeUtil.getMenuContainerWidth(context);
+    final double startingPoint = (menuWidth - SizeUtil.routeButtonBoxWidth) / 2;
 
     final Widget child = Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
       color: themeData.colorScheme.secondaryContainer,
-      elevation: 10.0,
+      elevation: SizeUtil.generalElevation,
       child: SizedBox(
-        width: ScreenSizeUtil.routeButtonBoxWidth,
-        height: ScreenSizeUtil.routeButtonBoxWidth,
+        width: SizeUtil.routeButtonBoxWidth,
+        height: SizeUtil.routeButtonBoxWidth,
         child: IconButton(
           key: ValueKey('menu_button_$routeName'),
           onPressed: onPressed,
-          iconSize: 40.0,
-          icon: _buildIcon(themeData),
+          iconSize: SizeUtil.routeIcon,
+          icon: _buildRouteIcon(themeData),
         ),
       ),
     );
@@ -73,27 +72,25 @@ class ExpandedButton extends StatelessWidget {
         final double offset = progress.value * (targetLocation - startingPoint);
         return Positioned(
           right: startingPoint + offset,
-          bottom: 10.0,
+          bottom: SizeUtil.generalMargin,
           child: child!,
         );
       },
       child: FadeTransition(
         opacity: progress,
         child: SizedBox(
-          width: ScreenSizeUtil.getMenuContainerWidth(context) / 4,
+          width: SizeUtil.getMenuContainerWidth(context) / 4,
           child: Column(
             children: [
               child,
               Material(
                 color: Colors.transparent,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding: EdgeInsets.only(top: SizeUtil.generalMargin),
                   child: Text(
                     label,
-                    style: themeData.textTheme.headline6?.copyWith(
-                        color: themeData.colorScheme.secondaryContainer,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
+                    overflow: TextOverflow.ellipsis,
+                    style: themeData.textTheme.headline6,
                   ),
                 ),
               ),

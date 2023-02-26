@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rate_a_day/packages/utils.dart';
 
 class PageTitle extends StatelessWidget {
   final String title;
@@ -8,10 +9,9 @@ class PageTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     return Container(
-      margin: const EdgeInsets.only(top: 5.0),
+      margin: EdgeInsets.only(top: SizeUtil.paddingSmall),
       child: Text(title,
-          style: themeData.textTheme.headline3
-              ?.copyWith(color: themeData.colorScheme.primary)),
+          textAlign: TextAlign.center, style: themeData.textTheme.headline3),
     );
   }
 }

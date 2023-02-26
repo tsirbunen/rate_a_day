@@ -9,32 +9,23 @@ class Today extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
     final String title = context.translate(Phrase.todayTitle);
     final String subtitle = context.translate(Phrase.todaySubtitle);
     final String happyOrNot = context.translate(Phrase.howWasYourDay);
     final String didLearnNew = context.translate(Phrase.didYouLearnNew);
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: const CustomAppBar(),
-        body: Center(
-          child: Container(
-            color: themeData.colorScheme.background,
-            child: Column(
-              children: [
-                PageTitle(title: title),
-                PageSubtitle(subtitle: subtitle),
-                const DateOfDayButton(),
-                ParagraphTitle(title: happyOrNot),
-                const HappyOrNotSelection(),
-                ParagraphTitle(title: didLearnNew),
-                const DidLearnToggle(),
-                const SaveButton(),
-              ],
-            ),
-          ),
-        ),
+    return PageScaffold(
+      child: Column(
+        children: [
+          PageTitle(title: title),
+          PageSubtitle(subtitle: subtitle),
+          const DateOfDayButton(),
+          ParagraphTitle(title: happyOrNot),
+          const HappyOrNotSelection(),
+          ParagraphTitle(title: didLearnNew),
+          const DidLearnToggle(),
+          const SaveButton(),
+        ],
       ),
     );
   }

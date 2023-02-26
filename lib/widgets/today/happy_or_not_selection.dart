@@ -27,7 +27,7 @@ class HappyOrNotSelection extends StatelessWidget {
 
   Widget _buildSelectButton(final BuildContext context, final Rating ratingType,
       final Rating currentRating, onSelect) {
-    final double iconSize = ScreenSizeUtil.evaluationIconSize;
+    final double iconSize = SizeUtil.evaluationIconSize;
     final ThemeData themeData = Theme.of(context);
 
     return Material(

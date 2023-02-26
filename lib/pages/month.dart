@@ -9,26 +9,17 @@ class Month extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
     final String title = context.translate(Phrase.monthTitle);
     final String subtitle = context.translate(Phrase.monthSubtitle);
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: const CustomAppBar(),
-        body: Container(
-          color: themeData.colorScheme.background,
-          child: Center(
-            child: Column(
-              children: [
-                PageTitle(title: title),
-                PageSubtitle(subtitle: subtitle),
-                const Calendar(),
-                const CalendarStatistics(),
-              ],
-            ),
-          ),
-        ),
+    return PageScaffold(
+      child: Column(
+        children: [
+          PageTitle(title: title),
+          PageSubtitle(subtitle: subtitle),
+          const Calendar(),
+          const CalendarStatistics(),
+        ],
       ),
     );
   }

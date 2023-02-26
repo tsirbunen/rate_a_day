@@ -15,14 +15,13 @@ class MonthSelector extends StatelessWidget {
       final BuildContext context, final DateTime focusDate) {
     final ThemeData themeData = Theme.of(context);
     final Locale currentLocale = Localizations.localeOf(context);
+    final textScaleFactor = MediaQuery.maybeOf(context)?.textScaleFactor ?? 1.0;
+    final bool shortMonthName = textScaleFactor > 1.0;
     final String monthAndYear =
-        DateTimeUtil.getMonthAndYear(focusDate, currentLocale);
+        DateTimeUtil.getMonthAndYear(focusDate, currentLocale, shortMonthName);
     return Text(
       monthAndYear,
-      style: themeData.textTheme.headline5?.copyWith(
-          color: themeData.colorScheme.primary,
-          fontWeight: FontWeight.w600,
-          fontSize: 26),
+      style: themeData.textTheme.headline4?.copyWith(fontSize: 26),
     );
   }
 
@@ -42,24 +41,22 @@ class MonthSelector extends StatelessWidget {
     final iconData =
         mode == Mode.history ? Icons.chevron_left : Icons.chevron_right;
     final bool isFutureMonth = DateTimeUtil.isFutureMonth(targetDate);
+    final double size = SizeUtil.changeMonthArrowIcon;
 
     return Material(
-      borderRadius: BorderRadius.circular(45.0),
+      borderRadius: BorderRadius.circular(size),
       color: Colors.transparent,
-      child: Container(
-        margin: const EdgeInsets.only(left: 15.0, right: 15.0),
-        child: InkWell(
-          splashColor: themeData.colorScheme.primary,
-          borderRadius: BorderRadius.circular(45.0),
-          child: Icon(
-            iconData,
-            color: themeData.colorScheme.primary,
-            size: 45,
-          ),
-          onTap: isFutureMonth
-              ? () => _showSnackbar(context, Phrase.cannotRateFuture)
-              : () => dataBloc.changeFocusDate(targetDate),
+      child: InkWell(
+        splashColor: themeData.colorScheme.primary,
+        borderRadius: BorderRadius.circular(size),
+        child: Icon(
+          iconData,
+          color: themeData.colorScheme.primary,
+          size: size,
         ),
+        onTap: isFutureMonth
+            ? () => _showSnackbar(context, Phrase.cannotRateFuture)
+            : () => dataBloc.changeFocusDate(targetDate),
       ),
     );
   }
@@ -70,8 +67,8 @@ class MonthSelector extends StatelessWidget {
     final DateTime nextMonth = DateTimeUtil.nextMonthStart(focusDate);
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 10.0),
-      width: ScreenSizeUtil.getCalendarWidth(context),
+      margin: EdgeInsets.only(bottom: SizeUtil.paddingSmall),
+      width: SizeUtil.getCalendarWidth(context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

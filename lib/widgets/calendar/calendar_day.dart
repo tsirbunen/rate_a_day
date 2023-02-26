@@ -23,7 +23,9 @@ class CalendarDay extends StatelessWidget {
   }
 
   Color _getIconColor(final ThemeData themeData, final bool noRating) {
-    if (noRating) return Colors.transparent;
+    if (noRating) {
+      return Evaluations.getColor(Evaluation.noEvaluation, themeData);
+    }
     return dayData == null
         ? Colors.transparent
         : dayData!.rating == Rating.HAPPY
@@ -31,62 +33,52 @@ class CalendarDay extends StatelessWidget {
             : Evaluations.getColor(Evaluation.dissatisfied, themeData);
   }
 
-  Color _getNumberColor(final ThemeData themeData, final bool didLearnNew) =>
-      didLearnNew
-          ? themeData.colorScheme.onTertiary
-          : themeData.colorScheme.primaryContainer;
-
-  BoxDecoration? _getDecoration(
-      final ThemeData themeData, final bool noRating) {
-    if (!noRating) return null;
-
-    return BoxDecoration(
-      border:
-          Border.all(color: themeData.colorScheme.primaryContainer, width: 2.0),
-      shape: BoxShape.circle,
-    );
-  }
-
-  IconData _getIconData(final bool noRating) {
-    final Evaluation evaluation =
-        dayData != null && dayData!.rating == Rating.UNHAPPY
-            ? Evaluation.dissatisfied
-            : Evaluation.satisfied;
+  IconData _getIconData() {
+    Evaluation evaluation;
+    if (dayData == null || dayData!.rating == Rating.MISSING) {
+      evaluation = Evaluation.noEvaluation;
+    } else if (dayData!.rating == Rating.UNHAPPY) {
+      evaluation = Evaluation.dissatisfied;
+    } else {
+      evaluation = Evaluation.satisfied;
+    }
     return Evaluations.getIcon(evaluation);
   }
 
-  Widget _getRatingIcon(final ThemeData themeData, final bool noRating) {
+  Widget _getRatingIcon(
+      final ThemeData themeData, final bool noRating, final double dayWidth) {
     return Icon(
-      _getIconData(noRating),
+      _getIconData(),
       color: _getIconColor(themeData, noRating),
-      size: noRating ? 36.0 : 50.0,
+      size: dayWidth + 2,
     );
   }
 
   Widget _buildDayNumber(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final bool didLearnNew = dayData != null ? dayData!.didLearnNew : false;
-    final Color dayNumberColor = _getNumberColor(themeData, didLearnNew);
+    final TextStyle style = didLearnNew
+        ? themeData.textTheme.subtitle1!
+        : themeData.textTheme.subtitle2!;
     return Transform.scale(
       scaleX: 1.3,
-      child: Text(day.toString(),
-          style: themeData.textTheme.headline6
-              ?.copyWith(color: dayNumberColor, fontWeight: FontWeight.bold)),
+      child: Text(day.toString(), style: style),
     );
   }
 
-  Widget _buildDayIcon(final ThemeData themeData, final void Function() onTap) {
+  Widget _buildDayIcon(final BuildContext context, final ThemeData themeData,
+      final void Function() onTap, final double dayWidth) {
     final bool noRating = dayData == null || dayData!.rating == Rating.MISSING;
-    Widget ratingIcon = _getRatingIcon(themeData, noRating);
-    BoxDecoration? decoration = _getDecoration(themeData, noRating);
+    Widget ratingIcon = _getRatingIcon(themeData, noRating, dayWidth);
+    final double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+    final double marginTop = textScaleFactor > 1 ? 20.0 : 15;
     return Container(
-      margin: EdgeInsets.only(top: noRating ? 21.0 : 16.0),
+      margin: EdgeInsets.only(top: marginTop),
       child: Material(
         type: MaterialType.transparency,
         child: Ink(
-          decoration: decoration,
           child: InkWell(
-            borderRadius: BorderRadius.circular(52.0),
+            borderRadius: BorderRadius.circular(100.0),
             onTap: onTap,
             child: ratingIcon,
           ),
@@ -108,6 +100,8 @@ class CalendarDay extends StatelessWidget {
   Widget build(final BuildContext context) {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
     final ThemeData themeData = Theme.of(context);
+    final double calendarWidth = SizeUtil.getCalendarWidth(context);
+    final double dayWidth = calendarWidth / 7.0;
 
     return StreamBuilder<DateTime>(
       stream: dataBloc.focusDate,
@@ -122,13 +116,12 @@ class CalendarDay extends StatelessWidget {
             : () => _handleTappedDay(newFocusDate, dataBloc.changeFocusDate);
 
         return SizedBox(
-          width: 60,
-          height: 66,
+          width: dayWidth,
           child: Stack(
             alignment: Alignment.topCenter,
             children: [
               _buildDayNumber(context),
-              _buildDayIcon(themeData, onTap),
+              _buildDayIcon(context, themeData, onTap, dayWidth),
             ],
           ),
         );

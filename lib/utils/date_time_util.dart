@@ -8,8 +8,10 @@ class DateTimeUtil {
     return '$day.$month.$year';
   }
 
-  static String getMonthAndYear(final DateTime dateTime, final Locale locale) {
+  static String getMonthAndYear(
+      final DateTime dateTime, final Locale locale, final bool shortMonthName) {
     final year = dateTime.year;
+    if (shortMonthName) return '${dateTime.month}/$year';
     final month = getMonth(dateTime.month, locale);
     return '$month $year';
   }
@@ -135,6 +137,7 @@ final Map<int, String> weekdaysEN = {
   DateTime.saturday: 'Saturday',
   DateTime.sunday: 'Sunday',
 };
+
 final Map<int, String> weekdaysFI = {
   DateTime.monday: 'Maanantai',
   DateTime.tuesday: 'Tiistai',

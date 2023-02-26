@@ -33,8 +33,7 @@ class SaveButton extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Text(context.translate(Phrase.saveData).toUpperCase(),
-                    style: themeData.textTheme.headline5
-                        ?.copyWith(color: themeData.colorScheme.primary)),
+                    style: themeData.textTheme.headline4),
               ),
               onPressed: () async {
                 final bool? success = await dataBloc.saveData();

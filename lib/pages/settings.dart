@@ -10,26 +10,24 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
     final String title = context.translate(Phrase.settingsTitle);
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: const CustomAppBar(),
-        body: Container(
-          color: themeData.colorScheme.background,
-          width: ScreenSizeUtil.getFullWidth(context),
-          child: Container(
-            margin: const EdgeInsets.only(left: 20.0, top: 20.0),
-            child: Column(
-              children: [
-                PageTitle(title: title),
-                const SelectLanguage(),
-              ],
-            ),
-          ),
+    return PageScaffold(
+        child: SizedBox(
+      width: SizeUtil.getFullWidth(context),
+      height: MediaQuery.of(context).size.height,
+      child: Container(
+        margin: EdgeInsets.only(
+          left: SizeUtil.paddingLarge,
+          right: SizeUtil.paddingSmall,
+        ),
+        child: Column(
+          children: [
+            PageTitle(title: title),
+            const SelectLanguage(),
+          ],
         ),
       ),
-    );
+    ));
   }
 }

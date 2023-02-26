@@ -20,3 +20,5 @@ export '../widgets/settings/select_language.dart';
 export '../widgets/settings/radio_selector.dart';
 export '../widgets/general/page_title.dart';
 export '../widgets/general/page_subtitle.dart';
+export '../widgets/general/scroll_bottom.dart';
+export '../widgets/general/page_scaffold.dart';

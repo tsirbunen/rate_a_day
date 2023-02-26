@@ -12,15 +12,14 @@ class ParagraphTitle extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width * widthFraction;
 
     return SizedBox(
-        width: ScreenSizeUtil.getInfoTextWidth(context),
+        width: SizeUtil.getInfoTextWidth(context),
         child: Container(
           width: width,
           margin: const EdgeInsets.only(top: 30.0, bottom: 10.0),
           child: Text(
             title,
             textAlign: TextAlign.center,
-            style: themeData.textTheme.headline5
-                ?.copyWith(color: themeData.colorScheme.primary),
+            style: themeData.textTheme.headline4,
           ),
         ));
   }

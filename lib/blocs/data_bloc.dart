@@ -65,19 +65,15 @@ class DataBloc implements BlocBase {
 
   bool _checkIfNeedToFetchNewMonthsData(final DateTime newFocusDate) {
     if (!_monthsData.hasValue || _monthsData.value.isEmpty) return true;
-
     final int monthsFirstDay = _monthsData.value.keys.first;
     final DayData? firstDayData = _monthsData.value[monthsFirstDay];
     return !DateTimeUtil.areSameMonthSameYear(firstDayData?.date, newFocusDate);
   }
 
   void _updateFocusDayEvaluations(final DayData? focusDayData) {
-    if (focusDayData != null) {
-      _rating.add(focusDayData.rating);
-      _didLearnNew.add(focusDayData.didLearnNew);
-    } else {
-      _clearEvaluations();
-    }
+    if (focusDayData == null) return _clearEvaluations();
+    _rating.add(focusDayData.rating);
+    _didLearnNew.add(focusDayData.didLearnNew);
   }
 
   void _clearEvaluations() {
@@ -133,13 +129,12 @@ class DataBloc implements BlocBase {
 
     _status.add(Status.SAVING);
     final DateTime date = _focusDate.value;
-    bool didLearnNew;
-    if (!_didLearnNew.hasValue) _didLearnNew.add(false);
-    didLearnNew = _didLearnNew.value;
 
-    Rating rating;
+    if (!_didLearnNew.hasValue) _didLearnNew.add(false);
+    bool didLearnNew = _didLearnNew.value;
+
     if (!_rating.hasValue) _rating.add(Rating.MISSING);
-    rating = _rating.value;
+    Rating rating = _rating.value;
 
     try {
       await Storage.assessDay(rating, didLearnNew, date);
@@ -162,15 +157,6 @@ class DataBloc implements BlocBase {
     return true;
   }
 
-  void _showErrorSnackBar(final Phrase message) {
-    snackbarKey.currentState?.showSnackBar(CustomSnackbar.buildSnackbar(
-      title: 'ERROR',
-      message: translatePhrase(message, _currentLocale),
-      action: () => {},
-      isError: true,
-    ));
-  }
-
   Future<void> _updateMonthsDataAfterSaved(
       final Rating rating, final bool didLearnNew, final DateTime date) async {
     BuiltMap<int, DayData> dayData;
@@ -185,6 +171,15 @@ class DataBloc implements BlocBase {
       dayData = BuiltMap.from(monthsData);
     }
     _monthsData.add(dayData);
+  }
+
+  void _showErrorSnackBar(final Phrase message) {
+    snackbarKey.currentState?.showSnackBar(CustomSnackbar.buildSnackbar(
+      title: translatePhrase(Phrase.error, _currentLocale),
+      message: translatePhrase(message, _currentLocale),
+      action: () => {},
+      isError: true,
+    ));
   }
 
   @override

@@ -32,12 +32,8 @@ class Content extends StatelessWidget {
       children: descriptions.map((final Phrase phrase) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
-          child: Text(
-            context.translate(phrase),
-            textAlign: TextAlign.left,
-            style: themeData.textTheme.bodyText1
-                ?.copyWith(color: themeData.colorScheme.secondary),
-          ),
+          child: Text(context.translate(phrase),
+              textAlign: TextAlign.left, style: themeData.textTheme.bodyText1),
         );
       }).toList(),
     );
@@ -86,9 +82,12 @@ class Content extends StatelessWidget {
       Item.monthsEvaluations,
     ][index];
     final ItemData itemData = _getItemData(item);
+    final double textScaleFactor =
+        MediaQuery.maybeOf(context)?.textScaleFactor ?? 1.0;
+    final double width = MediaQuery.of(context).size.width * 0.9;
 
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
+      width: width,
       height: MediaQuery.of(context).size.height * 0.65,
       child: PageView.builder(
         itemCount: 3,
@@ -98,20 +97,28 @@ class Content extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.only(bottom: 10.0, top: 10.0),
             width: MediaQuery.of(context).size.width * 0.5,
-            child: Container(
-              margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ContentTitle(text: context.translate(itemData.title)),
-                    ],
-                  ),
-                  _buildDescriptions(context, itemData.descriptions)
-                ],
+            child: SingleChildScrollView(
+              child: Container(
+                margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ContentTitle(
+                            text: context.translate(itemData.title),
+                            width: width - 60.0),
+                      ],
+                    ),
+                    _buildDescriptions(context, itemData.descriptions),
+                    if (textScaleFactor > 1)
+                      const SizedBox(
+                        height: 200.0,
+                      )
+                  ],
+                ),
               ),
             ),
           );

@@ -21,42 +21,37 @@ class DateOfDayButton extends StatelessWidget {
     final Locale currentLocale = Localizations.localeOf(context);
 
     return StreamBuilder<DateTime>(
-        stream: dataBloc.focusDate,
-        builder:
-            (final BuildContext context, AsyncSnapshot<DateTime> snapshot) {
-          final DateTime focusDate =
-              snapshot.hasData ? snapshot.data! : DateTime.now();
-          final DateTime today = DateTime.now();
-          final bool focusIsToday = DateTimeUtil.areSameDate(focusDate, today);
-          final String date = DateTimeUtil.getDate(focusDate);
-          final String mainText = focusIsToday
-              ? context.translate(Phrase.today).toUpperCase()
-              : date;
-          final String minorText = focusIsToday
-              ? date
-              : DateTimeUtil.getWeekday(focusDate.weekday, currentLocale);
+      stream: dataBloc.focusDate,
+      builder: (final BuildContext context, AsyncSnapshot<DateTime> snapshot) {
+        final DateTime focusDate =
+            snapshot.hasData ? snapshot.data! : DateTime.now();
+        final DateTime today = DateTime.now();
+        final bool focusIsToday = DateTimeUtil.areSameDate(focusDate, today);
+        final String date = DateTimeUtil.getDate(focusDate);
+        final String mainText =
+            focusIsToday ? context.translate(Phrase.today).toUpperCase() : date;
+        final String minorText = focusIsToday
+            ? date
+            : DateTimeUtil.getWeekday(focusDate.weekday, currentLocale);
 
-          return GestureDetector(
-            onTap: _handleTappedDate,
-            child: Container(
-              padding: const EdgeInsets.only(
-                  left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
-              decoration: BoxDecoration(
-                color: themeData.colorScheme.tertiaryContainer,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                children: [
-                  Text(minorText,
-                      style: themeData.textTheme.headline5
-                          ?.copyWith(color: themeData.colorScheme.secondary)),
-                  Text(mainText,
-                      style: themeData.textTheme.headline1
-                          ?.copyWith(color: themeData.colorScheme.primary)),
-                ],
-              ),
+        return GestureDetector(
+          onTap: _handleTappedDate,
+          child: Container(
+            padding: const EdgeInsets.only(
+                left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+            decoration: BoxDecoration(
+              color: themeData.colorScheme.tertiaryContainer,
+              borderRadius: BorderRadius.circular(10.0),
             ),
-          );
-        });
+            child: Column(
+              children: [
+                Text(minorText, style: themeData.textTheme.headline5),
+                Text(mainText, style: themeData.textTheme.headline1),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

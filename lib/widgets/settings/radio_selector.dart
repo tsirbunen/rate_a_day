@@ -53,7 +53,7 @@ class RadioSelector<T> extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
 
     return SizedBox(
-      width: ScreenSizeUtil.getCalendarWidth(context),
+      width: SizeUtil.getCalendarWidth(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -61,17 +61,12 @@ class RadioSelector<T> extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10.0),
             child: Text(
               title,
-              style: themeData.textTheme.headline5
-                  ?.copyWith(color: themeData.colorScheme.primary),
+              style: themeData.textTheme.headline4,
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
-            child: Text(
-              info,
-              style: themeData.textTheme.bodyText1
-                  ?.copyWith(color: themeData.colorScheme.secondary),
-            ),
+            child: Text(info, style: themeData.textTheme.bodyText1),
           ),
           Column(
             children: _buildRadioItems(context),

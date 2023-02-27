@@ -99,6 +99,8 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
   Widget _buildFloatingMenuButton(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final TextStyle labelStyle = StyleUtil.menuButtonLabel(themeData);
+    final Color menuIconColor = StyleUtil.menuButtonIcon(themeData);
+    final Color menuBackgroundColor = StyleUtil.menuButtonBackground(themeData);
 
     final double size = SizeUtil.menuButtonBoxWidth;
     double menuWidth = SizeUtil.getMenuContainerWidth(context);
@@ -106,19 +108,19 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
     final Widget child = Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
-      color: themeData.colorScheme.secondaryContainer,
+      color: menuBackgroundColor,
       elevation: SizeUtil.generalMargin,
       child: SizedBox(
         width: size,
         height: size,
         child: FloatingActionButton(
           onPressed: _toggleExpansion,
-          backgroundColor: themeData.colorScheme.secondaryContainer,
+          backgroundColor: menuBackgroundColor,
           elevation: SizeUtil.generalElevation,
           child: Icon(
             Icons.menu_rounded,
             size: SizeUtil.menuIcon,
-            color: themeData.colorScheme.onSecondaryContainer,
+            color: menuIconColor,
           ),
         ),
       ),

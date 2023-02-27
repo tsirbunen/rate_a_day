@@ -20,6 +20,8 @@ class ExpandedButton extends StatelessWidget {
 
   Widget _buildRouteIcon(final ThemeData themeData) {
     IconData iconData;
+    final Color menuIconColor = StyleUtil.menuButtonIcon(themeData);
+
     switch (routeName) {
       case Month.routeName:
         iconData = Icons.calendar_month;
@@ -39,7 +41,7 @@ class ExpandedButton extends StatelessWidget {
 
     return Icon(
       iconData,
-      color: themeData.colorScheme.onSecondaryContainer,
+      color: menuIconColor,
     );
   }
 
@@ -49,11 +51,12 @@ class ExpandedButton extends StatelessWidget {
     double menuWidth = SizeUtil.getMenuContainerWidth(context);
     final double startingPoint = (menuWidth - SizeUtil.routeButtonBoxWidth) / 2;
     final TextStyle style = StyleUtil.menuButtonLabel(themeData);
+    final Color menuBackgroundColor = StyleUtil.menuButtonBackground(themeData);
 
     final Widget child = Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
-      color: themeData.colorScheme.secondaryContainer,
+      color: menuBackgroundColor,
       elevation: SizeUtil.generalElevation,
       child: SizedBox(
         width: SizeUtil.routeButtonBoxWidth,

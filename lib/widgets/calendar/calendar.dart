@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/blocs.dart';
+import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 
 class Calendar extends StatelessWidget {
@@ -7,9 +8,10 @@ class Calendar extends StatelessWidget {
 
   BoxDecoration _getCalendarDecoration(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+    final Color borderColor = StyleUtil.calendarBorder(themeData);
+
     return BoxDecoration(
-      border:
-          Border.all(width: 1.5, color: themeData.colorScheme.primaryContainer),
+      border: Border.all(width: 1.5, color: borderColor),
       borderRadius: BorderRadius.circular(6.0),
     );
   }

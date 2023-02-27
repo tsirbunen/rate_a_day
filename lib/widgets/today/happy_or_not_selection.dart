@@ -29,6 +29,7 @@ class HappyOrNotSelection extends StatelessWidget {
       final Rating currentRating, onSelect) {
     final double iconSize = SizeUtil.evaluationIconSize;
     final ThemeData themeData = Theme.of(context);
+    final Color splashColor = StyleUtil.iconSplash(themeData);
 
     return Material(
       borderRadius: BorderRadius.circular(iconSize),
@@ -36,7 +37,7 @@ class HappyOrNotSelection extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(left: 5.0, right: 5.0),
         child: InkWell(
-          splashColor: themeData.colorScheme.secondaryContainer,
+          splashColor: splashColor,
           borderRadius: BorderRadius.circular(iconSize),
           child: Icon(
             _getIconData(ratingType),

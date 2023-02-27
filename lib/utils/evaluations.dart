@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rate_a_day/packages/utils.dart';
 
 enum Evaluation { satisfied, dissatisfied, didNotLearn, didLearn, noEvaluation }
 
@@ -24,13 +25,13 @@ class Evaluations {
       final Evaluation evaluation, final ThemeData themeData) {
     switch (evaluation) {
       case Evaluation.satisfied:
-        return themeData.colorScheme.tertiary;
+        return StyleUtil.happy(themeData);
       case Evaluation.dissatisfied:
-        return themeData.colorScheme.error;
+        return StyleUtil.unhappy(themeData);
       case Evaluation.didLearn:
-        return themeData.colorScheme.onTertiary;
+        return StyleUtil.didLearn(themeData);
       default:
-        return themeData.colorScheme.tertiaryContainer;
+        return StyleUtil.notSelected(themeData);
     }
   }
 }

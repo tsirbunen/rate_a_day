@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/theme.dart';
 import 'package:rate_a_day/packages/utils.dart' as utils;
+import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:rate_a_day/packages/models.dart';
@@ -13,9 +14,9 @@ final IconData unhappyIcon =
     utils.Evaluations.getIcon(utils.Evaluation.dissatisfied);
 final Finder happyFinder = find.byIcon(happyIcon);
 final Finder unhappyFinder = find.byIcon(unhappyIcon);
-final Color happyColor = themeData.colorScheme.tertiary;
-final Color unhappyColor = themeData.colorScheme.error;
-final Color notSelectedColor = themeData.colorScheme.tertiaryContainer;
+final Color happyColor = StyleUtil.happy(themeData);
+final Color unhappyColor = StyleUtil.unhappy(themeData);
+final Color notSelectedColor = StyleUtil.notSelected(themeData);
 
 void main() {
   late DataBloc dataBloc;

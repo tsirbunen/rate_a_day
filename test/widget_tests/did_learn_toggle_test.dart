@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/theme.dart';
 import 'package:rate_a_day/packages/utils.dart' as utils;
+import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -12,8 +13,8 @@ final IconData didNotLearnIcon =
     utils.Evaluations.getIcon(utils.Evaluation.didNotLearn);
 final Finder didLearnFinder = find.byIcon(didLearnIcon);
 final Finder didNotLearnFinder = find.byIcon(didNotLearnIcon);
-final Color learnColor = themeData.colorScheme.onTertiary;
-final Color notSelectedColor = themeData.colorScheme.tertiaryContainer;
+final Color learnColor = StyleUtil.didLearn(themeData);
+final Color notSelectedColor = StyleUtil.notSelected(themeData);
 
 void main() {
   late DataBloc dataBloc;

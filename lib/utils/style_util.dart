@@ -72,4 +72,76 @@ class StyleUtil {
   static TextStyle dateOfDayMinorText(final ThemeData themeData) {
     return themeData.textTheme.headline5!;
   }
+
+  static Color background(final ThemeData themeData) {
+    return themeData.colorScheme.background;
+  }
+
+  static Color appBar(final ThemeData themeData) {
+    return themeData.colorScheme.secondaryContainer;
+  }
+
+  static Color calendarBorder(final ThemeData themeData) {
+    return themeData.colorScheme.primaryContainer;
+  }
+
+  static Color changeMonthArrow(final ThemeData themeData) {
+    return themeData.colorScheme.primary;
+  }
+
+  static Color dateOfDayBackground(final ThemeData themeData) {
+    return themeData.colorScheme.tertiaryContainer;
+  }
+
+  static Color menuButtonIcon(final ThemeData themeData) {
+    return themeData.colorScheme.onSecondaryContainer;
+  }
+
+  static Color menuButtonBackground(final ThemeData themeData) {
+    return themeData.colorScheme.secondaryContainer;
+  }
+
+  static Color contentSelected(final ThemeData themeData) {
+    return themeData.colorScheme.primary;
+  }
+
+  static Color contentNotSelected(final ThemeData themeData) {
+    return themeData.colorScheme.primaryContainer;
+  }
+
+  static Color radioSelected(final ThemeData themeData) {
+    return themeData.colorScheme.primary;
+  }
+
+  static Color radioNotSelected(final ThemeData themeData) {
+    return themeData.colorScheme.primaryContainer;
+  }
+
+  static Color iconSplash(final ThemeData themeData) {
+    return themeData.colorScheme.background;
+  }
+
+  static Color didLearn(final ThemeData themeData) {
+    return themeData.colorScheme.onTertiary;
+  }
+
+  static Color notSelected(final ThemeData themeData) {
+    return themeData.colorScheme.tertiaryContainer;
+  }
+
+  static Color happy(final ThemeData themeData) {
+    return themeData.colorScheme.tertiary;
+  }
+
+  static Color unhappy(final ThemeData themeData) {
+    return themeData.colorScheme.error;
+  }
+
+  static Color noEvaluation(final ThemeData themeData) {
+    return themeData.colorScheme.tertiaryContainer;
+  }
+
+  static Color calendarDayNumber(final ThemeData themeData) {
+    return themeData.colorScheme.tertiaryContainer;
+  }
 }

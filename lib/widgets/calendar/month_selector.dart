@@ -44,16 +44,17 @@ class MonthSelector extends StatelessWidget {
         mode == Mode.history ? Icons.chevron_left : Icons.chevron_right;
     final bool isFutureMonth = DateTimeUtil.isFutureMonth(targetDate);
     final double size = SizeUtil.changeMonthArrowIcon;
+    final Color arrowColor = StyleUtil.changeMonthArrow(themeData);
 
     return Material(
       borderRadius: BorderRadius.circular(size),
       color: Colors.transparent,
       child: InkWell(
-        splashColor: themeData.colorScheme.primary,
+        splashColor: arrowColor,
         borderRadius: BorderRadius.circular(size),
         child: Icon(
           iconData,
-          color: themeData.colorScheme.primary,
+          color: arrowColor,
           size: size,
         ),
         onTap: isFutureMonth

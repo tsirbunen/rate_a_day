@@ -19,6 +19,9 @@ class DateOfDayButton extends StatelessWidget {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
     final ThemeData themeData = Theme.of(context);
     final Locale currentLocale = Localizations.localeOf(context);
+    final TextStyle mainStyle = StyleUtil.dateOfDayMainText(themeData);
+    final TextStyle minorStyle = StyleUtil.dateOfDayMinorText(themeData);
+    final Color backgroundColor = StyleUtil.dateOfDayBackground(themeData);
 
     return StreamBuilder<DateTime>(
       stream: dataBloc.focusDate,
@@ -33,8 +36,6 @@ class DateOfDayButton extends StatelessWidget {
         final String minorText = focusIsToday
             ? date
             : DateTimeUtil.getWeekday(focusDate.weekday, currentLocale);
-        final TextStyle mainStyle = StyleUtil.dateOfDayMainText(themeData);
-        final TextStyle minorStyle = StyleUtil.dateOfDayMinorText(themeData);
 
         return GestureDetector(
           onTap: _handleTappedDate,
@@ -42,7 +43,7 @@ class DateOfDayButton extends StatelessWidget {
             padding: const EdgeInsets.only(
                 left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
             decoration: BoxDecoration(
-              color: themeData.colorScheme.tertiaryContainer,
+              color: backgroundColor,
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: Column(

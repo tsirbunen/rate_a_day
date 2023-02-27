@@ -34,12 +34,13 @@ class _InfoState extends State<Info> {
     final ThemeData themeData = Theme.of(context);
     final String title = context.translate(Phrase.infoTitle);
     final String subtitle = context.translate(Phrase.infoSubtitle);
+    final Color backgroundColor = StyleUtil.background(themeData);
 
     return SafeArea(
       child: Scaffold(
         appBar: CustomAppBar(),
         body: Container(
-          color: themeData.colorScheme.background,
+          color: backgroundColor,
           padding: EdgeInsets.only(
               left: SizeUtil.paddingLarge, right: SizeUtil.paddingLarge),
           child: Column(

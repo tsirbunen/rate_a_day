@@ -11,13 +11,12 @@ final happyIcon = util.Evaluations.getIcon(util.Evaluation.satisfied);
 final unhappyIcon = util.Evaluations.getIcon(util.Evaluation.dissatisfied);
 final didLearnIcon = util.Evaluations.getIcon(util.Evaluation.didLearn);
 final didNotLearnIcon = util.Evaluations.getIcon(util.Evaluation.didNotLearn);
-final Color happyColor = themeData.colorScheme.tertiary;
-final Color unhappyColor = themeData.colorScheme.error;
-final Color notSelectedColor = themeData.colorScheme.tertiaryContainer;
-final Color didLearnColor = themeData.colorScheme.onTertiary;
-final Color calendarColor = themeData.colorScheme.primaryContainer;
-final Color noEvaluationColor =
-    util.Evaluations.getColor(util.Evaluation.noEvaluation, themeData);
+final Color didLearnColor = StyleUtil.didLearn(themeData);
+final Color notSelectedColor = StyleUtil.notSelected(themeData);
+final Color happyColor = StyleUtil.happy(themeData);
+final Color unhappyColor = StyleUtil.unhappy(themeData);
+final Color calendarColor = StyleUtil.calendarDayNumber(themeData);
+final Color noEvaluationColor = StyleUtil.noEvaluation(themeData);
 
 openMenuAndTapTargetRouteButton(
     final WidgetTester tester, final IconData iconData) async {

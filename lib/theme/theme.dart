@@ -9,6 +9,7 @@ const Color mediumGrey = Color.fromARGB(255, 158, 158, 158); //Colors.grey[500],
 const Color mediumPlusGrey =
     Color.fromARGB(255, 117, 117, 117); //Colors.grey[600]
 const Color darkestGrey = Color.fromARGB(255, 33, 33, 33); //Colors.grey[900],
+const Color black = Colors.black;
 const Color error = Color.fromARGB(255, 255, 111, 0); //Colors.amber[900]
 const Color success =
     Color.fromARGB(255, 104, 159, 56); //Colors.lightGreen[700],
@@ -96,7 +97,7 @@ ThemeData themeData = ThemeData(
     brightness: Brightness.dark,
     // Main pages background
     background: darkestGrey,
-    onSecondaryContainer: Colors.black,
+    onSecondaryContainer: black,
     // Evaluation icons
     tertiaryContainer: veryDarkGrey,
     // Text

@@ -22,6 +22,7 @@ class DidLearnToggle extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
     final double iconSize = SizeUtil.evaluationIconSize;
+    final Color splashColor = StyleUtil.iconSplash(themeData);
 
     return StreamBuilder<bool>(
       stream: dataBloc.didLearnNew,
@@ -32,7 +33,7 @@ class DidLearnToggle extends StatelessWidget {
           borderRadius: BorderRadius.circular(iconSize),
           color: Colors.transparent,
           child: InkWell(
-            splashColor: themeData.colorScheme.background,
+            splashColor: splashColor,
             borderRadius: BorderRadius.circular(iconSize),
             child: Icon(
               _getIconData(didLearn),

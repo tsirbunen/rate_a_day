@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 
 class PageScaffold extends StatelessWidget {
@@ -8,18 +9,21 @@ class PageScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+    final Color backgroundColor = StyleUtil.background(themeData);
 
     return SafeArea(
       child: Scaffold(
         appBar: CustomAppBar(),
         body: Container(
-          color: themeData.colorScheme.background,
+          color: backgroundColor,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
-            child: Column(children: [
-              child,
-              const ScrollBottom(),
-            ]),
+            child: Column(
+              children: [
+                child,
+                const ScrollBottom(),
+              ],
+            ),
           ),
         ),
       ),

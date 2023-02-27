@@ -19,13 +19,14 @@ class RadioSelector<T> extends StatelessWidget {
 
   List<Widget> _buildRadioItems(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+    final Color selectedColor = StyleUtil.radioSelected(themeData);
+    final Color notSelectedColor = StyleUtil.radioNotSelected(themeData);
 
     List<Widget> items = [];
 
     data.forEach((final T value, final String label) {
-      final Color color = value == currentValue
-          ? themeData.colorScheme.primary
-          : themeData.colorScheme.secondaryContainer;
+      final Color color =
+          value == currentValue ? selectedColor : notSelectedColor;
       final TextStyle style = StyleUtil.radioLabel(themeData, color);
 
       items.add(
@@ -37,7 +38,7 @@ class RadioSelector<T> extends StatelessWidget {
                 value: value,
                 groupValue: currentValue,
                 onChanged: onSelected,
-                activeColor: themeData.colorScheme.primary,
+                activeColor: selectedColor,
               ),
             ),
             Text(label, style: style),

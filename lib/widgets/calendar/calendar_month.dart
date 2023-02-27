@@ -49,35 +49,34 @@ class CalendarMonth extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
+    final Color borderColor = StyleUtil.calendarBorder(themeData);
 
     return StreamBuilder<BuiltMap<int, DayData>>(
-        stream: dataBloc.monthsData,
-        builder: (final BuildContext context,
-            AsyncSnapshot<BuiltMap<int, DayData>> dayDataSnapshot) {
-          final double gridSize = SizeUtil.getCalendarWidth(context);
-          final BuiltMap<int, DayData> dayDataByDay = dayDataSnapshot.hasData
-              ? dayDataSnapshot.data!
-              : BuiltMap.from({});
+      stream: dataBloc.monthsData,
+      builder: (final BuildContext context,
+          AsyncSnapshot<BuiltMap<int, DayData>> dayDataSnapshot) {
+        final double gridSize = SizeUtil.getCalendarWidth(context);
+        final BuiltMap<int, DayData> dayDataByDay =
+            dayDataSnapshot.hasData ? dayDataSnapshot.data! : BuiltMap.from({});
 
-          final List<List<int?>> daysOfMonth =
-              DateTimeUtil.arrangeDaysOfMonth(focusDate);
+        final List<List<int?>> daysOfMonth =
+            DateTimeUtil.arrangeDaysOfMonth(focusDate);
 
-          return SizedBox(
-            width: gridSize,
-            child: Table(
-              border: TableBorder.symmetric(
-                  inside: BorderSide(
-                      width: 1.0,
-                      color: themeData.colorScheme.primaryContainer)),
-              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              children: <TableRow>[
-                _buildDayLabelRow(context),
-                ...daysOfMonth.map((week) {
-                  return _buildWeek(context, week, dayDataByDay);
-                }),
-              ],
-            ),
-          );
-        });
+        return SizedBox(
+          width: gridSize,
+          child: Table(
+            border: TableBorder.symmetric(
+                inside: BorderSide(width: 1.0, color: borderColor)),
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: <TableRow>[
+              _buildDayLabelRow(context),
+              ...daysOfMonth.map((week) {
+                return _buildWeek(context, week, dayDataByDay);
+              }),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

@@ -21,10 +21,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final ThemeData themeData = Theme.of(context);
     final String appTitle = context.translate(Phrase.appTitle);
     final TextStyle style = StyleUtil.appTitle(themeData);
+    final Color appBarColor = StyleUtil.appBar(themeData);
 
     return PreferredSize(
         child: AppBar(
-          backgroundColor: themeData.colorScheme.secondaryContainer,
+          backgroundColor: appBarColor,
           elevation: SizeUtil.generalElevation,
           centerTitle: true,
           toolbarHeight: SizeUtil.appBar,

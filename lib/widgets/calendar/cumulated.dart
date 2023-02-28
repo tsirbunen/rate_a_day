@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
-class Cumulated extends StatelessWidget {
+class Cumulated extends StatelessWidget with Constants {
   final Evaluation evaluation;
   final int value;
-  const Cumulated({Key? key, required this.evaluation, required this.value})
+  Cumulated({Key? key, required this.evaluation, required this.value})
       : super(key: key);
 
   Color _getColor(final ThemeData themeData) {
@@ -21,17 +21,18 @@ class Cumulated extends StatelessWidget {
     final IconData iconData = Evaluations.getIcon(evaluation);
     final Color color = _getColor(themeData);
     final TextStyle style = StyleUtil.cumulatedText(themeData, color);
+    final double iconSize = SizeUtil.cumulatedIcon;
 
     return Container(
-      margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+      margin: EdgeInsets.only(left: paddingXS, right: paddingXS),
       child: Row(
         children: [
           Container(
-            margin: const EdgeInsets.only(right: 5.0),
+            margin: EdgeInsets.only(right: paddingXS),
             child: Icon(
               iconData,
               color: color,
-              size: 42,
+              size: iconSize,
             ),
           ),
           Text('$value', style: style),

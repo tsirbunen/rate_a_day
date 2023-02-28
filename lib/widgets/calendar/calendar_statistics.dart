@@ -5,14 +5,14 @@ import 'package:rate_a_day/packages/models.dart';
 import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 
-class CalendarStatistics extends StatelessWidget {
-  const CalendarStatistics({Key? key}) : super(key: key);
+class CalendarStatistics extends StatelessWidget with Constants {
+  CalendarStatistics({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final DataBloc dataBloc = BlocProvider.of<DataBloc>(context);
     return Container(
-      margin: EdgeInsets.only(top: SizeUtil.paddingSmall),
+      margin: EdgeInsets.only(top: paddingS),
       child: StreamBuilder<BuiltMap<int, DayData>>(
           stream: dataBloc.monthsData,
           builder: (final BuildContext context,

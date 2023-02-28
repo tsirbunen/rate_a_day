@@ -15,11 +15,11 @@ class ItemData {
   const ItemData({required this.title, required this.descriptions});
 }
 
-class Content extends StatelessWidget {
+class Content extends StatelessWidget with Constants {
   final int index;
   final PageController pageController;
   final void Function(int) handleContentPageChanged;
-  const Content({
+  Content({
     Key? key,
     required this.index,
     required this.pageController,
@@ -34,7 +34,7 @@ class Content extends StatelessWidget {
     return Column(
       children: descriptions.map((final Phrase phrase) {
         return Padding(
-          padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
+          padding: EdgeInsets.only(bottom: paddingS, top: paddingS),
           child: Text(context.translate(phrase),
               textAlign: TextAlign.left, style: style),
         );
@@ -87,22 +87,25 @@ class Content extends StatelessWidget {
     final ItemData itemData = _getItemData(item);
     final double textScaleFactor =
         MediaQuery.maybeOf(context)?.textScaleFactor ?? 1.0;
-    final double width = MediaQuery.of(context).size.width * 0.9;
+    final double outerWidth = SizeUtil.getInfoPageItemMaxOuterWidth(context);
+    final double innerWidth = SizeUtil.getInfoPageItemMaxOuterWidth(context);
+    final double height = SizeUtil.getInfoPageItemMaxHeight(context);
+    final double emptyEnd = SizeUtil.emptyScrollEnd;
 
     return SizedBox(
-      width: width,
-      height: MediaQuery.of(context).size.height * 0.65,
+      width: outerWidth,
+      height: height,
       child: PageView.builder(
         itemCount: 3,
         controller: pageController,
         onPageChanged: handleContentPageChanged,
         itemBuilder: (final BuildContext context, final int pageIndex) {
           return Container(
-            margin: const EdgeInsets.only(bottom: 10.0, top: 10.0),
-            width: MediaQuery.of(context).size.width * 0.5,
+            margin: EdgeInsets.only(bottom: paddingS, top: paddingS),
+            width: innerWidth,
             child: SingleChildScrollView(
               child: Container(
-                margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                margin: EdgeInsets.only(left: paddingL, right: paddingL),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -112,14 +115,11 @@ class Content extends StatelessWidget {
                       children: [
                         ContentTitle(
                             text: context.translate(itemData.title),
-                            width: width - 60.0),
+                            width: outerWidth - 3 * paddingL),
                       ],
                     ),
                     _buildDescriptions(context, itemData.descriptions),
-                    if (textScaleFactor > 1)
-                      const SizedBox(
-                        height: 200.0,
-                      )
+                    if (textScaleFactor > 1) SizedBox(height: emptyEnd)
                   ],
                 ),
               ),

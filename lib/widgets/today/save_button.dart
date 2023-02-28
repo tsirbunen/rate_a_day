@@ -6,8 +6,8 @@ import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/localizations.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
-class SaveButton extends StatelessWidget {
-  const SaveButton({Key? key}) : super(key: key);
+class SaveButton extends StatelessWidget with Constants {
+  SaveButton({Key? key}) : super(key: key);
 
   void _navigateToCalendarPage() {
     final NavigatorState? navigatorState = navigatorKey.currentState;
@@ -22,29 +22,29 @@ class SaveButton extends StatelessWidget {
     final TextStyle style = StyleUtil.saveButtonText(themeData);
 
     return Container(
-      margin: const EdgeInsets.only(top: 30.0),
+      margin: EdgeInsets.only(top: paddingXL),
       child: StreamBuilder<Status>(
-          stream: dataBloc.status,
-          builder:
-              (final BuildContext context, AsyncSnapshot<Status> snapshot) {
-            final Status? status = snapshot.hasData ? snapshot.data : null;
+        stream: dataBloc.status,
+        builder: (final BuildContext context, AsyncSnapshot<Status> snapshot) {
+          final Status? status = snapshot.hasData ? snapshot.data : null;
 
-            if (status != Status.DIRTY) return Column();
+          if (status != Status.DIRTY) return Column();
 
-            return ElevatedButton(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text(
-                  context.translate(Phrase.saveData).toUpperCase(),
-                  style: style,
-                ),
+          return ElevatedButton(
+            child: Padding(
+              padding: EdgeInsets.all(paddingS),
+              child: Text(
+                context.translate(Phrase.saveData).toUpperCase(),
+                style: style,
               ),
-              onPressed: () async {
-                final bool? success = await dataBloc.saveData();
-                if (success == true) _navigateToCalendarPage();
-              },
-            );
-          }),
+            ),
+            onPressed: () async {
+              final bool? success = await dataBloc.saveData();
+              if (success == true) _navigateToCalendarPage();
+            },
+          );
+        },
+      ),
     );
   }
 }

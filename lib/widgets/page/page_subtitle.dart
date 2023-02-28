@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
-class PageSubtitle extends StatelessWidget {
+class PageSubtitle extends StatelessWidget with Constants {
   final double widthFraction = 0.8;
   final String subtitle;
-  const PageSubtitle({Key? key, required this.subtitle}) : super(key: key);
+  PageSubtitle({Key? key, required this.subtitle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class PageSubtitle extends StatelessWidget {
 
     return Container(
       width: width,
-      margin: const EdgeInsets.only(top: 5.0, bottom: 20.0),
+      margin: EdgeInsets.only(top: paddingXS, bottom: paddingL),
       child: Text(
         subtitle,
         textAlign: TextAlign.center,

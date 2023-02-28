@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
-class RadioSelector<T> extends StatelessWidget {
+class RadioSelector<T> extends StatelessWidget with Constants {
   final Map<T, String> data;
   final void Function(T?) onSelected;
   final String title;
   final String info;
   final T currentValue;
 
-  const RadioSelector({
+  RadioSelector({
     Key? key,
     required this.data,
     required this.onSelected,
@@ -62,11 +62,12 @@ class RadioSelector<T> extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10.0),
+            padding: EdgeInsets.only(left: paddingS),
             child: Text(title, style: titleStyle),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
+            padding: EdgeInsets.only(
+                left: paddingS, top: paddingXS, bottom: paddingXS),
             child: Text(info, style: infoStyle),
           ),
           Column(

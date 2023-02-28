@@ -11,7 +11,7 @@ class Info extends StatefulWidget {
   State<Info> createState() => _InfoState();
 }
 
-class _InfoState extends State<Info> {
+class _InfoState extends State<Info> with Constants {
   final PageController _pageController = PageController(initialPage: 0);
   int _currentIndex = 0;
   final int _numberOfPages = 3;
@@ -41,8 +41,7 @@ class _InfoState extends State<Info> {
         appBar: CustomAppBar(),
         body: Container(
           color: backgroundColor,
-          padding: EdgeInsets.only(
-              left: SizeUtil.paddingLarge, right: SizeUtil.paddingLarge),
+          padding: EdgeInsets.only(left: paddingL, right: paddingL),
           child: Column(
             children: [
               PageTitle(title: title),

@@ -14,7 +14,7 @@ class ExpandableFloatingMenu extends StatefulWidget {
 }
 
 class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, Constants {
   bool _areExpanded = false;
   bool _showMenu = true;
 
@@ -109,14 +109,14 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
       color: menuBackgroundColor,
-      elevation: SizeUtil.generalMargin,
+      elevation: elevation,
       child: SizedBox(
         width: size,
         height: size,
         child: FloatingActionButton(
           onPressed: _toggleExpansion,
           backgroundColor: menuBackgroundColor,
-          elevation: SizeUtil.generalElevation,
+          elevation: elevation,
           child: Icon(
             Icons.menu_rounded,
             size: SizeUtil.menuIcon,
@@ -129,8 +129,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
     return AnimatedBuilder(
       animation: _expansion,
       builder: (context, child) {
-        return Positioned(
-            right: position, bottom: SizeUtil.generalMargin, child: child!);
+        return Positioned(right: position, bottom: mediumMargin, child: child!);
       },
       child: AnimatedOpacity(
         opacity: _areExpanded ? 0.0 : 1.0,
@@ -141,7 +140,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
             Material(
               color: Colors.transparent,
               child: Padding(
-                padding: EdgeInsets.only(top: SizeUtil.generalMargin),
+                padding: EdgeInsets.only(top: paddingS),
                 child: Text(
                   context.translate(Phrase.navigationMenu),
                   style: labelStyle,

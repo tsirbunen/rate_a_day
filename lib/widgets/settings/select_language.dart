@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/blocs.dart';
+import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rate_a_day/packages/localizations.dart';
 
-class SelectLanguage extends StatelessWidget {
-  const SelectLanguage({Key? key}) : super(key: key);
+class SelectLanguage extends StatelessWidget with Constants {
+  SelectLanguage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class SelectLanguage extends StatelessWidget {
     };
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 20.0, top: 20.0),
+      margin: EdgeInsets.only(bottom: paddingL, top: paddingL),
       child: RadioSelector<Locale>(
         data: data,
         onSelected: settingsBloc.changeLocale,

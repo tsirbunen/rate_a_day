@@ -3,8 +3,8 @@ import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/models.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
-class HappyOrNotSelection extends StatelessWidget {
-  const HappyOrNotSelection({Key? key}) : super(key: key);
+class HappyOrNotSelection extends StatelessWidget with Constants {
+  HappyOrNotSelection({Key? key}) : super(key: key);
 
   Color _getIconColor(
     final Rating currentRating,
@@ -35,7 +35,7 @@ class HappyOrNotSelection extends StatelessWidget {
       borderRadius: BorderRadius.circular(iconSize),
       color: Colors.transparent,
       child: Container(
-        margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+        margin: EdgeInsets.only(left: paddingS, right: paddingS),
         child: InkWell(
           splashColor: splashColor,
           borderRadius: BorderRadius.circular(iconSize),

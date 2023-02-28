@@ -3,8 +3,8 @@ import 'package:rate_a_day/packages/blocs.dart';
 import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 
-class Calendar extends StatelessWidget {
-  const Calendar({Key? key}) : super(key: key);
+class Calendar extends StatelessWidget with Constants {
+  Calendar({Key? key}) : super(key: key);
 
   BoxDecoration _getCalendarDecoration(final BuildContext context) {
     final ThemeData themeData = Theme.of(context);
@@ -22,21 +22,26 @@ class Calendar extends StatelessWidget {
 
     return Container(
       decoration: _getCalendarDecoration(context),
-      padding:
-          const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 5.0, top: 5.0),
+      padding: EdgeInsets.only(
+        left: paddingS,
+        right: paddingS,
+        bottom: paddingXS,
+        top: paddingXS,
+      ),
       child: StreamBuilder<DateTime>(
-          stream: dataBloc.focusDate,
-          builder:
-              (final BuildContext context, AsyncSnapshot<DateTime> snapshot) {
-            final DateTime focusDate =
-                snapshot.hasData ? snapshot.data! : DateTime.now();
-            return Column(
-              children: [
-                MonthSelector(focusDate: focusDate),
-                CalendarMonth(focusDate: focusDate),
-              ],
-            );
-          }),
+        stream: dataBloc.focusDate,
+        builder:
+            (final BuildContext context, AsyncSnapshot<DateTime> snapshot) {
+          final DateTime focusDate =
+              snapshot.hasData ? snapshot.data! : DateTime.now();
+          return Column(
+            children: [
+              MonthSelector(focusDate: focusDate),
+              CalendarMonth(focusDate: focusDate),
+            ],
+          );
+        },
+      ),
     );
   }
 }

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
-class ExpandedButton extends StatelessWidget {
+class ExpandedButton extends StatelessWidget with Constants {
   final dynamic onPressed;
   final double targetLocation;
   final Animation<double> progress;
   final String routeName;
   final String label;
 
-  const ExpandedButton({
+  ExpandedButton({
     Key? key,
     required this.onPressed,
     required this.targetLocation,
@@ -57,7 +57,7 @@ class ExpandedButton extends StatelessWidget {
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
       color: menuBackgroundColor,
-      elevation: SizeUtil.generalElevation,
+      elevation: elevation,
       child: SizedBox(
         width: SizeUtil.routeButtonBoxWidth,
         height: SizeUtil.routeButtonBoxWidth,
@@ -76,7 +76,7 @@ class ExpandedButton extends StatelessWidget {
         final double offset = progress.value * (targetLocation - startingPoint);
         return Positioned(
           right: startingPoint + offset,
-          bottom: SizeUtil.generalMargin,
+          bottom: mediumMargin,
           child: child!,
         );
       },
@@ -90,7 +90,7 @@ class ExpandedButton extends StatelessWidget {
               Material(
                 color: Colors.transparent,
                 child: Padding(
-                  padding: EdgeInsets.only(top: SizeUtil.generalMargin),
+                  padding: EdgeInsets.only(top: mediumMargin),
                   child: Text(
                     label,
                     overflow: TextOverflow.ellipsis,

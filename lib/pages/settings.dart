@@ -3,10 +3,10 @@ import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/widgets.dart';
 import 'package:rate_a_day/packages/localizations.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatelessWidget with Constants {
   static const routeName = '/settings';
 
-  const Settings({Key? key}) : super(key: key);
+  Settings({Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
@@ -18,13 +18,13 @@ class Settings extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       child: Container(
         margin: EdgeInsets.only(
-          left: SizeUtil.paddingLarge,
-          right: SizeUtil.paddingSmall,
+          left: paddingL,
+          right: paddingS,
         ),
         child: Column(
           children: [
             PageTitle(title: title),
-            const SelectLanguage(),
+            SelectLanguage(),
           ],
         ),
       ),

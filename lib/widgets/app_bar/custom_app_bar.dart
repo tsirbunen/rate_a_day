@@ -11,7 +11,9 @@ final Map<String, Phrase> routes = {
   Info.routeName: Phrase.routeInfo,
 };
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget
+    with Constants
+    implements PreferredSizeWidget {
   CustomAppBar({Key? key}) : super(key: key);
 
   final Size _preferredSize = Size.fromHeight(SizeUtil.appBar);
@@ -26,7 +28,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return PreferredSize(
         child: AppBar(
           backgroundColor: appBarColor,
-          elevation: SizeUtil.generalElevation,
+          elevation: elevation,
           centerTitle: true,
           toolbarHeight: SizeUtil.appBar,
           automaticallyImplyLeading: false,

@@ -9,13 +9,13 @@ import 'package:rate_a_day/packages/utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const RateADayApp());
+  runApp(RateADayApp());
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-class RateADayApp extends StatelessWidget {
-  const RateADayApp({Key? key}) : super(key: key);
+class RateADayApp extends StatelessWidget with Constants {
+  RateADayApp({Key? key}) : super(key: key);
 
   Widget _buildPage(final BuildContext context, final Widget? child) {
     return Stack(
@@ -23,7 +23,7 @@ class RateADayApp extends StatelessWidget {
         child ?? Column(),
         Positioned(
           right: SizeUtil.getMenuContainerRightMargin(context),
-          bottom: SizeUtil.generalMargin,
+          bottom: mediumMargin,
           child: const ExpandableFloatingMenu(),
         ),
       ],

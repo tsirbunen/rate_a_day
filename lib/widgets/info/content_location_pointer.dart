@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rate_a_day/packages/utils.dart';
 
-class ContentLocationPointer extends StatelessWidget {
+class ContentLocationPointer extends StatelessWidget with Constants {
   final int currentIndex;
-  const ContentLocationPointer({Key? key, required this.currentIndex})
+  ContentLocationPointer({Key? key, required this.currentIndex})
       : super(key: key);
 
   @override
@@ -11,6 +11,7 @@ class ContentLocationPointer extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     final Color selectedColor = StyleUtil.contentSelected(themeData);
     final Color notSelectedColor = StyleUtil.contentNotSelected(themeData);
+    final double size = SizeUtil.contentLocationPointer;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -19,14 +20,14 @@ class ContentLocationPointer extends StatelessWidget {
           final bool isShowing = index == currentIndex;
           final Color color = isShowing ? selectedColor : notSelectedColor;
           return Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(paddingS),
             child: Material(
               shape: const CircleBorder(),
               clipBehavior: Clip.antiAlias,
-              elevation: 10.0,
+              elevation: elevation,
               child: SizedBox(
-                width: 15.0,
-                height: 15.0,
+                width: size,
+                height: size,
                 child: Container(color: color),
               ),
             ),

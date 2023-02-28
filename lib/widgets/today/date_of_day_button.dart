@@ -5,8 +5,8 @@ import 'package:rate_a_day/packages/pages.dart';
 import 'package:rate_a_day/packages/utils.dart';
 import 'package:rate_a_day/packages/localizations.dart';
 
-class DateOfDayButton extends StatelessWidget {
-  const DateOfDayButton({Key? key}) : super(key: key);
+class DateOfDayButton extends StatelessWidget with Constants {
+  DateOfDayButton({Key? key}) : super(key: key);
 
   void _handleTappedDate() {
     final NavigatorState? navigatorState = navigatorKey.currentState;
@@ -22,6 +22,7 @@ class DateOfDayButton extends StatelessWidget {
     final TextStyle mainStyle = StyleUtil.dateOfDayMainText(themeData);
     final TextStyle minorStyle = StyleUtil.dateOfDayMinorText(themeData);
     final Color backgroundColor = StyleUtil.dateOfDayBackground(themeData);
+    final double buttonBorderRadius = SizeUtil.borderRadius;
 
     return StreamBuilder<DateTime>(
       stream: dataBloc.focusDate,
@@ -40,11 +41,14 @@ class DateOfDayButton extends StatelessWidget {
         return GestureDetector(
           onTap: _handleTappedDate,
           child: Container(
-            padding: const EdgeInsets.only(
-                left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+            padding: EdgeInsets.only(
+                left: paddingS,
+                right: paddingS,
+                top: paddingXS,
+                bottom: paddingXS),
             decoration: BoxDecoration(
               color: backgroundColor,
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(buttonBorderRadius),
             ),
             child: Column(
               children: [

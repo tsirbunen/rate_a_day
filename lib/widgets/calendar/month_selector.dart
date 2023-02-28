@@ -6,10 +6,10 @@ import 'package:rate_a_day/packages/widgets.dart';
 
 enum Mode { history, future }
 
-class MonthSelector extends StatelessWidget {
+class MonthSelector extends StatelessWidget with Constants {
   final DateTime focusDate;
 
-  const MonthSelector({Key? key, required this.focusDate}) : super(key: key);
+  MonthSelector({Key? key, required this.focusDate}) : super(key: key);
 
   Widget _buildMonthAndYear(
       final BuildContext context, final DateTime focusDate) {
@@ -70,7 +70,7 @@ class MonthSelector extends StatelessWidget {
     final DateTime nextMonth = DateTimeUtil.nextMonthStart(focusDate);
 
     return Container(
-      margin: EdgeInsets.only(bottom: SizeUtil.paddingSmall),
+      margin: EdgeInsets.only(bottom: paddingS),
       width: SizeUtil.getCalendarWidth(context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

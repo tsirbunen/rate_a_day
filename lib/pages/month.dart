@@ -17,8 +17,8 @@ class Month extends StatelessWidget {
         children: [
           PageTitle(title: title),
           PageSubtitle(subtitle: subtitle),
-          const Calendar(),
-          const CalendarStatistics(),
+          Calendar(),
+          CalendarStatistics(),
         ],
       ),
     );

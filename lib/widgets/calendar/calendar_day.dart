@@ -72,7 +72,7 @@ class CalendarDay extends StatelessWidget {
     final bool noRating = dayData == null || dayData!.rating == Rating.MISSING;
     Widget ratingIcon = _getRatingIcon(themeData, noRating, dayWidth);
     final double textScaleFactor = MediaQuery.of(context).textScaleFactor;
-    final double marginTop = textScaleFactor > 1 ? 20.0 : 15;
+    final double marginTop = textScaleFactor > 1 ? 20.0 : 15.0;
     return Container(
       margin: EdgeInsets.only(top: marginTop),
       child: Material(

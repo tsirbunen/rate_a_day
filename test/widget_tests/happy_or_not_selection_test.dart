@@ -30,7 +30,7 @@ void main() {
       blocDisposer: (final DataBloc dataBloc) => dataBloc.dispose(),
       child: MaterialApp(
         theme: themeData,
-        home: const Scaffold(
+        home: Scaffold(
           body: Center(
             child: HappyOrNotSelection(),
           ),

@@ -19,12 +19,12 @@ class Today extends StatelessWidget {
         children: [
           PageTitle(title: title),
           PageSubtitle(subtitle: subtitle),
-          const DateOfDayButton(),
+          DateOfDayButton(),
           ParagraphTitle(title: happyOrNot),
-          const HappyOrNotSelection(),
+          HappyOrNotSelection(),
           ParagraphTitle(title: didLearnNew),
           const DidLearnToggle(),
-          const SaveButton(),
+          SaveButton(),
         ],
       ),
     );

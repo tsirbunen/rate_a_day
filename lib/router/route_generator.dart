@@ -18,7 +18,7 @@ class RouteGenerator {
         page = const Info();
         break;
       case '/settings':
-        page = const Settings();
+        page = Settings();
         break;
       default:
         page = Scaffold(

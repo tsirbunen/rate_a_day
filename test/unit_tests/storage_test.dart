@@ -21,7 +21,7 @@ Future main() async {
 
       await Storage.assessDay(rating, didLearnNew, date);
       final BuiltMap<int, DayData> retrievedData =
-          await Storage.fetchDayDataByDate(DateTime.now());
+          await Storage.fetchDayDataByDate(date);
 
       final DayData? dayData = retrievedData[4];
       expect(dayData, isNotNull);
@@ -58,8 +58,7 @@ Future main() async {
   });
 
   tearDown(() async {
-    final Database d = await Storage.database();
     await Storage.emptyDatabase();
-    await d.close();
+    await Storage.closeDatabase();
   });
 }

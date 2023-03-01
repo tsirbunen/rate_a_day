@@ -76,7 +76,7 @@ class ExpandedButton extends StatelessWidget with Constants {
         final double offset = progress.value * (targetLocation - startingPoint);
         return Positioned(
           right: startingPoint + offset,
-          bottom: mediumMargin,
+          bottom: 0.0,
           child: child!,
         );
       },

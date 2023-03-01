@@ -35,10 +35,11 @@ class _InfoState extends State<Info> with Constants {
     final String title = context.translate(Phrase.infoTitle);
     final String subtitle = context.translate(Phrase.infoSubtitle);
     final Color backgroundColor = StyleUtil.background(themeData);
+    final bool showAppBar = SizeUtil.showAppBar(context);
 
     return SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar(),
+        appBar: showAppBar ? CustomAppBar() : null,
         body: Container(
           color: backgroundColor,
           padding: EdgeInsets.only(left: paddingL, right: paddingL),

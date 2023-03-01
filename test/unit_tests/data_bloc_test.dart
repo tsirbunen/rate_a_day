@@ -176,8 +176,7 @@ void main() {
   });
 
   tearDown(() async {
-    final Database d = await Storage.database();
     await Storage.emptyDatabase();
-    await d.close();
+    await Storage.closeDatabase();
   });
 }

@@ -139,6 +139,7 @@ class DataBloc implements BlocBase {
     try {
       await Storage.assessDay(rating, didLearnNew, date);
     } catch (error) {
+      print(error);
       _status.add(Status.READY);
       _showErrorSnackBar(Phrase.failedSaveData);
       return false;
@@ -149,6 +150,7 @@ class DataBloc implements BlocBase {
     try {
       await _updateMonthsDataAfterSaved(rating, didLearnNew, date);
     } catch (error) {
+      print(error);
       _showErrorSnackBar(Phrase.failedRetrieveData);
       return false;
     }

@@ -16,6 +16,12 @@ class DateTimeUtil {
     return '$month $year';
   }
 
+  static String getStorageMonthAndYear(final DateTime dateTime) {
+    final year = dateTime.year;
+    final month = dateTime.month;
+    return '$month-$year';
+  }
+
   static bool areSameDate(final DateTime dateTime1, final DateTime dateTime2) {
     return dateTime1.year == dateTime2.year &&
         dateTime1.month == dateTime2.month &&

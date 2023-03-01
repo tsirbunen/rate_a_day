@@ -129,7 +129,7 @@ class _ExpandableFloatingMenuState extends State<ExpandableFloatingMenu>
     return AnimatedBuilder(
       animation: _expansion,
       builder: (context, child) {
-        return Positioned(right: position, bottom: mediumMargin, child: child!);
+        return Positioned(right: position, bottom: 0.0, child: child!);
       },
       child: AnimatedOpacity(
         opacity: _areExpanded ? 0.0 : 1.0,

@@ -10,10 +10,11 @@ class PageScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final Color backgroundColor = StyleUtil.background(themeData);
+    final bool showAppBar = SizeUtil.showAppBar(context);
 
     return SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar(),
+        appBar: showAppBar ? CustomAppBar() : null,
         body: Container(
           color: backgroundColor,
           height: MediaQuery.of(context).size.height,

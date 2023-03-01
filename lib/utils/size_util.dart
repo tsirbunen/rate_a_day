@@ -9,10 +9,11 @@ class SizeUtil {
   static double get routeIcon => 40.0;
 
   static double get menuButtonBoxWidth => 60.0;
-  static double get menuContainerHeight => 120.0;
+  static double get menuContainerHeight => 90.0;
   static double get maxMenuContainerWidth => 360.0;
 
   static double get appBar => 40.0;
+  static double get minScreenHeightToShowAppBar => 800.0;
 
   static double get calendarWidthFraction => 0.90;
 
@@ -74,5 +75,10 @@ class SizeUtil {
 
   static double getInfoPageItemMaxHeight(final BuildContext context) {
     return MediaQuery.of(context).size.height * infoPageItemHeightFraction;
+  }
+
+  static bool showAppBar(final BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+    return height > minScreenHeightToShowAppBar;
   }
 }

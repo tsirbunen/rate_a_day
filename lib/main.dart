@@ -61,7 +61,6 @@ class RateADayApp extends StatelessWidget with Constants {
     final SettingsBloc settingsBloc = SettingsBloc();
     final DataBloc dataBloc = DataBloc();
 
-    // TODO: SET UP iOS LOCALIZATION STUFF!!!
     return BlocProvider(
       bloc: settingsBloc,
       blocDisposer: (final SettingsBloc settingsBloc) => settingsBloc.dispose(),

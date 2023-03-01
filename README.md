@@ -11,6 +11,10 @@ Remembering the good days might be difficult.
 
 If you keep recording your daily evaluations, then, next time you feel miserable, you can view your earlier evaluation history and hopefully see that the miserable days aren't actually that frequent at all.
 
+# Demo
+
+Try the **[RATE A DAY app web demo](https://rate-a-day.netlify.app/#/today)** in Netlify.
+
 # Basic user info
 
 The app has four pages (see image below). You can navigate between the pages by tapping the menu button at the bottom to view all navigation buttons.
@@ -18,7 +22,7 @@ The app has four pages (see image below). You can navigate between the pages by 
 **SETTINGS**: On settings page you can change the app language (currently English and Finnish).
 **TODAY**: On the day page you can rate your day. Tap the happy or unhappy icon depending on your mood on the day. Then tap the rocket if you learnt something new.
 **MONTH**: View the evaluations of the current month.
-The app is meant for mobile use only.
+The app is meant for mobile phone use only.
 
 ![Run app in VSC image](/assets/images/pages.png)
 
@@ -49,7 +53,9 @@ Data in the blocs is available for widgets through bloc providers and streams.
 
 ### Permanent data storage
 
-Permanent data is stored in files which is enabled by the **[sqflite](https://pub.dev/packages/sqflite)**. Data storage handling is in directory **storage**.
+If the app is used as a "native app" in mobile, then daily evaluations are stored in files which is enabled by the **[sqflite](https://pub.dev/packages/sqflite)**. Settings (mainly language selection) is stored in **[shared preferences](https://pub.dev/packages/shared_preferences)**.
+If the app is running in browser, then shared preferences is used for all data storage (as the database option is not available).
+Data storage handling is in directory **storage**.
 
 ### Navigation
 
@@ -63,7 +69,7 @@ Some data structures are modeled as **[built_value](https://pub.dev/packages/bui
 
 ### Localization
 
-Currently, only a very simple Map-based localization is implemented, as the app is so small. However, upgrading to, for example intl will be fairly easy with changes only to the CustomLocalizations class.
+Currently, only a very simple Map-based localization is implemented, as the app is so small with very few phrases to translate. However, upgrading to, for example intl will be fairly easy (changes only to the CustomLocalizations class are needed).
 
 If new phrases are required, add the phrases to the Phrase-enum and update the translation files (en.dart and fi.dart) accordingly.
 
@@ -88,3 +94,15 @@ To run a single unit or widget test file, for example the unit test file "date_t
 Note: running integration tests is very time consuming as the app is built every time anew.
 
 Note: The test pyramid does not have the recommended shape (_i.e._ unit tests count >> widget tests count >> integration tests count). The integration tests were favored over widget tests mainly because the app is very small and simple. Also the widgets mainly interact with each other through the well-unit-tested data bloc, and testing each widget in isolation would have required mocking their environment (which would not have been much different from actual integration tests).
+
+### Deployment
+
+Build the app with
+
+`flutter build web`
+
+Drag the directory **/build/web/** to Netlify.
+
+### Privacy
+
+No personal data is collected or given to any other party. If daily evaluations are made with the RATE A DAY app, then only the evaluation data is saved to the mobile phone. The saved data for one day contains the date, the rating (happy or not) and the did learn new (true or false) parameters. Data is saved as a list of three numbers.

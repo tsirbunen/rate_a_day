@@ -4,9 +4,9 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rate_a_day/packages/blocs.dart';
 
-class SettingsBloc implements BlocBase {
-  final String _localePrefsKey = 'localePrefs';
+const String localePrefsKey = 'localePrefs';
 
+class SettingsBloc implements BlocBase {
   final BehaviorSubject<Locale?> _locale =
       BehaviorSubject<Locale?>.seeded(null);
 
@@ -24,7 +24,7 @@ class SettingsBloc implements BlocBase {
 
   Future<void> _initBloc() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? localeCode = prefs.getString(_localePrefsKey);
+    final String? localeCode = prefs.getString(localePrefsKey);
     if (localeCode != null && localeCode != 'en') {
       _locale.add(Locale(localeCode));
     }
@@ -33,10 +33,10 @@ class SettingsBloc implements BlocBase {
   Future<void> _handleLocaleChanged(final Locale? newLocale) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (newLocale == null) {
-      prefs.remove(_localePrefsKey);
+      prefs.remove(localePrefsKey);
       return;
     }
-    prefs.setString(_localePrefsKey, newLocale.languageCode);
+    prefs.setString(localePrefsKey, newLocale.languageCode);
   }
 
   void changeLocale(final Locale? l) {
